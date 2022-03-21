@@ -1,6 +1,6 @@
 # Microbe-host associations as drivers of Benthic C and N Cycling in a changing MEditerranean Sea
 
-## Complete Nitrogen cycling on seagrass leaves in a high-$\text{CO}_2$ world [![DOI](https://zenodo.org/badge/xxxxxxxxx.svg)](link to repo)
+## Complete Nitrogen cycling on seagrass leaves in a high-CO2 world [![DOI](https://zenodo.org/badge/xxxxxxxxx.svg)](link to repo)
 
 
 This repository contains the data and code for our research article:
@@ -11,7 +11,7 @@ This repository contains the data and code for our research article:
 
 Please cite this compendium as:
 
-> Berlinghof J, Montilla L, Peiffer F, Quero GM, Marzocchi U, Margiotta F, Wild C & Cardini U. (202X). Research compendium for Complete Nitrogen cycling on seagrass leaves in a high-$\text{CO}_2$ world. Online at 
+> Berlinghof J, Montilla L, Peiffer F, Quero GM, Marzocchi U, Margiotta F, Wild C & Cardini U. (202X). Research compendium for Complete Nitrogen cycling on seagrass leaves in a high-CO2 world. Online at 
 
 ### How to download
 
