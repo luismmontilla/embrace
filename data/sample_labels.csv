@@ -1,0 +1,17 @@
+sample,experiment,tissue,compartment,treatment,month,year
+sgl-a-1,embrace,seagrass,leaves,vent,october,2019
+sgl-c-1,embrace,seagrass,leaves,ambient,october,2019
+sgl-c-2,embrace,seagrass,leaves,ambient,october,2019
+sgr-a-2,embrace,seagrass,rhizome,vent,october,2020
+wc-1-a,embrace,water_column,water_column,vent,october,2019
+wc-1-c,embrace,water_column,water_column,ambient,october,2019
+wc-2-a,embrace,water_column,water_column,vent,october,2019
+wc-2-c,embrace,water_column,water_column,ambient,october,2019
+sgl-a-2,embrace,seagrass,leaves,vent,october,2019
+sgl-a-3,embrace,seagrass,leaves,vent,october,2019
+sgl-c-3,embrace,seagrass,leaves,ambient,october,2019
+sgl-s2r1-vortex,embrace,seagrass,leaves,ambient,october,2019
+sgr-a-1,embrace,seagrass,rhizome,vent,october,2019
+sgr-a-3,embrace,seagrass,rhizome,vent,october,2019
+sgr-s2r1-sonicator,embrace,seagrass,rhizome,ambient,october,2019
+sgr-s2r1-vortex,embrace,seagrass,rhizome,ambient,october,2019
