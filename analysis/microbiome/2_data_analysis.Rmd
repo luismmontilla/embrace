@@ -1,5 +1,6 @@
 ---
-title: "R Notebook"
+title: "2_data_analysis"
+author: "LM"
 output:
   html_notebook: default
   html_document:
