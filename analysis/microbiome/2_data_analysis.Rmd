@@ -140,6 +140,34 @@ lw_props <- lw_counts |>
   compositions::clr() #clr-normalization
 ```
 
+### Permanova and permdisp
+
+```{r permanova}
+anova_factors <- data.frame(asv_counts$sample) |> 
+  rename(sample = "asv_counts.sample") |> 
+  left_join(sample_list) |> 
+  tidylog::filter(!(sample %in% rows_zeros$sample)) |> 
+  tidylog::filter(compartment != "rhizome") |> 
+  tidylog::select(sample, treatment, compartment) 
+
+anova_factors$interaction <-  paste(anova_factors$treatment, 
+                                    anova_factors$compartment, sep = "-")
+
+set.seed(1)
+lw_props |> 
+  data.frame() |>
+  dplyr::select(where(is.numeric)) |> 
+  (\(x) {adonis2(formula = x~anova_factors$treatment*anova_factors$compartment,
+                method = "euclidean",
+                permutations = 9999)})()
+set.seed(1)
+lw_props |> 
+  data.frame() |>
+  vegdist(method = "euclidean") |> 
+  betadisper(group = anova_factors$interaction) |> 
+  permutest()
+```
+
 # Taxa composition
 
 ```{r phyla-composition-bars-avg}
@@ -171,9 +199,6 @@ lw_props |>
   #scale_fill_viridis(discrete = TRUE, option = "turbo") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "bottom") 
-
-#ggsave("figures/phyla_composition_stacked.svg")
-ggsave("figures/phyla_composition_stacked.png")
 ```
 
 ```{r class-composition-bars-avg}
@@ -207,39 +232,9 @@ lw_props |>
         legend.position = "bottom") 
 ```
 
-### Permanova and permdisp
-
-```{r permanova}
-anova_factors <- data.frame(asv_counts$sample) |> 
-  rename(sample = "asv_counts.sample") |> 
-  left_join(sample_list) |> 
-  tidylog::filter(!(sample %in% rows_zeros$sample)) |> 
-  tidylog::filter(compartment != "rhizome") |> 
-  tidylog::select(sample, treatment, compartment) 
-
-anova_factors$interaction <-  paste(anova_factors$treatment, 
-                                    anova_factors$compartment, sep = "-")
-
-set.seed(1)
-lw_props |> 
-  data.frame() |>
-  dplyr::select(where(is.numeric)) |> 
-  (\(x) {adonis2(formula = x~anova_factors$treatment*anova_factors$compartment,
-                method = "euclidean",
-                permutations = 9999)})()
-set.seed(1)
-lw_props |> 
-  data.frame() |>
-  vegdist(method = "euclidean") |> 
-  betadisper(group = anova_factors$interaction) |> 
-  permutest()
-```
-
-
 
 
 ### Ordination
-
 
 ```{r no-rhizomes}
 lw_counts <- asv_counts |> 
@@ -291,3 +286,78 @@ pco_plot_lw
 
 round(100*(pco_lw$eig[c(1,2)]/sum(pco_lw$eig)))
 ```
+
+# Differential abundance analysis
+
+```{r DA-compartment}
+covariates <- anova_factors |>
+  dplyr::select(sample , compartment) |>
+  arrange(sample) |>
+  mutate(value = 1) |>
+  pivot_wider(names_from = compartment, values_from = value, values_fill = 0) |>
+  dplyr::pull(leaves)
+
+aldex_output <- lw_counts |> 
+  pivot_longer(names_to = "asv", values_to = "counts", -sample) |> 
+  dplyr::filter(!(str_detect(sample, "sgr"))) |> 
+  pivot_wider(names_from = sample, values_from = counts) |> 
+  column_to_rownames("asv") |>
+  aldex.clr(conds = covariates,
+            verbose = TRUE,
+            mc.samples = 1000,
+            denom = "median")
+
+aldex_tt <- aldex.ttest(aldex_output, verbose = TRUE)
+aldex_eff <- aldex.effect(aldex_output, CI = TRUE)
+
+aldex_full <- data.frame(aldex_tt, aldex_eff)
+```
+
+
+```{r}
+aldex_full |> 
+  mutate(significance = case_when(
+    we.eBH < 0.05 & aldex_full$wi.eBH < 0.05 ~ "all",
+    we.eBH < 0.05 | aldex_full$wi.eBH < 0.05 ~ "one",
+    TRUE ~ "none"),
+        slope = diff.win/diff.btw
+    ) |> View()
+  ggplot() +
+  geom_point(aes(x = diff.win, y = diff.btw, color = significance)) +
+  geom_abline(slope = 1) +
+  geom_abline(slope = -1) +
+  labs(x = "Dispersion", y = "Difference", title="Effect size plot") +
+  scale_color_viridis(discrete = TRUE) +
+  theme(legend.position = "bottom")
+
+#ggsave("supplementary/supp_1_aldex.svg")
+```
+
+```{r}
+set.seed(3)
+cols = turbo(16)[sample(1:16,16)]
+
+aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, Family, Genus, diff.btw, diff.win)) |> 
+  group_by(Phylum, Class) |> 
+  summarise(mean_diff=mean(diff.btw), 
+            mean_disp=mean(diff.win), 
+            total=n())|> 
+  ggplot() +
+  geom_point(aes(color = Phylum, y = mean_disp, 
+                 x = mean_diff, size = total)
+             ) +
+  geom_text_repel(aes(x = mean_diff, y = mean_disp, 
+                label = Class)) +
+  labs(y = "Mean dispersion", 
+       x = "Mean difference") +
+  scale_color_manual(values = cols) +
+  theme_bw()
+ 
+
+#ggsave("figures/fig_7.svg")
+```
+
