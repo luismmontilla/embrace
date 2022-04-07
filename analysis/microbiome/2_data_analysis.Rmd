@@ -288,6 +288,7 @@ round(100*(pco_lw$eig[c(1,2)]/sum(pco_lw$eig)))
 ```
 
 # Differential abundance analysis
+## Seagrass vs water column
 
 ```{r DA-compartment}
 covariates <- anova_factors |>
@@ -321,7 +322,7 @@ aldex_full |>
     we.eBH < 0.05 | aldex_full$wi.eBH < 0.05 ~ "one",
     TRUE ~ "none"),
         slope = diff.win/diff.btw
-    ) |> View()
+    ) |> 
   ggplot() +
   geom_point(aes(x = diff.win, y = diff.btw, color = significance)) +
   geom_abline(slope = 1) +
@@ -335,29 +336,28 @@ aldex_full |>
 
 ```{r}
 set.seed(3)
-cols = turbo(16)[sample(1:16,16)]
+cols = turbo(17)[sample(1:17,17)]
 
 aldex_full |> 
-  filter(diff.btw > (diff.btw/diff.win)) |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
   rownames_to_column("asv") |> 
   left_join(asv_taxa, c("asv" = "id")) |> 
-  dplyr::select(c(Phylum, Class, Order, Family, Genus, diff.btw, diff.win)) |> 
-  group_by(Phylum, Class) |> 
+  dplyr::select(c(Phylum, Class, Family, Genus, diff.btw, diff.win)) |> 
+  mutate(Leaf = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|> #View()
+  group_by(Phylum, Class, Leaf) |> 
   summarise(mean_diff=mean(diff.btw), 
             mean_disp=mean(diff.win), 
-            total=n())|> 
+            Total=n())|>
   ggplot() +
-  geom_point(aes(color = Phylum, y = mean_disp, 
-                 x = mean_diff, size = total)
-             ) +
-  geom_text_repel(aes(x = mean_diff, y = mean_disp, 
-                label = Class)) +
-  labs(y = "Mean dispersion", 
-       x = "Mean difference") +
+  geom_point(aes(y = reorder(Class, mean_diff), 
+                 x = Leaf, size = mean_diff, 
+                 color = Phylum)) +
+  labs(x = "",
+       y = "Class") +
   scale_color_manual(values = cols) +
-  theme_bw()
- 
+  scale_size_area() +
+  theme_bw() +
+  guides(color = guide_legend(override.aes = list(size=5)))
 
 #ggsave("figures/fig_7.svg")
 ```
-
