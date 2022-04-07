@@ -343,7 +343,7 @@ aldex_full |>
   rownames_to_column("asv") |> 
   left_join(asv_taxa, c("asv" = "id")) |> 
   dplyr::select(c(Phylum, Class, Family, Genus, diff.btw, diff.win)) |> 
-  mutate(Leaf = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|> #View()
+  mutate(Leaf = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|>
   group_by(Phylum, Class, Leaf) |> 
   summarise(mean_diff=mean(diff.btw), 
             mean_disp=mean(diff.win), 
@@ -357,7 +357,8 @@ aldex_full |>
   scale_color_manual(values = cols) +
   scale_size_area() +
   theme_bw() +
-  guides(color = guide_legend(override.aes = list(size=5)))
+  guides(color = guide_legend(override.aes = list(size=5)),
+         size = FALSE)
 
 #ggsave("figures/fig_7.svg")
 ```
