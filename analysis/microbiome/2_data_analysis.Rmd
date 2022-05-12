@@ -201,7 +201,7 @@ lw_props |>
         legend.position = "bottom") 
 ```
 
-```{r class-composition-bars-avg}
+```{r fig5-class-composition-bars-avg}
 set.seed(3)
 cols = turbo(39)[sample(1:39,39)]
 
@@ -232,7 +232,36 @@ lw_props |>
         legend.position = "bottom") 
 ```
 
+```{r fig6-nitrifiers}
+set.seed(3)
+cols = turbo(68)[sample(1:68, 68)]
 
+lw_props |>
+  compositions::clrInv() |>
+  cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
+  pivot_longer(names_to = "asv",
+               values_to = "props",
+               -c(compartment, treatment, sample, interaction)
+               ) |>
+  mutate(compartment = ifelse(compartment == "leaves", "Leaves", "Water column"),
+         treatment = ifelse(treatment == "vent", "Vent", "Ambient")) |> 
+  left_join(asv_taxa, by = c("asv" = "id")) |>
+  filter(str_starts(Family, "Nitro")) |>
+  group_by(sample, Family, treatment, compartment) |>
+  summarise(total = sum(props), weight = n()) |>
+  group_by(Family, treatment, compartment) |>
+  summarise(avg = mean(total)) |>
+  ggplot() +
+  geom_bar(aes(y = avg, x = treatment, fill = Family),
+           position = "stack", stat = "identity") +
+  facet_grid(~compartment) +
+  labs(y = "Proportion", x = "pH regime") +
+  scale_fill_manual(values = cols) +
+  theme_minimal() +
+  #scale_fill_viridis(discrete = TRUE, option = "turbo") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        legend.position = "bottom") 
+```
 
 ### Ordination
 
@@ -247,7 +276,7 @@ lw_props <- lw_counts |>
   compositions::clr() #clr-normalization
 ```
 
-```{r pco-no-rhizome}
+```{r fig7-pco-no-rhizome}
 pco_lw <- lw_props |> 
   vegdist(method = "euclidean") |> 
   labdsv::pco(k = 3)
@@ -282,7 +311,7 @@ pco_plot_lw <- pco_lw$points |>
 
 pco_plot_lw
 
-#ggsave("figures/fig_06_pco.svg")
+#ggsave("figures/fig_07_pco.svg")
 
 round(100*(pco_lw$eig[c(1,2)]/sum(pco_lw$eig)))
 ```
@@ -334,7 +363,7 @@ aldex_full |>
 #ggsave("supplementary/supp_1_aldex.svg")
 ```
 
-```{r}
+```{r fig8-diff-abund}
 set.seed(3)
 cols = turbo(17)[sample(1:17,17)]
 
@@ -360,5 +389,7 @@ aldex_full |>
   guides(color = guide_legend(override.aes = list(size=5)),
          size = FALSE)
 
-#ggsave("figures/fig_7.svg")
+#ggsave("figures/fig_8.svg")
 ```
+
+
