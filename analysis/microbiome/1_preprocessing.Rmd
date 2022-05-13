@@ -8,12 +8,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
----
-title: "R Notebook"
-output: html_notebook
-editor_options: 
-  chunk_output_type: console
----
 
 ```{r warning=FALSE}
 library(Biostrings)
