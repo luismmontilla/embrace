@@ -313,7 +313,7 @@ pco_plot_lw <- pco_lw$points |>
 
 pco_plot_lw
 
-#ggsave("figures/fig_06_pco.svg")
+ggsave("supplementary/supp_fig_01.svg")
 
 round(100*(pco_lw$eig[c(1,2)]/sum(pco_lw$eig)))
 ```
