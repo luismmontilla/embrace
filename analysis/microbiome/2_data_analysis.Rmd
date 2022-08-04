@@ -163,7 +163,7 @@ lw_props |>
 sink("supplementary/supp_table_1.md")
 aov1 |> 
   rownames_to_column("SoV") |> 
-  mutate(SoV = c("Treatment",
+  mutate(SoV = c("pH regime",
                  "Compartment",
                  "Treatment x Compartment",
                  "Residual",
@@ -174,7 +174,8 @@ aov1 |>
                       "Sum of squares",
                       "R2",
                       "Pseudo-F",
-                      "P(>F)"))
+                      "P(>F)"),
+        caption = "Permutation-based analysis of variance of the microbial communities associated with P. oceanica leaves, water column and pH regime.")
 sink()
 ```
 
