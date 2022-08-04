@@ -7,6 +7,8 @@ This repository contains the data and code for our research article:
 
 > Berlinghof et al. (202x). *Complete Nitrogen cycling on seagrass leaves in a high-$\text{CO}_2$ world*. JOURNAL. DOI <DOI>
 
+The FASTQ files are available at: [https://www.ncbi.nlm.nih.gov/bioproject/PRJNA824287](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA824287)
+
 ### How to cite
 
 Please cite this compendium as:
