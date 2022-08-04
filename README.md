@@ -11,7 +11,7 @@ This repository contains the data and code for our research article:
 
 Please cite this compendium as:
 
-> Berlinghof J, Montilla L, Peiffer F, Quero GM, Marzocchi U, Margiotta F, Wild C & Cardini U. (202X). Research compendium for Complete Nitrogen cycling on seagrass leaves in a high-CO2 world. Online at  https://doi.org/10.5281/zenodo.4326894
+> Berlinghof J, Montilla L, Peiffer F, Quero GM, Marzocchi U, Meador TB, Margiotta F, Abagnale M, Wild C & Cardini U. (202X). Research compendium for Complete Nitrogen cycling on seagrass leaves in a high-CO2 world. Online at  https://doi.org/10.5281/zenodo.4326894
 
 ### How to download
 
