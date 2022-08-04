@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "Microbe-host associations as drivers of Benthic C and N Cycling in a changing MEditerranean Sea"
 author: "LMM"
 output:
   html_notebook: default
@@ -20,13 +20,13 @@ library(patchwork)
 library(tidylog)
 library(ALDEx2)
 library(viridis)
+library(knitr)
 ```
 
 ```{r raw-data}
 raw_asv <- read_csv("output/asv_raw.csv")
 
-sample_list <- read_csv("data/sample_labels.csv") |> 
-  filter(tissue != "dyctiota" & month == "october")
+sample_list <- read_csv("data/sample_labels.csv") 
 
 env <- read_csv("data/environmental.csv")
 ```
@@ -52,14 +52,15 @@ raw_asv <- raw_asv |>
   filter(Family != "Chloroplast")
 ```
 
+Having this, we can generate the count data:
 
 ```{r count-data}
 asv_taxa <- raw_asv |> 
   mutate(id = paste("asv", seq(1:nrow(raw_asv)), sep = "")) |>
-  dplyr::select(c(1, 27:33))
+  dplyr::select(c(1, 19:25))
 
 asv_counts <- raw_asv |>
-  dplyr::select(-c(1, 27:32)) |> #remove taxonomical information
+  dplyr::select(-c(1, 19:24)) |> #remove taxonomical information
   mutate(id = paste("asv", seq(1:nrow(raw_asv)), sep = "")) |> 
   pivot_longer(-id, names_to = "sample", values_to = "counts") |>  
   pivot_wider(values_from = counts, names_from = id) |> 
@@ -72,15 +73,14 @@ colnames(asv_taxa)
 colnames(asv_taxa) <- c("ASV", "Domain", "Phylum", "Class", "Order", "Family", "Genus", "id")
 ```
 
-
 Abundance of zeroes
 
 ```{r verification-zeroes}
 raw_asv |>  
   #dplyr::select(where(is.numeric)) |>  
   rowwise() |> 
-  mutate(total = sum(c_across(2:26))) |> 
- dplyr::select(total) |> 
+  mutate(total = sum(c_across(2:18))) |>
+  dplyr::select(total) |> 
   filter(total == 0)
 
 rows_zeros <- asv_counts |>  
@@ -121,15 +121,6 @@ asv_counts <- asv_counts[,-cases]
 One option would be to use the zCompositions::cmultRepl() method, however, in order to keep consistency, we can use the approach implemented in the Aldex2 package
 
 ```{r clr}
-asv_props <- asv_counts |>  
-  dplyr::select(where(is.numeric)) |> 
-  mutate(across(everything(),
-         ~.x +0.5)) |> 
-  compositions::clr() #clr-normalization
-```
-
-
-```{r no-rhizomes}
 lw_counts <- asv_counts |> 
   filter(!(str_detect(sample, "sgr")))
 
@@ -154,7 +145,7 @@ anova_factors$interaction <-  paste(anova_factors$treatment,
                                     anova_factors$compartment, sep = "-")
 
 set.seed(1)
-lw_props |> 
+aov1 <- lw_props |> 
   data.frame() |>
   dplyr::select(where(is.numeric)) |> 
   (\(x) {adonis2(formula = x~anova_factors$treatment*anova_factors$compartment,
@@ -168,44 +159,33 @@ lw_props |>
   permutest()
 ```
 
-# Taxa composition
-
-```{r phyla-composition-bars-avg}
-set.seed(3)
-cols = turbo(26)[sample(1:26,26)]
-
-lw_props |>
-  compositions::clrInv() |>
-  cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
-  pivot_longer(names_to = "asv",
-               values_to = "props",
-               -c(compartment, treatment, sample, interaction)
-               ) |>
-  mutate(compartment = ifelse(compartment == "leaves", "Leaves", "Water column"),
-         treatment = ifelse(treatment == "vent", "Vent", "Ambient")) |> 
-  left_join(asv_taxa, by = c("asv" = "id")) |>
-  dplyr::select(props, sample, Phylum, treatment, compartment) |>
-  group_by(sample, Phylum, treatment, compartment) |>
-  summarise(total = sum(props), weight = n()) |>
-  group_by(Phylum, treatment, compartment) |>
-  summarise(avg = mean(total)) |>
-  ggplot() +
-  geom_bar(aes(y = avg, x = treatment, fill = Phylum),
-           position = "stack", stat = "identity") +
-  facet_grid(~compartment) +
-  labs(y = "Proportion") +
-  scale_fill_manual(values = cols) +
-  theme_minimal() +
-  #scale_fill_viridis(discrete = TRUE, option = "turbo") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        legend.position = "bottom") 
+```{r supp-table-1}
+sink("supplementary/supp_table_1.md")
+aov1 |> 
+  rownames_to_column("SoV") |> 
+  mutate(SoV = c("Treatment",
+                 "Compartment",
+                 "Treatment x Compartment",
+                 "Residual",
+                 "Total")) |> 
+  kable(format = "markdown",
+        col.names = c("Source of variation",
+                      "Degress of freedom",
+                      "Sum of squares",
+                      "R2",
+                      "Pseudo-F",
+                      "P(>F)"))
+sink()
 ```
 
-```{r class-composition-bars-avg}
-set.seed(3)
-cols = turbo(39)[sample(1:39,39)]
 
-lw_props |>
+# Taxa composition
+
+```{r fig1a-class-comp-avg}
+set.seed(3)
+cols = turbo(52)[sample(1:52,52)]
+
+f1a <- lw_props |>
   compositions::clrInv() |>
   cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
   pivot_longer(names_to = "asv",
@@ -227,11 +207,61 @@ lw_props |>
   labs(y = "Proportion", x = "pH regime") +
   scale_fill_manual(values = cols) +
   theme_minimal() +
-  #scale_fill_viridis(discrete = TRUE, option = "turbo") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        legend.position = "bottom") 
+  theme(legend.position = "bottom",
+        aspect.ratio = 2/1,
+        strip.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11))
 ```
 
+```{r fig1b-nitrifiers}
+set.seed(3)
+cols = turbo(68)[sample(1:68, 68)]
+
+f1b <- lw_props |>
+  compositions::clrInv() |>
+  cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
+  pivot_longer(names_to = "asv",
+               values_to = "props",
+               -c(compartment, treatment, sample, interaction)
+               ) |>
+  mutate(compartment = ifelse(compartment == "leaves", "Leaves", "Water column"),
+         treatment = ifelse(treatment == "vent", "Vent", "Ambient")) |> 
+  left_join(asv_taxa, by = c("asv" = "id")) |>
+  filter(str_starts(Family, "Nitro")) |>
+  group_by(sample, Family, treatment, compartment) |>
+  summarise(total = sum(props), weight = n()) |>
+  group_by(Family, treatment, compartment) |>
+  summarise(avg = mean(total)) |>
+  ggplot() +
+  geom_bar(aes(y = avg, x = treatment, fill = Family),
+           position = "stack", 
+           stat = "identity") +
+  facet_grid(~compartment) +
+  labs(y = "Proportion", x = "pH regime") +
+  scale_fill_manual(values = cols) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        aspect.ratio = 2/1,
+        strip.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11))
+
+  #       axis.text.y = element_text(size = 15),
+  #       axis.title.y = element_text(size = 20),
+  #       axis.title.x = element_text(size = 20),
+  #       strip.text.x = element_text(size = 15),
+  #       legend.title = element_text(size = 15),
+  #        legend.text = element_text(size = 12),
+  #       legend.position = "bottom") 
+```
+
+```{r}
+f1a | f1b
+ggsave("figures/fig1_horiz.svg", width = 16, height = 7)
+```
 
 
 ### Ordination
@@ -360,5 +390,5 @@ aldex_full |>
   guides(color = guide_legend(override.aes = list(size=5)),
          size = FALSE)
 
-#ggsave("figures/fig_7.svg")
+#ggsave("figures/fig_7.svg", width = 5, height = 5.5)
 ```
