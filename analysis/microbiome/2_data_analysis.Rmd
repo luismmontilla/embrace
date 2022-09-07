@@ -217,11 +217,7 @@ f1a <- lw_props |>
         plot.tag = element_text(size = 20))
 ```
 
-<<<<<<< HEAD
-```{r fig5-class-composition-bars-avg}
-=======
 ```{r fig1b-nitrifiers}
->>>>>>> devel
 set.seed(3)
 cols = turbo(68)[sample(1:68, 68)]
 
@@ -265,17 +261,12 @@ f1b <- lw_props |>
   #       legend.position = "bottom") 
 ```
 
-<<<<<<< HEAD
-```{r fig6-nitrifiers}
-set.seed(3)
-cols = turbo(68)[sample(1:68, 68)]
-=======
 ```{r}
 f1a | f1b
 ggsave("figures/fig1.svg", width = 16, height = 7)
 ```
->>>>>>> devel
 
+```{r}
 lw_props |>
   compositions::clrInv() |>
   cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
@@ -351,11 +342,7 @@ pco_plot_lw <- pco_lw$points |>
 
 pco_plot_lw
 
-<<<<<<< HEAD
-#ggsave("figures/fig_07_pco.svg")
-=======
 ggsave("supplementary/supp_fig_01.svg")
->>>>>>> devel
 
 round(100*(pco_lw$eig[c(1,2)]/sum(pco_lw$eig)))
 ```
