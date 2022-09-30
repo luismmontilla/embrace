@@ -1,0 +1,61 @@
+Project	Embrace	
+Experimentd conducted by	Friederike Peiffer (fredi.peiffer@gmail.com)	
+Data analysed by	Johanna Berlinghof (johber@uni-bremen.de)	
+Experimental date:	13.-19.09.2019	
+		
+		
+Experiments		
+volume incubation vials	24 mL	
+size leaf sections	3 cm2	
+		
+Denitrification / Nitrate pulse experiment		
+Date	13.09.19	
+Label/Tracer	15NO3 (10 µM) 	
+Control	labeled site water without leaf/epiphytes	
+		
+Nitrification / Ammonium pulse experiment		
+Date	16.09.19	
+Label/Tracer	15NH4 (20 µM) 	
+Control	labeled site water without leaf/epiphytes	
+		
+N-fixation / ambient N experiment		
+Date	19.09.19	
+Label/Tracer	15N2 (enriched site water)	
+Control	unlabeled water + leaf with epiphytes	
+		
+Measurements	Oxygen concentration, pH and dry weight	
+Instruments	"Oxygen: fiber optic oxygen sensor (FireStingO2, PyroScience, Germany); temperature + pH: pH meter (Multi 3430, WTW, Germany)"	
+"RAW DATA of oxygen measurements of all experiments was previously re-arranged to be tabular. This rearranged data (values were not changed, only their position) in now contained in a .txt file named ""Oxygen.txt""."		
+The file contains the following variables:		
+Experiment	type of experiment (N_fixation, Denitrification, Nitrification)	
+Date	date of experiment, format dd.mm.yy	
+Time	time of measurement, format hh:mm	
+Duration	total incubation time (h)	
+Site	sampling site (vent or ambient pH site)	
+Incubation	Incubation type (light or dark incubation)	
+Treatment	sample treatment (start=before incubation, Y=with epiphytes, N=without epiphytes, C=Control)	
+Sample	replicate number (1-max.4)	
+Timepoint 	"sampling timepoint (T0=start; T1= ca.5-6h for N-fix experiment; T2= ca. 5-6h for denitrification and nitrification experiment)"	
+pH	measured pH	
+Oxygen	measured oxygen concentration in _M	
+Leaf.DW	dry weight of seagrass leaves (g)	
+Epiphyte.DW	dry weight of epiphytes (g)	
+		
+		
+"Data structure and replication: (see figure ""Incubation_scheme.png"")"		
+3 treatments	"""+Epi"" = with epiphytes, ""-Epi"" = without epiphytes, ""Ctrl"" =  Control"	
+3/4 replicates per treatment	"3 replicates for ""Ctrl"" and ""-Epi""; 4 replicates for ""+Epi"""	
+2 sites	"""Vent"" = from vent pH site (pH=7.17 ± 0.04), ""Ambient"" = from ambient pH site (8.12 ± 0.02)"	
+4 sampling timepoints	"""T0"", ""T1"", ""T2"", ""T3"" "	only two measurements for T0 (no treatments, only 1 replicate each for vent & ambient pH site) 
+2 incubation types 	"""light, ""dark"""	
+  = total of 122 vials per experiment		
+		
+		
+Deatails of measurements		
+opened vials for measurements (once opened, incubation stopped, vial was sacrificed)		
+measured oxygen concentration, pH and temperature		
+separated epiphytes from leaves with scalpel, dried leaves and epiphytes at 60¡C for 48 h and weighed separately		
+		
+		
+Additional info		
+"Seagrass collection (date, sites): see ""Seagrass_info.txt"""		

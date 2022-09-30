@@ -1,0 +1,56 @@
+Project	Embrace	
+Experimentd conducted by	Friederike Peiffer (fredi.peiffer@gmail.com)	
+Data analysed by	Johanna Berlinghof (johber@uni-bremen.de)	
+Experimental date:	13.-19.09.2019	
+		
+		
+Experiments		
+volume incubation vials	24 mL	
+size leaf sections	3 cm2	
+		
+Denitrification / Nitrate pulse experiment		
+Date	16.09.19	
+Label/Tracer	15NH4 (20 µM) 	
+Control	labeled site water without leaf/epiphytes	
+		
+		
+Measurements	Nitrification rates	
+Instruments	MAT 253PLUS IRMS via Conflo interface (ThermoScientific), measurements conducted by Travis Meador	
+		
+"RAW DATA of d15N measurements was previously re-arranged to be tabular. This rearranged data (values were not changed, only their position) is now contained in a .txt file named ""Nitrification.txt""."		
+Raw data d15N measurements was used for further calculations (see below). 		
+		
+The file contains the following variables:		
+		
+Sample	sample label	
+Site	sampling site (vent or ambient pH site)	
+Incubation	Incubation type (light or dark incubation)	
+Treatment	sample treatment (Y=with epiphytes, N=without epiphytes, ctrl=Control, Start= before incubation start)	
+Interval	sampling timepoint (T0, T1, T2, T3)	
+Time	total incubation time in h 	
+d15N-NO3	measured d15N	
+d15N-NO3-STD	d15N-NO3 - standard	
+atom%	calculated as (100*R*(d15N/1000+1))/(1+R*(d15N/1000+1)), where R is the isotope ratio of the standard (0.0036764) and d15N is the d15N-NO3-STD of the sample	
+atom%excess	atom% of the sample - atom% of the T0 ctrl (0.3683)	
+std	atom%excess / standard deviation of the T0 ctrl. d15N was considered significant, when std was >2.5	
+NO3_conc	concentration of NO3- (uM)	
+rate	ammonium oxidation rate in nmol NH4 L-1 d-1, calculated as (atom%excess*NO3_conc)/(atom%medium*incubationtime)*24,  atom%medium = 95.8916	
+d15N	d15N-NO3-STD considered significant (higher 2.5 times std)	
+		
+"Data structure and replication: (see figure ""Incubation_scheme.png"")"		
+3 treatments	"""+Epi"" = with epiphytes, ""-Epi"" = without epiphytes, ""Ctrl"" =  Control"	
+3/4 replicates per treatment	"3 replicates for ""Ctrl"" and ""-Epi""; 4 replicates for ""+Epi"""	
+2 sites	"""Vent"" = from vent pH site (pH=7.17 ± 0.04), ""Ambient"" = from ambient pH site (8.12 ± 0.02)"	
+4 sampling timepoints	"""T0"", ""T1"", ""T2"", ""T3"" "	only two measurements for T0 (no treatments, only 1 replicate each for vent & ambient pH site) 
+2 incubation types 	"""light, ""dark"""	
+  = total of 122 vials per experiment		
+		
+		
+Deatails of sampling		
+opened vials for measurements (once opened, incubation stopped, vial was sacrificed)		
+took samples for 15N (falcon tubes)		
+5ml He headspace, mixed for 60sec		
+		
+		
+Additional info		
+"Seagrass collection (date, sites): see ""Seagrass_info.txt"""		

@@ -1,0 +1,208 @@
+Date	Experiment	Site	Incubation	Treatment	Timepoint	Time	Code	Salinity	Expected.conc.Nox	Expected.conc.NH4	sample.autoanalyzer	NH4	PO4	NO2	NO3	Comments
+NA	Denitrification	Ambient 	After	NA	T0	0	Start_C_After_a	37	10.52547982	3.346638469	F8	0.399	0.048	0.108	13.918	NA
+NA	Denitrification	Ambient 	After	NA	T0	0	Start_C_After_b	13	10.52547982	3.346638469	F26	0.561	0.039	0.061	8.093	NA
+NA	Denitrification	Ambient 	Before	NA	T0	0	Start_C_Before_a	26	10.52547982	3.346638469	F24	0.68	0.045	0.074	6.412	NA
+NA	Denitrification	Ambient 	Before	NA	T0	0	Start_C_Before_b	23	10.52547982	3.346638469	F7	0.475	0.051	0.08	2.036	NA
+NA	Denitrification	Ambient 	Dark	N	T1	2	C_D_1h_-Epi_1	36	10.52547982	3.346638469	F66	1.782	0.072	0.153	14.097	NA
+NA	Denitrification	Ambient 	Dark	Y	T1	2	C_D_1h_+Epi_2	28	10.52547982	3.346638469	F68	3.096	0.116	0.192	8.461	NA
+NA	Denitrification	Ambient 	Dark	Ctrl	T2	5	C_D_3h_2	36	10.52547982	3.346638469	F55	1.52	0.088	0.128	16.742	NA
+NA	Denitrification	Ambient 	Dark	N	T2	5	C_D_3h_-Epi_1	36	10.52547982	3.346638469	F62	0.92	0.067	0.136	13.554	NA
+NA	Denitrification	Ambient 	Dark	Y	T2	5	C_D_3h_+Epi_2	33	10.52547982	3.346638469	F60	3.001	0.107	0.41	15.46	NA
+10.07.20	Denitrification	Ambient 	Dark 	N	T1	2	C_D_1h_-Epi_3	NA	10.52547982	3.346638469	F178	NA	0.097	0.266	9.444	NA
+01.07.20	Denitrification	Ambient 	Dark 	Y	T1	2	C_D_1h_+Epi_3	NA	10.52547982	3.346638469	F68_new	2.573	0.111	0.264	11.393	NA
+10.07.20	Denitrification	Ambient 	Dark 	Ctrl	T2	5	C_D_3h_1	NA	10.52547982	3.346638469	F175	NA	NA	0.13	10.024	NA
+10.07.20	Denitrification	Ambient 	Dark 	N	T2	5	C_D_3h_-Epi_3	NA	10.52547982	3.346638469	F174	NA	NA	0.256	11.823	NA
+01.07.20	Denitrification	Ambient 	Dark 	Y	T2	5	C_D_3h_+Epi_3	NA	10.52547982	3.346638469	F60_new	7.51	0.152	0.415	11.023	NA
+10.07.20	Denitrification	Ambient 	Light	N	T1	2	C_L_1h_-Epi_1	NA	10.52547982	3.346638469	F176	NA	NA	0.151	6.482	NA
+NA	Denitrification	Ambient 	Light	N	T1	2	C_L_1h_-Epi_3	31	10.52547982	3.346638469	F67	9.368	0.186	0.219	10.541	NA
+07.07.20	Denitrification	Ambient 	Light	Y	T1	2	C_L_1h_+Epi_1+4	NA	10.52547982	3.346638469	F108_mix	7.1783	0.112	0.57	8.333	NA
+NA	Denitrification	Ambient 	Light	Y	T1	2	C_L_1h_+Epi_3	38	10.52547982	3.346638469	F69	1.132	0.059	0.104	9.86	NA
+NA	Denitrification	Ambient 	Light	Ctrl	T2	5	C_L_3h_2	38	10.52547982	3.346638469	F58	1.157	0.041	0.093	15.567	NA
+10.07.20	Denitrification	Ambient 	Light	N	T2	5	C_L_3h_-Epi_1	NA	10.52547982	3.346638469	F177	NA	0.304	0.237	12.496	NA
+NA	Denitrification	Ambient 	Light	N	T2	5	C_L_3h_-Epi_3	39	10.52547982	3.346638469	F63	1.795	0.06	0.098	12.782	NA
+NA	Denitrification	Ambient 	Light	Y	T2	5	C_L_3h_+Epi_1	32	10.52547982	3.346638469	F59	4.352	0.083	0.121	5.909	NA
+01.07.20	Denitrification	Ambient 	Light	Y	T2	5	C_L_3h_+Epi_4	NA	10.52547982	3.346638469	F59_new	5.29	0.126	0.139	7.831	NA
+NA	Denitrification	Ambient 	Light/Dark 	N	T3	16	C_D_6h_-Epi_1	29	10.52547982	3.346638469	F56	4.327	0.107	0.249	8.054	NA
+01.07.20	Denitrification	Ambient 	Light/Dark 	N	T3	16	C_D_6h_-Epi_3	NA	10.52547982	3.346638469	F56_new	2.776	NA	0.171	6.313	NA
+NA	Denitrification	Ambient 	Light/Dark 	Y	T3	16	C_D_6h_+Epi_1	33	10.52547982	3.346638469	F74	3.509	0.108	0.542	7.37	NA
+01.07.20	Denitrification	Ambient 	Start 	NA	T0	0	Start_C_a	NA	10.52547982	3.346638469	F7_new 	0.578	0.047	0.11	3.403	NA
+01.07.20	Denitrification	Ambient 	Start 	NA	T0	0	Start_C_b	NA	10.52547982	3.346638469	F26_new	0.85	0.043	0.123	10.4	NA
+NA	Denitrification	Vent 	After	NA	T0	0	Start_A_After_a	25	10.52547982	3.346638469	F23	0.71	0.087	0.059	8.618	NA
+NA	Denitrification	Vent 	After	NA	T0	0	Start_A_After_b	39	10.52547982	3.346638469	F6	0.392	0.067	0.059	10.156	NA
+NA	Denitrification	Vent 	Before	NA	T0	0	Start_A_Before_a	36	10.52547982	3.346638469	F5	0.194	0.06	0.054	1.16	NA
+NA	Denitrification	Vent 	Before	NA	T0	0	Start_C_Before_b	26	10.52547982	3.346638469	F25	0.309	0.054	0.027	0.183	NA
+NA	Denitrification	Vent 	Dark	N	T1	2	A_D_1h_-Epi_2	32	10.52547982	3.346638469	F73	1.608	0.099	0.205	8.14	NA
+NA	Denitrification	Vent 	Dark	Y	T1	2	A_D_1h_+Epi_1	31	10.52547982	3.346638469	F72	2.542	0.113	0.18	9.187	NA
+NA	Denitrification	Vent 	Dark	Ctrl	T2	5	A_D_3h_1	29	10.52547982	3.346638469	F52	2.116	0.133	0.066	8.137	NA
+NA	Denitrification	Vent 	Dark	N	T2	5	A_D_3h_-Epi_2	34	10.52547982	3.346638469	F54	1.579	0.111	0.097	8.496	NA
+NA	Denitrification	Vent 	Dark	Y	T2	5	A_D_3h_+Epi_4	36	10.52547982	3.346638469	F65	1.567	0.139	0.087	7.53	NA
+01.07.20	Denitrification	Vent 	Dark 	N	T1	2	A_D_1h_-Epi_1	NA	10.52547982	3.346638469	F73_new	1.248	0.101	0.106	10.901	NA
+01.07.20	Denitrification	Vent 	Dark 	Y	T1	2	A_D_1h_+Epi_4	NA	10.52547982	3.346638469	F72_new	1.318	0.101	0.228	9.505	NA
+07.07.20	Denitrification	Vent 	Dark 	N	T2	5	A_D_3h_-Epi_3	NA	10.52547982	3.346638469	F112	1.9723	0.47	0.05	16.938	NA
+10.07.20	Denitrification	Vent 	Dark 	Y	T2	5	A_D_3h_+Epi_1	NA	10.52547982	3.346638469	F173	9.4339	0.2556	0.127	5.208	NA
+07.07.20	Denitrification	Vent 	Dark 	Y	T2	5	A_D_3h_+Epi_2	NA	10.52547982	3.346638469	F110	14.158	0.185	0.668	6.682	NA
+07.07.20	Denitrification	Vent 	Light	N	T1	2	A_L_1h_-Epi_1	NA	10.52547982	3.346638469	F111	1.4423	0.082	0.048	9.102	NA
+NA	Denitrification	Vent 	Light	N	T1	2	A_L_1h_-Epi_2	33	10.52547982	3.346638469	F70	2.165	0.129	0.092	12.318	NA
+NA	Denitrification	Vent 	Light	Y	T1	2	A_L_1h_+Epi_2	37	10.52547982	3.346638469	F71	1.97	0.108	0.048	8.382	NA
+07.07.20	Denitrification	Vent 	Light	Y	T1	2	A_L_1h_+Epi_3+4	NA	10.52547982	3.346638469	F101_mix	3.1193	0.14	0.074	8.785	NA
+NA	Denitrification	Vent 	Light	Ctrl	T2	5	A_L_3h_2	37	10.52547982	3.346638469	F51	2.347	0.085	0.033	10.49	NA
+07.07.20	Denitrification	Vent 	Light	N	T2	5	A_L_3h_-Epi_1	NA	10.52547982	3.346638469	F114	4.4783	0.17	0.352	4.712	NA
+NA	Denitrification	Vent 	Light	N	T2	5	A_L_3h_-Epi_2	36	10.52547982	3.346638469	F53	0.693	0.09	0.051	7.129	NA
+07.07.20	Denitrification	Vent 	Light	Y	T2	5	A_L_3h_+Epi_1	NA	10.52547982	3.346638469	F115	1.7063	0.118	0.068	5.529	NA
+NA	Denitrification	Vent 	Light	Y	T2	5	A_L_3h_+Epi_2	34	10.52547982	3.346638469	F50	0.898	0.062	0.022	4.968	NA
+07.07.20	Denitrification	Vent 	Light	Y	T2	5	A_L_3h_+Epi_3	NA	10.52547982	3.346638469	F116	1.1373	0.042	0.079	4.511	NA
+07.07.20	Denitrification	Vent 	Light/Dark 	N	T3	16	A_D_6h_-Epi_1	NA	10.52547982	3.346638469	F113	1.6623	0.154	0.468	3.477	NA
+NA	Denitrification	Vent 	Light/Dark 	N	T3	16	A_D_6h_-Epi_3	32	10.52547982	3.346638469	F64	1.482	0.07	0.173	5.141	NA
+NA	Denitrification	Vent 	Light/Dark 	Y	T3	16	A_D_6h_+Epi_2	37	10.52547982	3.346638469	F57	2.04	0.092	0.118	7.75	NA
+07.07.20	Denitrification	Vent 	Light/Dark 	Y	T3	16	A_D_6h_+Epi_4	NA	10.52547982	3.346638469	F109	11.158	0.213	0.331	6.688	NA
+01.07.20	Denitrification	Vent 	Start 	NA	T0	0	Start_A_a	NA	10.52547982	3.346638469	F23_new	0.805	0.092	0.048	6.351	NA
+01.07.20	Denitrification	Vent 	Start 	NA	T0	0	Start_A_b	NA	10.52547982	3.346638469	F25_new	1.539	0.08	0.043	1.132	NA
+07.07.20	Fixation	Ambient 	Start	NA	T0	0	Start_a	NA	0.525479821	3.346638469	F99	0.6353	0.038	0.03	0.694	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Start	NA	T0	0	Start_b	29	0.525479821	3.346638469	F10	3.316	0.083	0.091	0.554	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+01.07.20	Fixation	Ambient 	Start 	NA	T0	0	Start_c	NA	0.525479821	3.346638469	F10_new	12.29	0.12	0.077	1.035	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Dark	Ctrl	T1	5	Fix_C_D_T2_a	NA	0.525479821	3.346638469	F92	1.4133	0.049	0.112	0.733	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+01.07.20	Fixation	Ambient 	Dark 	Ctrl	T1	5	Fix_C_D_T2_b	NA	0.525479821	3.346638469	F17_new	1.587	0.091	0.074	0.476	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Dark	Ctrl	T1	5	Fix_C_D_T2_c	34	0.525479821	3.346638469	F17	1.214	0.079	0.071	0.57	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Light	Ctrl	T1	5	Fix_C_L_T2_a	NA	0.525479821	3.346638469	F89	0.9483	0.055	0.04	0.52	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Light	Ctrl	T1	5	Fix_C_L_T2_b	36	0.525479821	3.346638469	F14	0.914	0.061	0.062	0.784	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Light	Ctrl	T1	5	Fix_C_L_T2_c	NA	0.525479821	3.346638469	F93	1.4083	0.073	0.071	0.417	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Ambient 	Dark	N	T1	5	Fix_C_D_T2_-Epi_a	NA	0.525479821	3.346638469	F184	1.115612903	0.124096774	0.117080645	1.088903226	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+01.07.20	Fixation	Ambient 	Dark 	N	T1	5	Fix_C_D_T2_-Epi_b	NA	0.525479821	3.346638469	F22_new	0.913	0.145	0.059	0.449	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Dark	N	T1	5	Fix_C_D_T2_-Epi_c	35	0.525479821	3.346638469	F22	5.33	0.63	0.109	0.968	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Ambient 	Light	N	T1	5	Fix_C_L_T2_-Epi_a	NA	0.525479821	3.346638469	F182	1.027076923	0.863153846	0.092961538	1.574461538	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Light	N	T1	5	Fix_C_L_T2_-Epi_b	39	0.525479821	3.346638469	F21	0.428	0.236	0.079	0.523	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Light	N	T1	5	Fix_C_L_T2_-Epi_c	NA	0.525479821	3.346638469	F98	1.0653	0.583	0.04	0.566	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Ambient 	Dark	Y	T1	5	Fix_C_D_T2_+Epi_a	NA	0.525479821	3.346638469	F186	0.938576271	0.07259322	0.141957627	0.820067797	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+01.07.20	Fixation	Ambient 	Dark 	Y	T1	5	Fix_C_D_T2_+Epi_b	NA	0.525479821	3.346638469	F16_new	1.282	0.06	0.054	0.75	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Dark	Y	T1	5	Fix_C_D_T2_+Epi_c	33	0.525479821	3.346638469	F16	1.653	0.065	0.07	0.646	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Dark	Y	T1	5	Fix_C_D_T2_+Epi_d	NA	0.525479821	3.346638469	F87	0.7113	0.049	0.055	0.686	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Ambient 	Light	Y	T1	5	Fix_C_L_T2_+Epi_a	NA	0.525479821	3.346638469	F183	2.179277778	0.0995	0.097972222	2.2885	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Light	Y	T1	5	Fix_C_L_T2_+Epi_b	NA	0.525479821	3.346638469	F94	0.6873	0.062	0.042	0.475	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Light	Y	T1	5	Fix_C_L_T2_+Epi_c	NA	0.525479821	3.346638469	F91	3.2073	0.057	0.047	0.321	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Light	Y	T1	5	Fix_C_L_T2_+Epi_d	38	0.525479821	3.346638469	F15	0.491	0.057	0.044	0.449	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Light/Dark 	N	T2	18	Fix_C_D_T3_-Epi_b	NA	0.525479821	3.346638469	F120	0.9893	0.154	0.05	0.988	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Ambient 	Light/Dark 	N	T2	18	Fix_C_L_T3_-Epi_b	NA	0.525479821	3.346638469	F117	0.3513	0.046	0.03	0.501	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Light/Dark 	Y	T2	18	Fix_C_D_T3_+Epi_b	40	0.525479821	3.346638469	F3	2.441	0.069	0.075	2.292	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Ambient 	Light/Dark 	Y	T2	18	Fix_C_L_T3_+Epi_b	39	0.525479821	3.346638469	F4	0.844	0.063	0.033	0.625	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Start	NA	T0	0	Start_a	28	0.525479821	3.346638469	F11	5.397	0.078	0.066	0.732	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+01.07.20	Fixation	Vent 	Start 	NA	T0	0	Start_b	NA	0.525479821	3.346638469	F11_new	4.323	0.111	0.05	0.635	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Start	NA	T0	0	Start_c	NA	0.525479821	3.346638469	F95	9.698	0.12	0.348	1.705	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Dark	Ctrl	T1	5	Fix_A_D_T2_a	37	0.525479821	3.346638469	F9	0.504	0.086	0.055	0.358	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Dark	Ctrl	T1	5	Fix_A_D_T2_b	NA	0.525479821	3.346638469	F103	4.1693	0.121	0.026	0.669	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Dark	Ctrl	T1	5	Fix_A_D_T2_c	NA	0.525479821	3.346638469	F100	0.6713	0.074	0.096	0.181	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Light	Ctrl	T1	5	Fix_A_L_T2_a	33	0.525479821	3.346638469	F18	0.596	0.071	0.051	0.375	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Light	Ctrl	T1	5	Fix_A_L_T2_b	NA	0.525479821	3.346638469	F105	0.9633	0.078	0.041	0.196	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+01.07.20	Fixation	Vent 	Light	Ctrl	T1	5	Fix_A_L_T2_c	NA	0.525479821	3.346638469	F18_new	0.864	0.09	0.034	0.272	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Dark	N	T1	5	Fix_A_D_T2_-Epi_a	38	0.525479821	3.346638469	F20	1.576	0.104	0.08	0.813	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Vent 	Dark 	N	T1	5	Fix_A_D_T2_-Epi_b	NA	0.525479821	3.346638469	F181	1.248615385	0.187769231	0.079115385	1.203692308	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Dark	N	T1	5	Fix_A_D_T2_-Epi_c	NA	0.525479821	3.346638469	F88	1.0173	0.067	0.046	0.748	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Vent 	Light	N	T1	5	Fix_A_L_T2_-Epi_a	NA	0.525479821	3.346638469	F185	0.766777778	0.242555556	0.103527778	0.806555556	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Light	N	T1	5	Fix_A_L_T2_-Epi_b	NA	0.525479821	3.346638469	F106	0.9143	0.08	0.036	0.662	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Light	N	T1	5	Fix_A_L_T2_-Epi_c	38	0.525479821	3.346638469	F12	0.456	0.099	0.075	0.471	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Vent 	Dark 	Y	T1	5	Fix_A_D_T2_+Epi_a	NA	0.525479821	3.346638469	F180	1.102709677	0.175709677	0.107403226	1.492129032	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Dark	Y	T1	5	Fix_A_D_T2_+Epi_b	40	0.525479821	3.346638469	F13	1.165	0.071	0.084	0.551	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Dark	Y	T1	5	Fix_A_D_T2_+Epi_c	NA	0.525479821	3.346638469	F104	1.0343	0.096	0.012	0.621	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Dark	Y	T1	5	Fix_A_D_T2_+Epi_d	NA	0.525479821	3.346638469	F96	1.7243	0.051	0.269	0.241	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+10.07.20	Fixation	Vent 	Light	Y	T1	5	Fix_A_L_T2_+Epi_a	NA	0.525479821	3.346638469	F179	0.712611111	0.056444444	0.059083333	0.399611111	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Light	Y	T1	5	Fix_A_L_T2_+Epi_b	37	0.525479821	3.346638469	F19	0.761	0.062	0.049	0.456	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Light	Y	T1	5	Fix_A_L_T2_+Epi_c	NA	0.525479821	3.346638469	F107	1.3763	0.05	0.093	0.165	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Light	Y	T1	5	Fix_A_L_T2_+Epi_d	NA	0.525479821	3.346638469	F102	1.2473	0.223	0.027	0.87	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Light/Dark 	N	T2	18	Fix_A_D_T3_-Epi_b	40	0.525479821	3.346638469	F1	0.76	0.08	0.061	0.292	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Fixation	Vent 	Light/Dark 	N	T2	18	Fix_A_L_T3_-Epi_b	39	0.525479821	3.346638469	F2	0.409	0.05	0.06	0.643	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Light/Dark 	Y	T2	18	Fix_A_D_T3_+_Epi_b	NA	0.525479821	3.346638469	F118	3.1983	0.088	0.141	0.606	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+07.07.20	Fixation	Vent 	Light/Dark 	Y	T2	18	Fix_A_L_T3_+Epi_b	NA	0.525479821	3.346638469	F119	0.4083	0.026	0.029	0.103	"Fixation: T1 was labelled with T2; T2 was labelled with T3 in Code; "
+NA	Nitrification	Ambient 	After	NA	T0	0	Start_C_After	34	0.525479821	23.34663847	F46	23.73	0.03	0.038	0.648	NA
+NA	Nitrification	Ambient 	Before	NA	T0	0	Start_C_Before	32	0.525479821	23.34663847	F44	0.57	0.036	0.04	0.584	NA
+08.07.20	Nitrification	Ambient 	Dark	Ctrl	T1	2	Nit_C_D_(1h)_C2	NA	0.525479821	23.34663847	F142	22.208	0.058	0.071	0.946	NA
+NA	Nitrification	Ambient 	Dark	N	T1	2	Nit_C_D_1h_-Epi_1	36	0.525479821	23.34663847	F81	13.14	0.066	0.063	0.855	NA
+08.07.20	Nitrification	Ambient 	Dark	N	T1	2	Nit_C_D_1h_-Epi_2	NA	0.525479821	23.34663847	F135	17.378	0.082	0.092	3.536	NA
+08.07.20	Nitrification	Ambient 	Dark	N	T1	2	Nit_C_D_1h_-Epi_3	NA	0.525479821	23.34663847	F149	17.078	0.077	0.096	1.785	NA
+08.07.20	Nitrification	Ambient 	Dark	Y	T1	2	Nit_C_D_1h_+Epi_1	NA	0.525479821	23.34663847	F148	17.468	0.061	0.083	0.95	NA
+08.07.20	Nitrification	Ambient 	Dark	Y	T1	2	Nit_C_D_1h_+Epi_2	NA	0.525479821	23.34663847	F145	20.608	0.105	0.097	2.564	NA
+08.07.20	Nitrification	Ambient 	Dark	Y	T1	2	Nit_C_D_1h_+Epi_3	NA	0.525479821	23.34663847	F150	19.538	0.057	0.099	1.057	NA
+NA	Nitrification	Ambient 	Dark	Y	T1	2	Nit_C_D_1h_+Epi_4	24	0.525479821	23.34663847	F85	28.19	0.123	0.111	5.04	NA
+08.07.20	Nitrification	Ambient 	Dark	Ctrl	T1	2	Nit_C_D_1h_C1	37	0.525479821	23.34663847	F147	21.848	0.037	0.08	0.959	NA
+NA	Nitrification	Ambient 	Dark	Ctrl	T1	2	Nit_C_D_1h_C2	37	0.525479821	23.34663847	F82	21.18	0.043	0.057	0.828	NA
+09.07.20	Nitrification	Ambient 	Dark	N	T2	5	Nit_C_D_3h_-Epi_1	NA	0.525479821	23.34663847	F166	14.75	0.105	0.09	0.865	NA
+NA	Nitrification	Ambient 	Dark	N	T2	5	Nit_C_D_3h_-Epi_2	33	0.525479821	23.34663847	F28	9.11	0.052	0.037	0.69	NA
+09.07.20	Nitrification	Ambient 	Dark	N	T2	5	Nit_C_D_3h_-Epi_3	NA	0.525479821	23.34663847	F170	12.02	0.034	0.048	0.693	NA
+09.07.20	Nitrification	Ambient 	Dark	Y	T2	5	Nit_C_D_3h_+Epi_1	NA	0.525479821	23.34663847	F162	13.3	0.029	0.391	1.106	NA
+09.07.20	Nitrification	Ambient 	Dark	Y	T2	5	Nit_C_D_3h_+Epi_2	NA	0.525479821	23.34663847	F167	11.17	0.028	0.13	0.714	NA
+09.07.20	Nitrification	Ambient 	Dark	Y	T2	5	Nit_C_D_3h_+Epi_3	NA	0.525479821	23.34663847	F163	12.91	0.032	0.093	0.504	NA
+NA	Nitrification	Ambient 	Dark	Y	T2	5	Nit_C_D_3h_+Epi_4	37	0.525479821	23.34663847	F36	13.76	0.034	0.102	0.772	NA
+09.07.20	Nitrification	Ambient 	Dark	Ctrl	T2	5	Nit_C_D_3h_C1	NA	0.525479821	23.34663847	F168	17.42	0.038	0.063	0.628	NA
+NA	Nitrification	Ambient 	Dark	Ctrl	T2	5	Nit_C_D_3h_C2	36	0.525479821	23.34663847	F30	19.31	0.051	0.058	1.139	NA
+08.07.20	Nitrification	Ambient 	Light	N	T1	2	Nit_C_L_1h_-Epi_1	NA	0.525479821	23.34663847	F139	13.238	0.11	0.112	2.926	NA
+08.07.20	Nitrification	Ambient 	Light	N	T1	2	Nit_C_L_1h_-Epi_2	NA	0.525479821	23.34663847	F143	13.728	0.144	0.097	1.951	NA
+NA	Nitrification	Ambient 	Light	N	T1	2	Nit_C_L_1h_-Epi_3	26	0.525479821	23.34663847	F84	14.23	0.107	0.091	1.202	NA
+NA	Nitrification	Ambient 	Light	Y	T1	2	Nit_C_L_1h_+Epi_1	36	0.525479821	23.34663847	F86	25.32	0.039	0.147	1.063	NA
+08.07.20	Nitrification	Ambient 	Light	Y	T1	2	Nit_C_L_1h_+Epi_2	NA	0.525479821	23.34663847	F140	25.451	0.255	0.132	6.717	NA
+08.07.20	Nitrification	Ambient 	Light	Y	T1	2	Nit_C_L_1h_+Epi_3	NA	0.525479821	23.34663847	F141	21.208	0.128	0.118	4.764	NA
+08.07.20	Nitrification	Ambient 	Light	Y	T1	2	Nit_C_L_1h_+Epi_4	NA	0.525479821	23.34663847	F146	13.218	0.077	0.081	1.099	NA
+NA	Nitrification	Ambient 	Light	Ctrl	T1	2	Nit_C_L_1h_C1	37	0.525479821	23.34663847	F83	22.11	0.04	0.063	1.017	NA
+08.07.20	Nitrification	Ambient 	Light	Ctrl	T1	2	Nit_C_L_1h_C3	NA	0.525479821	23.34663847	F144	21.028	0.048	0.083	1.416	NA
+NA	Nitrification	Ambient 	Light	N	T2	5	Nit_C_L_3h_-Epi_1	37	0.525479821	23.34663847	F35	5.614	0.043	0.044	0.41	NA
+09.07.20	Nitrification	Ambient 	Light	N	T2	5	Nit_C_L_3h_-Epi_2	NA	0.525479821	23.34663847	F169	4.433	0.05	0.054	0.513	NA
+09.07.20	Nitrification	Ambient 	Light	N	T2	5	Nit_C_L_3h_-Epi_3	NA	0.525479821	23.34663847	F171	5.937	0.111	0.073	0.425	NA
+NA	Nitrification	Ambient 	Light	Y	T2	5	Nit_C_L_3h_+Epi_1	37	0.525479821	23.34663847	F34	6.097	0.054	0.07	0.602	NA
+09.07.20	Nitrification	Ambient 	Light	Y	T2	5	Nit_C_L_3h_+Epi_2	NA	0.525479821	23.34663847	F172	6.038	0.03	0.067	0.243	NA
+09.07.20	Nitrification	Ambient 	Light	Y	T2	5	Nit_C_L_3h_+Epi_3	NA	0.525479821	23.34663847	F164	4.776	0.059	0.066	0.441	NA
+01.07.20	Nitrification	Ambient 	Light	Y	T2	5	Nit_C_L_3h_+Epi_4	NA	0.525479821	23.34663847	F34_new	5.257	0.074	0.036	0.489	NA
+NA	Nitrification	Ambient 	Light	Ctrl	T2	5	Nit_C_L_3h_C1	38	0.525479821	23.34663847	F38	25.17	0.071	0.059	0.796	NA
+09.07.20	Nitrification	Ambient 	Light	Ctrl	T2	5	Nit_C_L_3h_C2	NA	0.525479821	23.34663847	F165	17.52	0.022	0.072	0.598	NA
+NA	Nitrification	Ambient 	Light/Dark 	Y	T3	17	Nit_C_D_6h_+_Epi_2	32	0.525479821	23.34663847	F61	2.684	0.078	0.548	10.488	NA
+NA	Nitrification	Ambient 	Light/Dark 	N	T3	17	Nit_C_L_6h_-Epi_1	36	0.525479821	23.34663847	F39	2.127	0.062	0.042	0.617	NA
+08.07.20	Nitrification	Ambient 	Light/Dark 	N	T3	17	Nit_C_L_6h_-Epi_2	NA	0.525479821	23.34663847	F136	3.416	0.055	0.064	0.61	NA
+NA	Nitrification	Ambient 	Light/Dark 	Y	T3	17	Nit_C_L_6h_+Epi_1	37	0.525479821	23.34663847	F29	1.212	0.055	0.026	0.323	NA
+01.07.20	Nitrification	Ambient 	Light/Dark 	Y	T3	17	Nit_C_L_6h_+Epi_2	NA	0.525479821	23.34663847	F61_new	1.695	0.073	0.04	0.241	NA
+NA	Nitrification	Ambient 	Light/Dark 	Ctrl	T3	17	Nit_C_L_6h_C1	32	0.525479821	23.34663847	F40	20.49	0.06	0.094	0.712	NA
+08.07.20	Nitrification	Ambient 	Light/Dark 	Ctrl	T3	17	Nit_C_L_6h_C2	NA	0.525479821	23.34663847	F137	20.178	0.128	0.09	2.261	NA
+07.07.20	Nitrification	Ambient 	Start	NA	T0	0	A_Start_a	NA	0.525479821	23.34663847	F90	23.73	0.022	0.065	0.551	NA
+08.07.20	Nitrification	Ambient 	Start 	NA	T0	0	C_Start_c	NA	0.525479821	23.34663847	F123	20.91125	0.056	0.08	0.643	NA
+NA	Nitrification	Vent 	After	NA	T0	0	Start_A_After	37	10.52547982	23.34663847	F47	22.01	0.033	0.026	0.547	NA
+NA	Nitrification	Vent 	Before	NA	T0	0	Start_A_Before_a	32	10.52547982	23.34663847	F43	0.895	0.056	0.064	0.606	NA
+08.07.20	Nitrification	Vent 	Dark	N	T1	2	Nit_A_D_1h_-Epi_1	NA	0.525479821	23.34663847	F129	21.2975	0.106	0.093	1.584	NA
+08.07.20	Nitrification	Vent 	Dark	N	T1	2	Nit_A_D_1h_-Epi_2	NA	0.525479821	23.34663847	F130	23.958	0.145	0.069	2.631	NA
+NA	Nitrification	Vent 	Dark	N	T1	2	Nit_A_D_1h_-Epi_3	25	0.525479821	23.34663847	F77	14.64	0.088	0.067	1.229	NA
+08.07.20	Nitrification	Vent 	Dark	Y	T1	2	Nit_A_D_1h_+Epi_1	NA	0.525479821	23.34663847	F124	14.51	0.085	0.083	0.816	NA
+NA	Nitrification	Vent 	Dark	Y	T1	2	Nit_A_D_1h_+Epi_2	37	0.525479821	23.34663847	F78	20.02	0.055	0.074	0.739	NA
+08.07.20	Nitrification	Vent 	Dark	Y	T1	2	Nit_A_D_1h_+Epi_3	NA	0.525479821	23.34663847	F122	17.0625	0.061	0.073	2.038	NA
+08.07.20	Nitrification	Vent 	Dark	Y	T1	2	Nit_A_D_1h_+Epi_4	NA	0.525479821	23.34663847	F131	19.248	0.145	0.111	1.924	NA
+NA	Nitrification	Vent 	Dark	Ctrl	T1	2	Nit_A_D_1h_C1	22	0.525479821	23.34663847	F76	16.66	0.056	0.081	0.382	NA
+08.07.20	Nitrification	Vent 	Dark	Ctrl	T1	2	Nit_A_D_C2_(1h)	NA	0.525479821	23.34663847	F127	19.8418	0.069	0.07	0.731	NA
+09.07.20	Nitrification	Vent 	Dark	N	T2	5	Nit_A_D_3h_-Epi_1	NA	0.525479821	23.34663847	F155	9.188	0.009	0.034	0.368	NA
+09.07.20	Nitrification	Vent 	Dark	N	T2	5	Nit_A_D_3h_-Epi_2	NA	0.525479821	23.34663847	F154	10.105	0.019	0.051	0.565	NA
+NA	Nitrification	Vent 	Dark	N	T2	5	Nit_A_D_3h_-Epi_3	38	0.525479821	23.34663847	F41	14.03	0.031	0.036	0.378	NA
+NA	Nitrification	Vent 	Dark	Y	T2	5	Nit_A_D_3h_+Epi_1	37	0.525479821	23.34663847	F49	17.49	0.107	0.026	1.007	NA
+09.07.20	Nitrification	Vent 	Dark	Y	T2	5	Nit_A_D_3h_+Epi_2	NA	0.525479821	23.34663847	F157	7.945	0.023	0.041	0.388	NA
+09.07.20	Nitrification	Vent 	Dark	Y	T2	5	Nit_A_D_3h_+Epi_3	NA	0.525479821	23.34663847	F158	7.669	0.039	0.048	0.557	NA
+09.07.20	Nitrification	Vent 	Dark	Y	T2	5	Nit_A_D_3h_+Epi_4	NA	0.525479821	23.34663847	F160	8.259	0.032	0.058	0.324	NA
+NA	Nitrification	Vent 	Dark	Ctrl	T2	5	Nit_A_D_3h_C1	38	0.525479821	23.34663847	F37	19.72	0.029	0.037	0.606	NA
+09.07.20	Nitrification	Vent 	Dark	Ctrl	T2	5	Nit_A_D_3h_C2	NA	0.525479821	23.34663847	F153	18.545	0.473	0.064	1.629	NA
+08.07.20	Nitrification	Vent 	Light	Ctrl	T1	2	Nit_A_L_(1h)_C2	NA	0.525479821	23.34663847	F133	23.808	0.071	0.067	0.698	NA
+08.07.20	Nitrification	Vent 	Light	Ctrl	T1	2	Nit_A_L_(1h)_C3	NA	0.525479821	23.34663847	F132	22.608	0.071	0.062	0.683	NA
+08.07.20	Nitrification	Vent 	Light	N	T1	2	Nit_A_L_1h_-Epi_1	NA	0.525479821	23.34663847	F128	13.9225	0.08	0.084	2.834	NA
+08.07.20	Nitrification	Vent 	Light	N	T1	2	Nit_A_L_1h_-Epi_2	NA	0.525479821	23.34663847	F134	22.128	0.165	0.114	3.189	NA
+NA	Nitrification	Vent 	Light	N	T1	2	Nit_A_L_1h_-Epi_3	37	0.525479821	23.34663847	F80	13.2	0.046	0.051	0.621	NA
+08.07.20	Nitrification	Vent 	Light	Y	T1	2	Nit_A_L_1h_+Epi_1	NA	0.525479821	23.34663847	F125	18.11	0.153	0.087	4.905	NA
+08.07.20	Nitrification	Vent 	Light	Y	T1	2	Nit_A_L_1h_+Epi_2	NA	0.525479821	23.34663847	F121	19.635	0.106	0.071	2.61	NA
+NA	Nitrification	Vent 	Light	Y	T1	2	Nit_A_L_1h_+Epi_3	37	0.525479821	23.34663847	F79	13.21	0.057	0.056	0.84	NA
+08.07.20	Nitrification	Vent 	Light	Y	T1	2	Nit_A_L_1h_+Epi_4	NA	0.525479821	23.34663847	F126	22.188	0.189	0.112	3.32	NA
+NA	Nitrification	Vent 	Light	Ctrl	T1	2	Nit_A_L_1h_C1	37	0.525479821	23.34663847	F75	21.19	0.064	0.068	0.822	NA
+NA	Nitrification	Vent 	Light	N	T2	5	Nit_A_L_3h_-Epi_1	37	0.525479821	23.34663847	F42	8.54	0.058	0.075	0.516	NA
+09.07.20	Nitrification	Vent 	Light	N	T2	5	Nit_A_L_3h_-Epi_2	NA	0.525479821	23.34663847	F159	7.047	0.031	0.053	0.6	NA
+09.07.20	Nitrification	Vent 	Light	N	T2	5	Nit_A_L_3h_-Epi_3	NA	0.525479821	23.34663847	F152	7.903	0.022	0.05	0.474	NA
+09.07.20	Nitrification	Vent 	Light	Y	T2	5	Nit_A_L_3h_+Epi_1	NA	0.525479821	23.34663847	F161	6.585	0.035	0.036	0.297	NA
+09.07.20	Nitrification	Vent 	Light	Y	T2	5	Nit_A_L_3h_+Epi_2	NA	0.525479821	23.34663847	F151	6.242	0.015	0.038	1.033	NA
+NA	Nitrification	Vent 	Light	Y	T2	5	Nit_A_L_3h_+Epi_3	34	0.525479821	23.34663847	F45	5.521	0.049	0.031	0.597	NA
+09.07.20	Nitrification	Vent 	Light	Y	T2	5	Nit_A_L_3h_+Epi_4	NA	0.525479821	23.34663847	F156	6.716	0.027	0.062	0.981	NA
+NA	Nitrification	Vent 	Light	Ctrl	T2	5	Nit_A_L_3h_C1	38	0.525479821	23.34663847	F48	28.83	0.07	0.042	0.9	NA
+NA	Nitrification	Vent 	Light	Ctrl	T2	5	Nit_A_L_3h_C2	28	0.525479821	23.34663847	F27	1.038	0.053	0.017	7.417	NA
+01.07.20	Nitrification	Vent 	Light	Ctrl	T2	5	Nit_A_L_3h_C2	NA	0.525479821	23.34663847	F27_new	16.84	0.109	0.099	1.138	NA
+NA	Nitrification	Vent 	Light/Dark 	N	T3	17	Nit_A_L_6h_-Epi_1	35	0.525479821	23.34663847	F33	2.789	0.056	0.031	0.389	NA
+NA	Nitrification	Vent 	Light/Dark 	Y	T3	17	Nit_A_L_6h_+Epi_1	38	0.525479821	23.34663847	F31	3.251	0.059	0.034	0.466	NA
+01.07.20	Nitrification	Vent 	Light/Dark 	Y	T3	17	Nit_A_L_6h_+Epi_2	NA	0.525479821	23.34663847	F31_new	1.108	0.084	0.03	0.116	NA
+08.07.20	Nitrification	Vent 	Light/Dark 	Ctrl	T3	17	Nit_A_L_6h_C1	NA	0.525479821	23.34663847	F138	20.608	0.059	0.101	1.281	NA
+NA	Nitrification	Vent 	Light/Dark 	Ctrl	T3	17	Nit_A_L_6h_C2	38	0.525479821	23.34663847	F32	18.66	0.035	0.033	0.648	NA
+07.07.20	Nitrification	Vent 	Start	NA	T0	0	C_Start_b	NA	0.525479821	23.34663847	F97	15.988	0.027	0.032	0.543	NA
+01.07.20	Nitrification	Vent 	Start 	NA	T0	0	Start_A_	NA	0.525479821	23.34663847	F43_new	22.01	0.058	0.035	0.541	NA

@@ -1,0 +1,73 @@
+Project	Embrace	
+Experimentd conducted by	Friederike Peiffer (fredi.peiffer@gmail.com)	
+Data analysed by	Johanna Berlinghof (johber@uni-bremen.de)	
+Experimental date:	13.-19.09.2019	
+		
+		
+Experiments		
+volume incubation vials	24 mL	
+size leaf sections	3 cm2	
+		
+Denitrification / Nitrate pulse experiment		
+Date	13.09.19	
+Label/Tracer	15NO3 (10 µM) 	
+Control	labeled site water without leaf/epiphytes	
+		
+		
+Measurements	Denitrification rates	
+Instruments	SerCon 'Callisto CF-IRMS' system (at Aarhus University, technician: Karina Oest)	
+		
+"RAW DATA of N2 measurements was previously re-arranged to be tabular. This rearranged data (values were not changed, only their position) is now contained in a .txt file named ""Denitrification_rates.txt""."		
+Raw data N2 measurements was used for further calculations (see below). 		
+		
+The file contains the following variables:		
+Run	individual run number, note that there were two rounds of runs	
+ID	ID of each sample (air standard, reference gas or sample label)	
+Site	sampling site (vent or ambient pH site)	
+Treatment	sample treatment (Y=with epiphytes, N=without epiphytes, Ctrl=Control, Start= before incubation start, dum=dummy, std=standard, ref = reference gas)	
+Incubation	Incubation type (light or dark incubation)	
+Incubationtime	total incubation time in h	
+Replicate	replicate number	
+N28	raw signal of 28N2	
+N29	raw signal of 29N2	
+N30	raw signal of 30N2	
+Total_Signal	sum of 28N2, 29N2 and 30N2 raw signals	
+N2_in_Exet	total signal converted into N2 concentration in exetainer (µM) using the regression of the standard curve	
+N29_tot	ratio of 29N2 to total N2 raw signal	
+N30_tot	ratio of 30N2 to total N2 raw signal	
+Ex_N29_tot	atom percent excess, at%29N2 sample – at%29N2 control (=N2 reference gas) 	
+Ex_N30_tot	atom percent excess, at%30N2 sample – at%30N2 control (=N2 reference gas) 	
+Conc_N29	"Concentration of 29N2 in µM; product of N2_in_Exet_(µM) and Excess_30N2/tot"	
+Conc_N30	"Concentration of 29N2 in µM; product of N2_in_Exet_(µM) and Excess_29N2/tot"	
+Amount_N29	amount of 30N per vial (µmol)	
+Amount_N30	amount of 29N per vial (µmol)	
+N29_prod_rate	29N2 production rate (µmol h-1) as difference of sample - start value, and subtracted by mean Ctrl production rate	
+N29_prod_rate_norm	29N2 production rate in nmol h-1 normalized per cm-2 (3cm-2 per leaf)	
+N30_prod_rate	30N2 production rate (µmol h-1) as difference of sample - start value, and subtracted by mean Ctrl production rate	
+N30_prod_rate_norm	30N2 production rate in nmol h-1 normalized per cm-2 (3cm-2 per leaf)	
+D15	production rate of 15N in µmol N h-1, calculated as 29N production rate + 2*30N production rate	
+D15_norm	15N production rate in nmol h-1 normalized per cm-2 	
+D14	production rate of 14N in µmol N h-1, calculated as (D15*29N production rate)/ (2*30N production rate)	
+D14_norm	14N production rate in nmol h-1 normalized per cm-2 	
+Dtot	total N production rate, sum of D15+D14	
+Dtot_norm	total Nproduction rate in nmol h-1 normalized per cm-2 	
+Dn_norm	_coupled nitrification–denitrification, calculated D14-D15	
+		
+		
+"Data structure and replication: (see figure ""Incubation_scheme.png"")"		
+3 treatments	"""+Epi"" = with epiphytes, ""-Epi"" = without epiphytes, ""Ctrl"" =  Control"	
+3/4 replicates per treatment	"3 replicates for ""Ctrl"" and ""-Epi""; 4 replicates for ""+Epi"""	
+2 sites	"""Vent"" = from vent pH site (pH=7.17 ± 0.04), ""Ambient"" = from ambient pH site (8.12 ± 0.02)"	
+4 sampling timepoints	"""T0"", ""T1"", ""T2"", ""T3"" "	only two measurements for T0 (no treatments, only 1 replicate each for vent & ambient pH site) 
+2 incubation types 	"""light, ""dark"""	
+  = total of 122 vials per experiment		
+		
+		
+Deatails of sampling		
+opened vials for measurements (once opened, incubation stopped, vial was sacrificed)		
+took samples for N2 (exetainers + 200 uL ZnCl2)		
+5ml He headspace, mixed for 60sec		
+		
+		
+Additional info		
+"Seagrass collection (date, sites): see ""Seagrass_info.txt"""		

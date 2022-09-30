@@ -1,0 +1,112 @@
+Project	Embrace
+Experimentd conducted by	Friederike Peiffer (fredi.peiffer@gmail.com)
+Data analysed by	Johanna Berlinghof (johber@uni-bremen.de)
+Experimental date:	13.-19.09.2019
+	
+	
+Experiments	
+volume incubation vials	24 mL
+size leaf sections	3 cm2
+	
+N-fixation / ambient N experiment	
+Date	19.09.19
+Label/Tracer	15N2 (enriched site water)
+Control	unlabeled water + leaf with epiphytes
+	
+	
+Measurements	"d15N and 15N incorporation rates of epiphyte and leaf tissue samples; atom percent excess of the incubation medium"
+Instruments	Flash EA-IRMS, SerCon 'Callisto CF-IRMS' system (at Aarhus University, technician Karina Oest)
+System:	Flash EA-IRMS
+Column:	Porepack
+Temp, Owen	45¡C
+Carrier gas: 	Helium 5,0
+Carrier flow:	1 bar
+Reference gas1:	CO2 4,6
+Reference flow:	1 bar
+Reference gas2:	N2 5,0
+Reference flow:	1 bar
+Method:	CN_flash
+Lab, temp,:	23
+	
+	
+"RAW DATA of delta15N and atom% 15N were used for the calculations of 15N incorporation rates. The raw data as well as the calculated rates are now contained in a .txt file named ""N2fix_15N_incorporation.txt""."	
+"T0 samples were used to calculate the natural abundance, wich was then substracted from the atom% 15N of the samples to calculate the atom % exess. The T0 data is stored in a .txt file named ""N2fix_15N_T0.txt"""	
+"atom percent excess of the incubation medium was measured separately, data is stored in a .txt file named ""N2fix_15N_medium_massspec_results.txt"""	
+!!! Only samples with atom%excess over 2.5 x SD of natural abundance is included!!!	
+	
+The file contains the following variables:	
+Sample	Sample type (epiphyte tissue)
+Site	sampling site (vent or ambient pH site)
+Phase	Incubation type (light or dark incubation, start = before incubation start)
+Treatment	sample treatment (Y=with epiphytes, N=without epiphytes, C=Control)
+Timepoint	"sampling timepoint (T0=0h; T1= 5h; T2= 18h)"
+Incubationtime(h)	total incubation time in h
+Label	sample label on the vials (in the format experiment_site_incubation_timepoint_replicate)
+delta15N	blank corrected and normalized d14N/15N, relative to certified soya flour standard
+ng_N_g_tissue-1_h-1	15N incorporation rate in nmol N gDW-1 h-1
+nmol_N_g_tissue-1_h-1	15N incorporation rate in ng N gDW-1 h-2
+	
+	
+"Data structure and replication: (see figure ""Incubation_scheme.png"")"	
+3 treatments	"""+Epi"" = with epiphytes, ""-Epi"" = without epiphytes, ""Ctrl"" =  Control"
+3/4 replicates per treatment	"3 replicates for ""Ctrl"" and ""-Epi""; 4 replicates for ""+Epi"""
+2 sites	"""Vent"" = from vent pH site (pH=7.17 ± 0.04), ""Ambient"" = from ambient pH site (8.12 ± 0.02)"
+3 sampling timepoints	"""T0"", ""T1"", ""T2"""
+2 incubation types 	"""light, ""dark"""
+	
+	
+	
+Deatails of measurements	
+Sampled bottles of tracing solutions for 15N-N2 (exetainers + 200 uL ZnCl2), NOx- (LDPE + freeze)	
+opened vials for measurements (once opened, incubation stopped, vial was sacrificed)	
+Separated epiphytes from leaves and transfered into weighted Eppendorfs (freeze dry)	
+	
+	
+Additional info	
+"Seagrass collection (date, sites): see ""Seagrass_info.txt"""	
+	
+"d15N and atom%15N results of T0 samples: see ""N2fix_15N_T0.txt"""	
+The file contains the following variables:	
+Sample	Sample type, leaf or epiphyte tissue
+Site	sampling site (vent or ambient pH site)
+Timepoint	"sampling timepoint (T1= 5h; T2= 18h)"
+Duration	total incubation time in h
+Label	sample label on the vials (in the format experiment_site_incubation_timepoint_replicate)
+delta15N	blank corrected and normalized d14N/15N, relative to certified soya flour standard
+atom%15N	ratio of 15N to 14N+15N isotopes in %
+	
+"atom percent excess of the incubation medium (exetainer samples, measured with mass spectrometer): see ""N2fix_15N_medium_massspec_results.txt"""	
+The file contains the following variables:	
+Run	run number
+ID	ID of each sample (air standard, reference gas or sample label)
+28N2	raw signal of 28N2
+29N2	raw signal of 29N2
+30N2	raw signal of 30N2
+Total_Signal	sum of 28N2, 29N2 and 30N2 raw signals
+N2_in_Exet_(µM)	total signal converted into N2 concentration in exetainer (µM) using the regression of the standard curve
+29N2/tot	ratio of 29N2 to total N2 raw signal
+30N2/tot	ratio of 30N2 to total N2 raw signal
+Excess_29N2/tot	atom percent excess, at%29N2 sample Ð at%29N2 control (=N2 reference gas) 
+Excess_30N2/tot	atom percent excess, at%30N2 sample Ð at%30N2 control (=N2 reference gas) 
+Conc_29N2(µM)	"Concentration of 29N2 in µM; product of N2_in_Exet_(µM) and Excess_30N2/tot"
+Conc_30N2(µM)	"Concentration of 29N2 in µM; product of N2_in_Exet_(µM) and Excess_29N2/tot"
+	
+	
+"Quantification of total N per sample: see ""N2fix_15N_total_N_quantification.txt"""	
+The file contains the following variables:	
+Label	sample label on the vials (in the format experiment_site_incubation_timepoint_replicate)
+Sample	Sample type, leaf or epiphyte tissue
+Weight	dry weight of measured sample in tin cup (mg)
+Area_N_Flash_TCD 	Raw signal of the N Flash unit
+Area_C_Flash_TCD 	Raw signal of the C Flash unit
+Corrected_Area_C	Blank corrected Area C
+"µg_N/cup 
+"	Area N converted into N per cup (µg) using the regression of the standard curve
+mg_N/kg_dry_sample	mg N per kg dry sample
+"µg_C/cup 
+"	Area C converted into N per cup (µg) using the regression of the standard curve
+mg_C/kg_dry_sample	mg C per kg dry sample
+"
+C/N"	C/N ratio (molar)
+g/100g	g N per 100g dry sample
+µgN	total N per measured sample (µg)

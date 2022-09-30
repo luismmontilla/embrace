@@ -1,0 +1,46 @@
+Project	Embrace	
+Experimentd conducted by	Friederike Peiffer (fredi.peiffer@gmail.com)	
+Data analysed by	Johanna Berlinghof (johber@uni-bremen.de)	
+Experimental date:	13.-19.09.2019	
+		
+		
+		
+Denitrification / Nitrate pulse experiment		
+Date	13.09.19	
+Label/Tracer	15NO3 (10 µM) 	
+Control	labeled site water without leaf/epiphytes	
+		
+In situ parameters	ambient pH site	vent pH site
+Time 	12:58 – 13:12	12:25 – 12:40
+Oxygen	8.64 mg/L 	8.93 mg/L 
+Light	22,442.88 Lux 	34,744.18 Lux 
+Temperature	26.2 °C 	26.2 °C 
+pH	8.16 	7.94 
+		
+		
+		
+Nitrification / Ammonium pulse experiment		
+Date	16.09.19	
+Label/Tracer	15NH4 (20 µM) 	
+Control	labeled site water without leaf/epiphytes	
+		
+In situ parameters	ambient pH site	vent pH site
+Time 	08:33 – 08:48	09:01 – 09:22
+Oxygen	NA	7.06 mg/L 
+Light	NA	869.44 Lux 
+Temperature	NA	25.1 °C 
+pH	8.19 	6.6 
+		
+		
+		
+N-fixation / ambient N experiment		
+Date	19.09.19	
+Label/Tracer	15N2 (enriched site water)	
+Control	unlabeled water + leaf with epiphytes	
+		
+In situ parameters	ambient pH site	vent pH site
+Time 	09:40 – 09:48	10:00 – 10:16
+Oxygen	7.29 mg/L 	7.24 mg/L 
+Light	2841.68 Lux 	3963.68 Lux 
+Temperature	25.8 °C 	25.5 °C 
+pH	7.93 	6.71 
