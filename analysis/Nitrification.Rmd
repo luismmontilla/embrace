@@ -1,0 +1,338 @@
+---
+title: "Nitrification analysis"
+author: JB
+date: June 2022
+project: EMBRACE
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+Session info
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Monterey 12.4
+```{r}
+sessionInfo()
+packageVersion("tidyverse") # ‘1.3.1’
+packageVersion("here")      # ‘1.0.1’
+```
+
+# Install and load packages
+```{r}
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("here")) install.packages("here")
+if (!require("car")) install.packages("car")
+if (!require("emmeans")) install.packages("emmeans")
+if (!require("ggpubr")) install.packages("ggpubr")
+```
+
+# Create "output" folder
+```{r}
+here()
+dir.create(here("output"))
+```
+
+# Import data
+```{r}
+Nitr <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE","MS Posidonia N cycling", "Biogeochemistry","Data","Raw data", "Nitrification.txt"), header=T)
+```
+
+# Check data
+```{r}
+view(Nitr) 
+names(Nitr)
+str(Nitr)
+```
+
+# Reorganize table
+```{r}
+Nitr %>% 
+  group_by(Site, Incubation, Treatment, Time) %>%
+  summarise(n = n()) %>%  view()
+
+str(Nitr)
+
+Nitr_new <- Nitr %>% 
+  mutate(Site = factor (x = Site, levels = c("ambient", "vent")),
+    Incubation = factor (x = Incubation, levels = c("light", "dark")),
+    Treatment = factor(x = Treatment, levels = c("start","Y", "N", "ctrl")))%>%
+  view()
+```
+
+
+# Statistical Analysis
+
+# d15N light incubations with epiphytes
+```{r}
+Nitr_l<- Nitr_new %>% 
+  filter(Incubation=="light",
+         Treatment!="N"&Treatment!="ctrl") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = Nitr_l, aes(x = Site, y = d15N.NO3.STD, color = Time,shape =Treatment))+
+  geom_boxplot(fill = NA, coef = 1.5, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# outlier vent site, Treatment=Y
+
+# remove outlier
+Nitr_l <- Nitr_l %>% 
+  filter(d15N.NO3.STD<30) %>% 
+  view()
+
+ggplot(data = Nitr_l, aes(x = Site, y = d15N.NO3.STD, color = Time, shape =Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(Nitr_l$d15N.NO3.STD)
+qqline(Nitr_l$d15N.NO3.STD)
+hist(Nitr_l$d15N.NO3.STD)
+
+# Shapiro test for normal distribution
+shapiro.test(Nitr_l$d15N.NO3.STD)
+# p-value = 0.6959 --> normally distributed
+```
+
+# Ancova
+```{r}
+M<-lm(Nitr_l$d15N.NO3.STD~Time*Site, data=Nitr_l)
+Anova(M)
+# interaction not significant --> reduce model
+M<-lm(Nitr_l$d15N.NO3.STD~Time+Site, data=Nitr_l)
+Anova(M)
+summary(M)
+
+# Anova Table (Type II tests)
+
+# Response: Nitr_l$d15N.NO3.STD
+#            Sum Sq Df F value Pr(>F)
+# Time        86.99  1  2.2332 0.1515
+# Site        30.32  1  0.7784 0.3887
+# Residuals   740.16 19  
+
+#plot model
+par(mfrow=c(2,2))
+plot(M)
+# normality and homogeneity are met
+
+coef(lm(Nitr_l$d15N.NO3.STD~Time+Site, data=Nitr_l))
+```
+
+# plot results from model
+```{r}
+p1<-ggplot(Nitr_l, aes(x=Time, y=d15N.NO3.STD, color=Site))+
+  geom_point(aes(color=Site), size=2, shape=4)+
+  geom_abline(intercept = 0.6906 , slope = 0.3438, color="#56B4E9")+
+  geom_abline(intercept = 0.6906 + 2.3587, slope = 0.3438, color="#E69F00")+
+  scale_color_manual(values=c("#56B4E9", "#E69F00"))+
+  theme_classic()+ 
+  theme(legend.title = element_blank(), text = element_text(size = 16))+
+  labs(title="light", x="Incubation time (h)", y=expression(delta^15*N~(NO[3]^"-")))+
+  scale_y_continuous(limits=c(-10,35), breaks=c(-10,-5,0,5,10,15,20,25,30,35))+
+  scale_x_continuous(limits=c(0,20), breaks=c(0,5,10,15,20))
+p1
+
+ggsave(p1, filename = here("output", "Nitr_d15N_light.png"), dpi = 300, units = "cm", width = 12, height = 10)
+
+```
+
+
+# d15N dark incubations with epiphytes
+```{r}
+Nitr_d<- Nitr_new %>% 
+  filter(Incubation=="dark",
+         Treatment!="N"&Treatment!="ctrl") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = Nitr_d, aes(x = Site, y = d15N.NO3.STD, color = Time,shape =Treatment))+
+  geom_boxplot(fill = NA, coef = 1.5, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outliers 
+
+# test normal distribution 
+qqnorm(Nitr_d$d15N.NO3.STD)
+qqline(Nitr_d$d15N.NO3.STD)
+hist(Nitr_d$d15N.NO3.STD)
+
+# Shapiro test for normal distribution
+shapiro.test(Nitr_d$d15N.NO3.STD)
+# p-value = 0.000996 --> not normally distributed, still okay for Anova
+```
+
+# Ancova
+```{r}
+M<-lm(Nitr_d$d15N.NO3.STD~Time*Site, data=Nitr_d)
+Anova(M)
+# interaction not significant --> reduce model
+M<-lm(Nitr_d$d15N.NO3.STD~Time+Site, data=Nitr_d)
+Anova(M)
+summary(M)
+
+# Anova Table (Type II tests)
+
+# Response: Nitr_d$d15N.NO3.STD
+#            Sum Sq Df F value Pr(>F)
+# Time        64.09  1  0.8032 0.38645  
+# Site       465.89  1  5.8381 0.03112 *
+# Residuals 1037.42 13   
+
+#plot model
+par(mfrow=c(2,2))
+plot(M)
+# normality and homogeneity are met
+
+coef(lm(Nitr_d$d15N.NO3.STD~Time+Site, data=Nitr_d))
+```
+
+# plot results from model
+```{r}
+p2<-ggplot(Nitr_d, aes(x=Time, y=d15N.NO3.STD, color=Site))+
+  geom_point(aes(color=Site), size=2, shape=4)+
+  geom_abline(intercept = -1.7316 , slope = 0.9506, color="#56B4E9")+
+  geom_abline(intercept = -1.7316 + 11.2297, slope = 0.9506, color="#E69F00")+
+  scale_color_manual(values=c("#56B4E9", "#E69F00"))+
+  theme_classic()+ 
+  theme(legend.title = element_blank(), text = element_text(size = 16))+
+  labs(title="dark", x="Incubation time (h)", y=element_blank())+
+  scale_y_continuous(limits=c(-10,35), breaks=c(-10,-5,0,5,10,15,20,25,30,35))
+p2
+
+ggsave(p2, filename = here("output", "Nitr_d15N_dark.png"), dpi = 300, units = "cm", width = 12, height = 10)
+```
+
+# create panel
+```{r}
+library(ggpubr)
+panel<-ggarrange(p1, p2, 
+                labels = c("a", "b"),
+                ncol = 2, nrow = 1, align = "hv",
+                font.label = list(size = 16),
+                common.legend=T,
+                legend="right")
+panel
+ggsave(panel, filename = here("output", "Nitr_d15N_panel.png"), dpi = 300, units = "cm", width = 20, height = 8)
+```
+
+
+# Nitrification potential
+```{r}
+Nitr_plot <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE","MS Posidonia N cycling", "Biogeochemistry","Data","Raw data", "Nitr_graph.txt"), header=T)
+
+view(Nitr_plot) 
+
+Nitr_plot %>% 
+  group_by(Site, Incubation) %>%
+  summarise(n = n()) %>%  view()
+
+Nitr_plot_new<-Nitr_plot %>% 
+  select(-Treatment) %>%
+  view()
+
+str(Nitr_plot_new)
+
+Nitr_plot_new <- Nitr_plot_new %>% 
+  mutate(
+    Site = factor (x = Site, levels = c("Ambient", "Vent")),
+    Incubation = factor (x = Incubation, levels = c("light", "dark"))) %>% 
+  view()
+
+str(Nitr_plot_new)
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = Nitr_plot_new, aes(x = Site, y = rate, color = Incubation))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outliers 
+
+# test normal distribution 
+qqnorm(Nitr_plot_new$rate)
+qqline(Nitr_plot_new$rate)
+hist(Nitr_plot_new$rate)
+
+# Shapiro test for normal distribution
+shapiro.test(Nitr_plot_new$rate)
+# p-value = 0.02861 --> not normally distributed, still okay for Anova
+```
+
+# Anova
+```{r}
+M<-lm(Nitr_plot_new$rate~Site*Incubation, data=Nitr_plot_new)
+Anova(M)
+summary(M)
+
+# Anova Table (Type II tests)
+
+# Response: Nitr_plot_new$rate
+#                 Sum Sq Df F value    Pr(>F)    
+# Site            9.0860  1 704.641 1.197e-05 ***
+# Incubation      0.8186  1  63.483  0.001344 ** 
+# Site:Incubation 0.8186  1  63.483  0.001344 ** 
+# Residuals       0.0516  4    
+
+#plot model
+par(mfrow=c(2,2))
+plot(M)
+# normality and homogeneity are met
+
+emm = emmeans(M, specs = pairwise ~ Site:Incubation)
+emm
+```
+
+# plot results from model
+```{r}
+emm<-data.frame(emmeans(M,~Site*Incubation))%>% 
+  summarise(Site=Site,Incubation=Incubation,emmean=emmean)%>% 
+  view()
+
+sum <- Nitr_plot_new%>% 
+  group_by(Incubation,Site)%>% 
+  summarise(sd=sd(rate),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("Site","Incubation","emmean")], sum[c("sd", "se")])%>%
+  summarise(Site=Site,
+            Incubation=Incubation,            
+            emmean=emmean,
+            sd=sd,
+            se=se)%>% 
+  view()
+
+p3<-ggplot(final, aes(x=Site, y=emmean, fill=Incubation))+
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(Site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
+  scale_fill_manual("legend", values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+  theme_classic()+
+  theme(legend.title = element_blank())+
+  labs(x=element_blank(), y=expression({}^15*R[OX]~(pmol~NH[4]^"+"~cm^-2~d^-1)))+
+  scale_y_continuous(limits=c(0,3), breaks=c(0,0.25, 0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3))
+p3
+
+ggsave(p3, filename = here("output", "Nitr_rate.png"), dpi = 300, units = "cm", width = 15, height = 15)
+```
