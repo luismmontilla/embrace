@@ -1,7 +1,7 @@
-Label	Sample	Weight	Area_N_Flash_TCD 	Area_C_Flash_TCD 	Corrected_Area_C	"µg_N/cup 
-"	mg_N/kg_dry_sample	"µg_C/cup 
+Label	Sample	Weight	Area_N_Flash_TCD 	Area_C_Flash_TCD 	Corrected_Area_C	"Ä¾g_N/cup 
+"	mg_N/kg_dry_sample	"Ä¾g_C/cup 
 "	mg_C/kg_dry_sample	"
-C/N"	µgN
+C/N"	Ä¾gN
 blank	blank	NA	0	NA	NA	NA	NA	NA	NA	NA	NA
 Fix_A_+Epi_T0_a	Leaf	2.1227	20420	2513178	2513178	15.2	7180	710.2	334567	54.4	1524.034346
 Fix_A_+Epi_T0_b	Leaf	1.926	33330	2402840	2402840	24.9	12916	679	352547	31.8	2487.564386
