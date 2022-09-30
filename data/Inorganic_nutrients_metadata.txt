@@ -1,0 +1,64 @@
+"Project					"	Embrace						
+"Experimentd conducted by		"	Friederike Peiffer (fredi.peiffer@gmail.com)						
+"Data analysed by		"	Johanna Berlinghof (johber@uni-bremen.de)						
+"Experimental date:			"	13.-19.09.2019						
+"						"							
+"						"							
+"Experiments						"							
+"volume incubation vials			"	24 mL						
+"size leaf sections			"	3 cm2						
+"						"							
+"Denitrification / Nitrate pulse experiment						"							
+"Date			"	13.09.19						
+"Label/Tracer			"	15NO3 (10 µM) 						
+"Control					"	labeled site water without leaf/epiphytes						
+"						"							
+"Nitrification / Ammonium pulse experiment						"							
+"Date				"	16.09.19						
+"Label/Tracer		"	15NH4 (20 µM) 						
+"Control			"	labeled site water without leaf/epiphytes						
+"						"							
+"N-fixation / ambient N experiment						"							
+"Date			"	19.09.19						
+"Label/Tracer			"	15N2 (enriched site water)						
+"Control	"	unlabeled water + leaf with epiphytes						
+"						"							
+"Measurements			"	Analysis of DIN (NH4+, NO3-, and NO2-), and DIP (PO4-)						
+"Instruments	"	Continuous Flow Analyzer (Flowsys, SYSTEA SpA., Italy)						
+"						"							
+"The file contains the following variables:						"							
+"Date	"	date of measurement, format dd.mm.yy						
+"Experiment			"	type of experiment (Fixation, Denitrification, Nitrification)						
+"Site					"	sampling site (vent or ambient pH site)						
+"Incubation	"	sample type (Before/After=before/after tracer addition, Start= T0 at incubation start, Dark=dark incubation, light=light incubation, Light/Dark=T3 with ~ 8h light/8h dark)						
+"Treatment		"	sample treatment (Start=before incubation, Y=with epiphytes, N=without epiphytes, Ctrl=Control)						
+"Timepoint	"	sampling timepoint (T0=start,  T1= ca.5-6h for N-fix experiment,  T2= ca. 5-6h for denitrification and nitrification experiment)						"				"
+"Code 			"	sample label on the vials (in the format experiment_site_incubation_timepoint_replicate)						
+"Salinity		"	measured salinity in ä						
+"Expected.conc.Nox 		"	expected NOx concentration in _M						
+"Expected.conc.NH4					"	expected NH4 concentration in _M						
+"sample.autoanalyzer	sample slot in the autoanalyzer					"	sample slot in the autoanalyzer						
+"NH4	"	NH4+ concentration in _M						
+"PO4				"	PO4- concentration in _M						
+"NO2				"	NO2- concentration in _M						
+"NO3			"	NO3- concentration in _M						
+"Comments	"	comments regarding the labeled code (Fixation: T1 was labelled with T2, T2 was labelled with T3 in Code)						
+"						"							
+"						"							
+"Data structure and replication: 					"	"see figure ""Incubation_scheme.png"""						
+"3 treatments				"	"""+Epi"" = with epiphytes, ""-Epi"" = without epiphytes, ""Ctrl"" =  Control"						
+"3/4 replicates per treatment	"	"3 replicates for ""Ctrl"" and ""-Epi"", 4 replicates for ""+Epi"""						
+"2 sites				"	"""Vent"" = from vent pH site (pH=7.17 ± 0.04), ""Ambient"" = from ambient pH site (8.12 ± 0.02)"						
+"4 sampling timepoints				"	"""T0"", ""T1"", ""T2"", ""T3"" "	only two measurements for T0 (no treatments, only 1 replicate each for vent & ambient pH site) 					
+"2 incubation types 			"	"""light, ""dark"""						
+							
+"						"							
+"						"							
+"Deatails of measurements						"							
+"opened vials for measurements (once opened, incubation stopped, vial was sacrificed)						"							
+"filtered water through a cellulose acetate membrane filter (pore size: 0.22 _m) into 20 ml HDPE vials 						"							
+"stored upright at -20¡C until analysis with a Continuous Flow Analyzer (Flowsys, SYSTEA SpA., Italy)						"							
+"						"							
+"						"							
+"Additional info						"							
+"Seagrass collection (date, sites): see ""Seagrass_info.txt""						"							

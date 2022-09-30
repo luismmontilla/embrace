@@ -1,0 +1,543 @@
+---
+title: "N2 fixation analysis"
+author: JB
+date: September 2022
+project: EMBRACE
+output: html_notebook
+---
+
+Session Info
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Monterey 12.6
+```{r}
+sessionInfo()
+packageVersion("tidyverse") # ‘1.3.1’
+packageVersion("here")      # ‘1.0.1’
+```
+
+# Install and load packages
+```{r}
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("here")) install.packages("here")
+if (!require("car")) install.packages("car")
+if (!require("emmeans")) install.packages("emmeans")
+if (!require("ggpubr")) install.packages("ggpubr")
+```
+
+# Create "output" folder
+```{r}
+here()
+dir.create(here("output"))
+```
+
+# Import data
+```{r}
+N_inc <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE" ,"MS Posidonia N cycling", "Biogeochemistry", "Data","Raw data", "N2fix_15N_incorporation.txt"), header=T)
+```
+
+# Check data
+```{r}
+view(N_inc) 
+names(N_inc)
+str(N_inc)
+```
+
+# Reorganize table
+```{r}
+N_inc %>% 
+  group_by(Sample,Site, Phase, Treatment, Timepoint) %>%
+  summarise(n = n()) %>%  view()
+
+N_inc_new<-N_inc %>% 
+  select(-Label,
+         -atom_perc,
+         -atom_perc_ex,
+         -medium_atom_perc_ex,
+         -N_ug,
+         -g_DW_ind,
+         -rate_ng_h) %>%
+  view()
+
+str(N_inc_new)
+
+N_inc_new <- N_inc_new %>% 
+  mutate(
+    Sample=factor (x = Sample, levels = c("Epiphytes", "Leaf")),
+    Site = factor (x = Site, levels = c("Ambient", "Vent")),
+    Phase = factor (x = Phase, levels = c("Light", "Dark","Start")),  
+    Treatment = factor (x = Treatment, levels = c("Start", "Y","N", "Ctrl")),
+    Timepoint = factor (x = Timepoint, levels = c("T0", "T1","T2"))) %>% 
+  view()
+
+str(N_inc_new)
+```
+
+
+# Statistical Analysis
+
+# d15N Leaves light with epiphytes
+```{r}
+N_leaf_L <- N_inc_new %>% 
+  filter(Sample=="Leaf", Phase!="Dark", Treatment=="Y"|Treatment=="Start") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = N_leaf_L, aes(x = Site, y = delta15N, color = Timepoint, shape =Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# outlier T0, vent site, start
+
+# remove outlier
+N_leaf_L <- N_leaf_L %>% 
+  filter(delta15N<10) %>% 
+  view()
+
+ggplot(data = N_leaf_L, aes(x = Site, y = delta15N, color = Timepoint, shape =Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(N_leaf_L$delta15N)
+qqline(N_leaf_L$delta15N)
+hist(N_leaf_L$delta15N)
+
+# Shapiro test for normal distribution
+shapiro.test(N_leaf_L$delta15N)
+# p-value = 0.0888 --> normally distributed
+```
+
+# Ancova
+```{r}
+M_leaf<-lm(N_leaf_L$delta15N~Site*Incubation, data=N_leaf_L)
+Anova(M_leaf)
+# interaction not significant --> reduce model
+M_leaf<-lm(N_leaf_L$delta15N~Site+Incubation, data=N_leaf_L)
+Anova(M_leaf)
+summary(M_leaf)
+
+# Anova Table (Type II tests)
+
+# Response: N_leaf_L$delta15N
+#             Sum Sq Df F value Pr(>F)
+# Site        0.0963  1  0.1473 0.7043
+# Incubation  0.0078  1  0.0119 0.9140
+# Residuals  16.9967 26 
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_leaf)
+# normality and homogeneity are met
+
+coef(lm(N_leaf_L$delta15N~Site+Incubation, data=N_leaf_L))
+```
+
+# plot results from model
+```{r}
+p1<-ggplot(N_leaf_L, aes(x=Incubation, y=delta15N, color=Site))+
+  geom_point(aes(color=Site), size=2, shape=4)+
+  geom_abline(intercept = 5.19939, slope = 0.00219, color="#56B4E9")+
+  geom_abline(intercept = 5.19939+0.11536, slope = 0.00219, color="#E69F00")+
+  scale_color_manual(values=c("#56B4E9", "#E69F00"))+
+  theme_classic() +
+  theme(legend.title = element_blank(), text = element_text(size = 16))+
+  labs(title="light", x="Incubation time (h)", y=expression(delta^15*N))+
+  scale_x_continuous(limits=c(0,20), breaks=c(0,5,10,15,20))+
+  scale_y_continuous(limits=c(0,10), breaks=c(0,2,4,6,8,10))
+p1
+
+ggsave(p1, filename = here("output", "Nfix_d15N_leaf_L.png"), dpi = 300, units = "cm", width = 12, height = 10)
+```
+
+# d15N Leaves dark with epiphytes
+
+```{r}
+N_leaf_D <- N_inc_new %>% 
+  filter(Sample=="Leaf", Phase!="Light", Treatment=="Y"|Treatment=="Start") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = N_leaf_D, aes(x = Site, y = delta15N, color = Timepoint, shape=Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# outlier T0, vent site, start
+
+# remove outlier
+N_leaf_D <- N_leaf_D %>% 
+  filter(delta15N<10) %>% 
+  view()
+
+ggplot(data = N_leaf_D, aes(x = Site, y = delta15N, color = Timepoint, shape=Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(N_leaf_D$delta15N)
+qqline(N_leaf_D$delta15N)
+hist(N_leaf_D$delta15N)
+
+# Shapiro test for normal distribution
+shapiro.test(N_leaf_D$delta15N)
+# p-value = 0.3349 --> normally distributed
+```
+
+# Ancova
+```{r}
+M_leaf<-lm(N_leaf_D$delta15N~Site*Incubation, data=N_leaf_D)
+Anova(M_leaf)
+# interaction not significant --> reduce model
+M_leaf<-lm(N_leaf_D$delta15N~Site+Incubation, data=N_leaf_D)
+Anova(M_leaf)
+summary(M_leaf)
+
+# Anova Table (Type II tests)
+
+# Response: N_leaf_D$delta15N
+#             Sum Sq Df F value Pr(>F)
+# Site        0.2660  1  0.3294 0.5710
+# Incubation  0.7965  1  0.9864 0.3298
+# Residuals  20.9952 26 
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_leaf)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+p2<-ggplot(N_leaf_D, aes(x=Incubation, y=delta15N, color=Site))+
+  geom_point(aes(color=Site), size=2, shape=4)+
+  geom_abline(intercept = 5.04409, slope = -0.02215, color="#56B4E9")+
+  geom_abline(intercept = 5.04409+0.19173, slope = -0.02215, color="#E69F00")+
+  scale_color_manual(values=c("#56B4E9", "#E69F00"))+
+  theme_classic() +
+  theme(legend.title = element_blank(), text = element_text(size = 16))+
+  labs(title="dark", x="Incubation time (h)", y=element_blank())+
+  scale_x_continuous(limits=c(0,20), breaks=c(0,5,10,15,20))+
+  scale_y_continuous(limits=c(0,10), breaks=c(0,2,4,6,8,10))
+p2
+
+ggsave(p2, filename = here("output", "Nfix_d15N_leaf_D.png"), dpi = 300, units = "cm", width = 12, height = 10)
+```
+
+# create panel
+
+```{r}
+library(ggpubr)
+panel1<-ggarrange(p1, p2, 
+                labels = c("a", "b"),
+                ncol = 2, nrow = 1, align = "hv",
+                font.label = list(size = 16),
+                common.legend=T,
+                legend="right")
+panel1
+ggsave(panel1, filename = here("output", "Nfix_d15N_leaf_panel.png"), dpi = 300, units = "cm", width = 20, height = 8)
+```
+
+
+# d15 Epiphytes light
+
+```{r}
+N_epi_L <- N_inc_new %>% 
+  filter(Sample=="Epiphytes", Phase!="Dark", Treatment=="Y"|Treatment=="Start") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = N_epi_L, aes(x = Site, y = delta15N, color = Timepoint, shape=Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# outlier T0, vent site, start
+
+# remove outlier
+N_epi_L <- N_epi_L %>% 
+  filter(delta15N<17 | delta15N>18) %>% 
+  view()
+
+ggplot(data = N_epi_L, aes(x = Site, y = delta15N, color = Timepoint, shape=Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(N_epi_L$delta15N)
+qqline(N_epi_L$delta15N)
+hist(N_epi_L$delta15N)
+
+# Shapiro test for normal distribution
+shapiro.test(N_epi_L$delta15N)
+# p-value = 3.087e-06 --> not normally distributed
+
+# data transformation
+library(LambertW)
+N_epi_L$delta15N<-Gaussianize(N_epi_L$delta15N, type = "s")
+qqnorm(N_epi_L$delta15N)
+qqline(N_epi_L$delta15N)
+hist(N_epi_L$delta15N)
+
+# Shapiro test for normal distribution
+shapiro.test(N_epi_L$delta15N)
+# p-value = 0.1669 --> normally distributed
+```
+
+# Ancova
+```{r}
+M_epi<-lm(N_epi_L$delta15N~Site*Incubation, data=N_epi_L)
+Anova(M_epi)
+# interaction is significant, but site factor not --> reduce model
+M_epi<-lm(N_epi_L$delta15N~Site+Incubation, data=N_epi_L)
+Anova(M_epi)
+summary(M_epi)
+
+# Anova Table (Type II tests)
+
+# Response: N_epi_L$delta15N
+#             Sum Sq Df F value Pr(>F)
+# Site         3.870  1  1.6216 0.2133    
+# Incubation 115.565  1 48.4207 1.448e-07 ***
+# Residuals   66.827 28  
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_epi)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+p3<-ggplot(N_epi_L, aes(x=Incubation, y=delta15N, color=Site))+
+  geom_point(aes(color=Site), size=2, shape=4)+
+  geom_abline(intercept = 7.0055, slope = 0.2630, color="#56B4E9")+
+  geom_abline(intercept = 7.0055+0.7223, slope = 0.2630, color="#E69F00")+
+  scale_color_manual(values=c("#56B4E9", "#E69F00"))+
+  theme_classic() +
+  theme(legend.title = element_blank(), text = element_text(size = 16))+
+  labs(title="light", x="Incubation time (h)", y=expression(delta^15*N))+
+  scale_x_continuous(limits=c(0,20), breaks=c(0,5,10,15,20))+
+  scale_y_continuous(limits=c(0,16), breaks=c(0,2,4,6,8,10,12,14,16))
+p3
+
+ggsave(p3, filename = here("output", "Nfix_d15N_epi_L.png"), dpi = 300, units = "cm", width = 12, height = 10)
+```
+
+
+# d15 Epiphytes dark
+
+```{r}
+N_epi_D <- N_inc_new %>% 
+  filter(Sample=="Epiphytes", Phase!="Light", Treatment=="Y"|Treatment=="Start") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = N_epi_D, aes(x = Site, y = delta15N, color = Timepoint, shape=Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# outlier T0, vent site, start
+
+# remove outlier
+N_epi_D <- N_epi_D %>% 
+  filter(delta15N<10) %>% 
+  view()
+
+ggplot(data = N_epi_D, aes(x = Site, y = delta15N, color = Timepoint, shape=Treatment))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(N_epi_D$delta15N)
+qqline(N_epi_D$delta15N)
+hist(N_epi_D$delta15N)
+
+# Shapiro test for normal distribution
+shapiro.test(N_epi_D$delta15N)
+# p-value = 0.2467 --> normally distributed
+```
+
+# Ancova
+```{r}
+M_epi<-lm(N_epi_D$delta15N~Site*Incubation, data=N_epi_D)
+Anova(M_epi)
+# interaction not significant --> reduce model
+M_epi<-lm(N_epi_D$delta15N~Site+Incubation, data=N_epi_D)
+Anova(M_epi)
+summary(M_epi)
+
+# Anova Table (Type II tests)
+
+# Response: N_epi_D$delta15N
+#             Sum Sq Df F value Pr(>F)
+# Site       1.8643  1  9.8025  0.004159 ** 
+# Incubation 5.2564  1 27.6377 1.527e-05 ***
+# Residuals  5.1351 27 
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_epi)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+p4<-ggplot(N_epi_D, aes(x=Incubation, y=delta15N, color=Site))+
+  geom_point(aes(color=Site), size=2, shape=4)+
+  geom_abline(intercept = 7.83617, slope = 0.05617, color="#56B4E9")+
+  geom_abline(intercept = 7.83617-0.51386, slope = 0.05617, color="#E69F00")+
+  scale_color_manual(values=c("#56B4E9", "#E69F00"))+
+  theme_classic() +
+  theme(legend.title = element_blank(), text = element_text(size = 16))+
+  labs(title="dark", x="Incubation time (h)", y=element_blank())+
+  scale_x_continuous(limits=c(0,20), breaks=c(0,5,10,15,20))+
+  scale_y_continuous(limits=c(0,16), breaks=c(0,2,4,6,8,10,12,14,16))
+p4
+
+ggsave(p4, filename = here("output", "Nfix_d15N_epi_D.png"), dpi = 300, units = "cm", width = 12, height = 10)
+```
+
+# create panel
+```{r}
+panel2<-ggarrange(p3, p4, 
+                 labels = c("a", "b"),
+                 ncol = 2, nrow = 1, align = "hv",
+                 font.label = list(size = 16),
+                 common.legend=T,
+                 legend="right")
+panel2
+ggsave(panel2, filename = here("output", "Nfix_d15N_epi_panel.png"), dpi = 300, units = "cm", width = 20, height = 8)
+```
+
+
+# 15N incorporation rates
+# only in +Epi treatments
+```{r}
+N_epi <- N_inc_new %>% 
+  filter(Sample=="Epiphytes", Phase=="Dark"| Phase=="Light") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = N_epi, aes(x = Site, y = rate_nmol_h, color = Treatment, shape =Timepoint))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no outlier
+
+# Controls always 0 --> removed for analysis
+# only T2 (18h) considered for further analysis
+
+N_epi_new <- N_epi %>% 
+  filter(Sample=="Epiphytes", Treatment=="Y", Timepoint=="T2") %>% 
+  view()
+
+# test normal distribution 
+qqnorm(N_epi_new$rate_nmol_h)
+qqline(N_epi_new$rate_nmol_h)
+hist(N_epi_new$rate_nmol_h)
+
+# Shapiro test for normal distribution
+shapiro.test(N_epi_new$rate_nmol_h)
+# p-value = 0.0004446 -->  not normally distributed, still okay for Anova
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(N_epi_new$rate_nmol_h~ Site*Phase, data = N_epi_new)
+#p-value = 0.07298 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_epi<-lm(N_epi_new$rate_nmol_h~Site*Phase, data=N_epi_new)
+Anova(M_epi)
+summary(M_epi)
+
+#Anova Table (Type II tests)
+
+#Response: N_epi_new$rate_nmol_h
+#            Sum Sq Df F value    Pr(>F)    
+#Site        9070.5  1  7.2022 0.0199006 *  
+#Phase      26109.4  1 20.7316 0.0006625 ***
+#Site:Phase  9228.4  1  7.3276 0.0190628 *  
+#Residuals  15112.9 12 
+
+emm = emmeans(M_epi, specs = pairwise ~ Site:Phase)
+emm
+
+par(mfrow=c(2,2))
+plot(M_epi)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm<-data.frame(emmeans(M_epi,~Site*Phase))%>% 
+  summarise(Site=Site,Phase=Phase,emmean=emmean)%>% 
+  view()
+
+sum <- N_epi_new%>% 
+  group_by(Phase,Site)%>% 
+  summarise(sd=sd(rate_nmol_h),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("Site","Phase","emmean")], sum[c("sd", "se")])%>%
+  summarise(Site=Site,
+            Phase=Phase,            
+            emmean=emmean,
+            sd=sd,
+            se=se)%>% 
+  view()
+
+p5<-ggplot(data = final, aes(x = Site, y = emmean, fill=Phase))+
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(Site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
+  scale_fill_manual(values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+  theme_classic()+
+  theme(legend.title = element_blank())+
+  labs(x=element_blank(), y=expression({}^15*N[2]~incorporation~rate~(nmol~N~gDW^-1~h^-1)))+
+  scale_y_continuous(limits=c(-1,170), breaks=c(0,25,50,75,100,125,150,175))
+p5
+
+ggsave(p5, filename = here( "output", "Nfix_15N_inc_rate.png"), dpi = 300, units = "cm", width = 15, height = 15)
+```

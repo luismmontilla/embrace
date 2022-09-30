@@ -1,0 +1,1013 @@
+---
+title: "CN analysis"
+author: JB
+date: September 2022
+project: EMBRACE
+output: html_notebook
+---
+
+Session Info
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Monterey 12.6
+```{r}
+sessionInfo()
+packageVersion("tidyverse") # ‘1.3.1’
+packageVersion("here")      # ‘1.0.1’
+```
+
+# Install and load packages
+```{r}
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("here")) install.packages("here")
+if (!require("car")) install.packages("car")
+if (!require("emmeans")) install.packages("emmeans")
+if (!require("ggpubr")) install.packages("ggpubr")
+```
+
+# Create "output" folder
+```{r}
+here()
+dir.create(here("output"))
+```
+
+# Import data
+```{r}
+CN_ratio <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE" ,"MS Posidonia N cycling","Biogeochemistry","Data","Raw data","CN_ratio.txt" ), header=T)
+```
+
+# Check data
+```{r}
+view(CN_ratio) 
+names(CN_ratio)
+str(CN_ratio)
+```
+
+# Reorganize table
+```{r}
+CN_ratio %>% 
+  group_by(sample,site, incubation, treat, h) %>%
+  summarise(n = n()) %>%  view()
+
+str(CN_ratio)
+
+CN_ratio <- CN_ratio %>% 
+  mutate(
+    sample = factor (x = sample, levels = c("Leaf", "Epi")),
+    site = factor (x = site, levels = c("Ambient", "Vent")),
+    incubation = factor (x = incubation, levels = c("light", "dark", "start")),
+    treat = factor(x = treat, levels = c("Y", "N", "Ctrl"))
+  ) %>% 
+  view()
+```
+
+# Statistical Analysis
+
+# C content
+```{r}
+# only T1= 5h
+
+CN_ratio_C <- CN_ratio %>% 
+  filter(h==5, treat!="Ctrl") %>% 
+  select(-N, -CN) %>% 
+  view()
+```
+
+# Leaves
+```{r}
+CN_C_leaf <- CN_ratio_C %>% 
+  filter(sample=="Leaf", treat=="N") %>% 
+  view()
+```
+
+# Outlier, normality & variance check 
+```{r}
+ggplot(data = CN_C_leaf, aes(x = site, y = C, color = incubation))+
+  geom_boxplot(fill=NA, coef = 1.5, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# possible outlier site=ambient, incubation = dark
+
+# remove outlier
+
+CN_C_leaf <- CN_C_leaf %>% 
+  filter(C > 33) %>% 
+  view()
+
+# test normal distribution 
+qqnorm(CN_C_leaf$C)
+qqline(CN_C_leaf$C)
+hist(CN_C_leaf$C)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_C_leaf$C)
+# p-value = 0.3549 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_C_leaf$C ~ site*incubation, data = CN_C_leaf)
+#p-value = 0.6212 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_C_leaf<-lm(CN_C_leaf$C~site*incubation, data=CN_C_leaf)
+Anova(M_C_leaf)
+# interaction not significant --> reduce model
+M_C_leaf<-lm(CN_C_leaf$C~site+incubation, data=CN_C_leaf)
+Anova(M_C_leaf)
+summary(M_C_leaf)
+
+# Anova Table (Type II tests)
+
+# Response: CN_C_leaf$C
+#             Sum Sq Df F value Pr(>F)
+# site        0.3275  1  0.1943 0.6710
+# incubation  3.9098  1  2.3205 0.1662
+# Residuals  13.4791  8  
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_C_leaf)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_C_leaf,~site+incubation))%>%
+  view()
+
+sum <- CN_C_leaf%>% 
+  group_by(incubation, site)%>% 
+  summarise(sd=sd(C),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site", "incubation", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            incubation=incubation,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p1<-ggplot(final,aes(site,emmean,fill=incubation)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  scale_fill_manual("legend", values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+  theme_classic()+
+  theme(legend.title = element_blank(), text = element_text(size = 20))+
+  labs(title="Leaves", x="pH", y=expression(C~("%"~DW)))+
+  scale_y_continuous(limits=c(0,40), breaks=c(0,5,10,15,20,25,30,35,40))
+p1
+
+ggsave(p1, filename = here("output", "Nfix_C_leaf.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+# Epiphytes
+```{r}
+CN_C_epi <- CN_ratio_C %>% 
+  filter(sample=="Epi") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_C_epi, aes(x = site, y = C, color = incubation))+
+  geom_boxplot(fill=NA, coef = 1.5, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outlier
+
+# test normal distribution 
+qqnorm(CN_C_epi$C)
+qqline(CN_C_epi$C)
+hist(CN_C_epi$C)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_C_epi$C)
+# p-value = 0.04432 --> not normally distributed, still okay for Anova 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_C_epi$C ~ site*incubation, data = CN_C_epi)
+#p-value = 0.002771 --> variances are different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_C_epi<-lm(CN_C_epi$C~site*incubation, data=CN_C_epi)
+# interaction significant, but factor not --> reduce model
+M_C_epi<-lm(CN_C_epi$C~site+incubation, data=CN_C_epi)
+Anova(M_C_epi)
+summary(M_C_epi)
+
+# Anova Table (Type II tests)
+
+# Response: CN_C_epi$C
+#             Sum Sq Df F value  Pr(>F)  
+# site       116.372  1 24.8828 0.0003155 ***
+# incubation  10.821  1  2.3138 0.1541357    
+# Residuals   56.121 12    
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_C_epi)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_C_epi,~site+incubation))%>%
+  view()
+
+sum <- CN_C_epi%>% 
+  group_by(incubation,site)%>% 
+  summarise(sd=sd(C),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site","incubation" ,"emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            emmean=emmean,
+            incubation=incubation,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p2<-ggplot(final,aes(site,emmean,fill=incubation)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  scale_fill_manual("legend", values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+  theme_classic()+
+  theme(legend.title = element_blank(),text = element_text(size = 20))+
+  labs(title="Epiphytes", x="pH", y=expression(C~("%"~DW)))+
+  scale_y_continuous(limits=c(0,40), breaks=c(0,5,10,15,20,25,30,35,40))
+p2
+
+ggsave(p2, filename = here("output", "Nfix_C_epi.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+# N content
+```{r}
+# only T1= 5h
+
+CN_ratio_N <- CN_ratio %>% 
+  filter(h==5, treat!="Ctrl") %>% 
+  select(-C, -CN) %>% 
+  view()
+```
+
+# Leaves
+```{r}
+CN_N_leaf <- CN_ratio_N %>% 
+  filter(sample=="Leaf", treat=="N") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_N_leaf, aes(x = site, y = N, color = incubation))+
+  geom_boxplot(fill=NA, coef = 1.5, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outliers
+
+# test normal distribution 
+qqnorm(CN_N_leaf$N)
+qqline(CN_N_leaf$N)
+hist(CN_N_leaf$N)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_N_leaf$N)
+# p-value = 0.5467 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_N_leaf$N ~ site*incubation, data = CN_N_leaf)
+#p-value = 0.5487 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_N_leaf<-lm(CN_N_leaf$N~site*incubation, data=CN_N_leaf)
+Anova(M_N_leaf)
+# interaction not significant --> reduce model
+M_N_leaf<-lm(CN_N_leaf$N~site+incubation, data=CN_N_leaf)
+Anova(M_N_leaf)
+summary(M_N_leaf)
+
+# Anova Table (Type II tests)
+
+# Response: CN_N_leaf$N
+#             Sum Sq Df F value  Pr(>F)  
+# site       0.02377  1  0.4044 0.5406
+# incubation 0.00136  1  0.0231 0.8826
+# Residuals  0.52899  9    
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_N_leaf)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_N_leaf,~site+incubation))%>%
+  view()
+
+sum <- CN_N_leaf%>% 
+  group_by(incubation, site)%>% 
+  summarise(sd=sd(N),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site", "incubation", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            incubation=incubation,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p3<-ggplot(final,aes(site,emmean,fill=incubation)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  scale_fill_manual("legend", values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+  theme_classic()+
+  theme(legend.title = element_blank(),text = element_text(size = 20))+
+  labs(title="Leaves", x="pH", y=expression(N~("%"~DW)))+
+  scale_y_continuous(limits=c(0,2), breaks=c(0,0.25,0.5,0.75,1,1.25,1.5, 1.75, 2))
+p3
+
+ggsave(p3, filename = here("output", "Nfix_N_leaf.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+# Epiphytes
+```{r}
+CN_N_epi <- CN_ratio_N %>% 
+  filter(sample=="Epi") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_N_epi, aes(x = site, y = N, color = incubation))+
+  geom_boxplot(fill=NA, coef = 2, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outlier
+
+# test normal distribution 
+qqnorm(CN_N_epi$N)
+qqline(CN_N_epi$N)
+hist(CN_N_epi$N)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_N_epi$N)
+# p-value = 0.4113 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_N_epi$N ~ site*incubation, data = CN_N_epi)
+#p-value = 0.9444 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_N_epi<-lm(CN_N_epi$N~site*incubation, data=CN_N_epi)
+Anova(M_N_epi)
+# interaction significant, but factor not --> reduce model
+M_N_epi<-lm(CN_N_epi$N~site+incubation, data=CN_N_epi)
+Anova(M_N_epi)
+summary(M_N_epi)
+
+# Anova Table (Type II tests)
+
+# Response: CN_N_epi$N
+#             Sum Sq Df F value  Pr(>F)  
+# site       1.90724  1 25.8068 0.0002706 ***
+# incubation 0.23517  1  3.1821 0.0997370 .  
+# Residuals  0.88686 12  
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_N_epi)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_N_epi,~site+incubation))%>%
+  view()
+
+sum <- CN_N_epi%>% 
+  group_by(incubation,site)%>% 
+  summarise(sd=sd(N),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site","incubation","emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            incubation=incubation,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p4<-ggplot(final,aes(site,emmean,fill=incubation)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  scale_fill_manual("legend", values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+  theme_classic()+
+  theme(legend.title = element_blank(),text = element_text(size = 20))+
+  labs(title="Epiphytes", x="pH", y=expression(N~("%"~DW)))+
+  scale_y_continuous(limits=c(0,2), breaks=c(0,0.25,0.5,0.75,1,1.25,1.5, 1.75, 2))
+p4
+
+ggsave(p4, filename = here("output", "Nfix_N_epi.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+
+# Analysis dark and light combined
+since there NEVER was a difference between light and dark incubations, I combined the samples and treated them as replicates
+
+# C content
+```{r}
+# only T1= 5h
+
+CN_ratio_C <- CN_ratio %>% 
+  filter(h==5, treat!="Ctrl") %>% 
+  select(-N, -CN) %>% 
+  view()
+```
+
+# Leaves
+```{r}
+CN_C_leaf <- CN_ratio_C %>% 
+  filter(sample=="Leaf", treat=="N") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_C_leaf, aes(x = site, y = C, color = site))+
+  geom_boxplot(fill=NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# possible outlier site=ambient 
+
+# remove outlier
+
+CN_C_leaf <- CN_C_leaf %>% 
+  filter(C > 33) %>% 
+  view()
+
+# test normal distribution 
+qqnorm(CN_C_leaf$C)
+qqline(CN_C_leaf$C)
+hist(CN_C_leaf$C)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_C_leaf$C)
+# p-value = 0.3549 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_C_leaf$C ~ site, data = CN_C_leaf)
+#p-value = 0.7165 --> variances are not different for different sites 
+```
+
+# Anova
+```{r}
+M_C_leaf<-lm(CN_C_leaf$C~site, data=CN_C_leaf)
+Anova(M_C_leaf)
+summary(M_C_leaf)
+
+# Anova Table (Type II tests)
+
+# Response: CN_C_leaf$C
+#            Sum Sq Df F value Pr(>F)
+# site       0.5988  1  0.3099 0.5913
+# Residuals 17.3888  9  
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_C_leaf)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_C_leaf,~site))%>%
+  view()
+
+sum <- CN_C_leaf%>% 
+  group_by(site)%>% 
+  summarise(sd=sd(C),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p5<-ggplot(final,aes(site,emmean)) +
+  geom_bar(position="dodge", stat="identity", width=0.7)+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.15)+
+  theme_classic()+
+  theme(text = element_text(size = 20))+
+  labs(title="Leaves", x="pH", y=expression(C~("%"~DW)))+
+  scale_y_continuous(limits=c(0,40), breaks=c(0,5,10,15,20,25,30,35,40))
+p5
+
+ggsave(p5, filename = here("output", "Nfix_C_leaf_combined.png"), dpi = 210, units = "cm", width = 10, height = 12)
+```
+
+# Epiphytes
+```{r}
+CN_C_epi <- CN_ratio_C %>% 
+  filter(sample=="Epi") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_C_epi, aes(x = site, y = C, color = site))+
+  geom_boxplot(fill=NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outlier
+
+# test normal distribution 
+qqnorm(CN_C_epi$C)
+qqline(CN_C_epi$C)
+hist(CN_C_epi$C)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_C_epi$C)
+# p-value = 0.04432 --> not normally distributed, still okay for Anova 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_C_epi$C ~ site, data = CN_C_epi)
+#p-value = 0.08947 --> variances are not different for different sites 
+```
+
+# Anova
+```{r}
+M_C_epi<-lm(CN_C_epi$C~site, data=CN_C_epi)
+Anova(M_C_epi)
+summary(M_C_epi)
+
+# Anova Table (Type II tests)
+
+# Response: CN_C_epi$C
+#             Sum Sq Df F value  Pr(>F)  
+# site       111.928  1  21.736 0.0004446 ***
+# Residuals  66.943 13    
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_C_epi)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_C_epi,~site))%>%
+  view()
+
+sum <- CN_C_epi%>% 
+  group_by(site)%>% 
+  summarise(sd=sd(C),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site","emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p6<-ggplot(final,aes(site,emmean)) +
+  geom_bar(position="dodge", stat="identity", width=0.7)+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  theme_classic()+
+  theme(text = element_text(size = 20))+
+  labs(title="Epiphytes", x="pH", y=expression(C~("%"~DW)))+
+  scale_y_continuous(limits=c(0,40), breaks=c(0,5,10,15,20,25,30,35,40))
+p6
+
+ggsave(p6, filename = here("output", "Nfix_C_epi_combined.png"), dpi = 210, units = "cm", width = 10, height = 12)
+```
+
+# N content
+```{r}
+# only T1= 5h
+
+CN_ratio_N <- CN_ratio %>% 
+  filter(h==5, treat!="Ctrl") %>%
+  select(-C, -CN) %>% 
+  view()
+```
+
+# Leaves
+```{r}
+CN_N_leaf <- CN_ratio_N %>% 
+  filter(sample=="Leaf", treat=="N") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_N_leaf, aes(x = site, y = N, color = site))+
+  geom_boxplot(fill=NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outliers
+
+# test normal distribution 
+qqnorm(CN_N_leaf$N)
+qqline(CN_N_leaf$N)
+hist(CN_N_leaf$N)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_N_leaf$N)
+# p-value = 0.5467 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_N_leaf$N ~ site, data = CN_N_leaf)
+#p-value = 0.1038 --> variances are not different for different sites
+```
+
+# Anova
+```{r}
+M_N_leaf<-lm(CN_N_leaf$N~site, data=CN_N_leaf)
+Anova(M_N_leaf)
+summary(M_N_leaf)
+
+# Anova Table (Type II tests)
+
+# Response: CN_N_leaf$N
+#            Sum Sq Df F value  Pr(>F)  
+# site      0.02377  1  0.4482 0.5183
+# Residuals 0.53035 10    
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_N_leaf)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_N_leaf,~site))%>%
+  view()
+
+sum <- CN_N_leaf%>% 
+  group_by(site)%>% 
+  summarise(sd=sd(N),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p7<-ggplot(final,aes(site,emmean)) +
+  geom_bar(position="dodge", stat="identity", width = 0.7)+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  theme_classic()+
+  theme(text = element_text(size = 20))+
+  labs(title="Leaves", x="pH", y=expression(N~("%"~DW)))+
+  scale_y_continuous(limits=c(0,2), breaks=c(0,0.25,0.5,0.75,1,1.25,1.5, 1.75, 2))
+p7
+
+ggsave(p7, filename = here("output", "Nfix_N_leaf_combined.png"), dpi = 210, units = "cm", width = 10, height = 12)
+```
+
+# Epiphytes
+```{r}
+CN_N_epi <- CN_ratio_N %>% 
+  filter(sample=="Epi") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_N_epi, aes(x = site, y = N, color = site))+
+  geom_boxplot(fill=NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outlier
+
+# test normal distribution 
+qqnorm(CN_N_epi$N)
+qqline(CN_N_epi$N)
+hist(CN_N_epi$N)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_N_epi$N)
+# p-value = 0.4113 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_N_epi$N ~ site, data = CN_N_epi)
+#p-value = 0.4214 --> variances are not different for different sites
+```
+
+# Anova
+```{r}
+M_N_epi<-lm(CN_N_epi$N~site, data=CN_N_epi)
+Anova(M_N_epi)
+summary(M_N_epi)
+
+# Anova Table (Type II tests)
+
+# Response: CN_N_epi$N
+#           Sum Sq Df F value  Pr(>F)  
+# site      1.8221  1  21.111 0.0005026 ***
+# Residuals 1.1220 13   
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_N_epi)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_N_epi,~site))%>%
+  view()
+
+sum <- CN_N_epi%>% 
+  group_by(site)%>% 
+  summarise(sd=sd(N),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site","emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p8<-ggplot(final,aes(site,emmean)) +
+  geom_bar(position="dodge", stat="identity", width = 0.7)+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  theme_classic()+
+  theme(text = element_text(size = 20))+
+  labs(title="Epiphytes", x="pH", y=expression(N~("%"~DW)))+
+  scale_y_continuous(limits=c(0,2), breaks=c(0,0.25,0.5,0.75,1,1.25,1.5, 1.75, 2))
+p8
+
+ggsave(p8, filename = here("output", "Nfix_N_epi_combined.png"), dpi = 210, units = "cm", width = 10, height = 12)
+```
+
+# CN ratio
+```{r}
+# only T1= 5h
+
+CN_ratio_CN <- CN_ratio %>% 
+  filter(h==5, treat!="Ctrl") %>% 
+  select(-C, -N) %>% 
+  view()
+```
+
+# Leaves
+```{r}
+CN_CN_leaf <- CN_ratio_CN %>% 
+  filter(sample=="Leaf", treat=="N") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_CN_leaf, aes(x = site, y = CN, color = site))+
+  geom_boxplot(fill=NA, coef = 2, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# possible outlier site = vent
+
+# remove outlier
+
+CN_CN_leaf <- CN_CN_leaf %>% 
+  filter(CN < 60) %>% 
+  view()
+
+# test normal distribution 
+qqnorm(CN_CN_leaf$CN)
+qqline(CN_CN_leaf$CN)
+hist(CN_CN_leaf$CN)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_CN_leaf$CN)
+# p-value = 0.1247 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_CN_leaf$CN ~ site, data = CN_CN_leaf)
+#p-value = 0.6676 --> variances are not different for different sites 
+```
+
+# Anova
+```{r}
+M_CN_leaf<-lm(CN_CN_leaf$CN~site, data=CN_CN_leaf)
+Anova(M_CN_leaf)
+summary(M_CN_leaf)
+
+# Anova Table (Type II tests)
+
+# Response: CN_CN_leaf$CN
+#           Sum Sq Df F value  Pr(>F)  
+# site       18.03  1  0.4565 0.5162
+# Residuals 355.39  9                       
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_CN_leaf)
+# normality and homogeneity are met
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_CN_leaf,~site))%>%
+  view()
+
+sum <- CN_CN_leaf%>% 
+  group_by(site)%>% 
+  summarise(sd=sd(CN),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site","emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p9<-ggplot(final,aes(site,emmean)) +
+  geom_bar(position="dodge", stat="identity", width = 0.7, fill="#555555")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  theme_classic()+
+  theme(text = element_text(size = 15))+
+  labs(title="Leaves", x="pH", y=expression(CN~ratio~(molar)))+
+  scale_y_continuous(limits=c(0,45), breaks=c(0,5,10,15,20,25,30,35,40,45))
+p9
+
+ggsave(p9, filename = here("output", "Nfix_CN_ratio_leaf_combined.png"), dpi = 210, units = "cm", width = 10, height = 12)
+```
+
+# Epiphytes
+```{r}
+CN_CN_epi <- CN_ratio_CN %>% 
+  filter(sample=="Epi") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = CN_CN_epi, aes(x = site, y = CN, color = site))+
+  geom_boxplot(fill=NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(CN_CN_epi$CN)
+qqline(CN_CN_epi$CN)
+hist(CN_CN_epi$CN)
+
+# Shapiro test for normal distribution
+shapiro.test(CN_CN_epi$CN)
+# p-value = 0.2026 --> normally distributed 
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(CN_CN_epi$CN ~ site, data = CN_CN_epi)
+#p-value = 0.1434 --> variances are not different for different sites 
+```
+
+# Anova
+```{r}
+M_CN_epi<-lm(CN_CN_epi$CN~site, data=CN_CN_epi)
+Anova(M_CN_epi)
+summary(M_CN_epi)
+
+# Anova Table (Type II tests)
+
+# Response: CN_CN_epi$CN
+#           Sum Sq Df F value  Pr(>F)  
+# site      198.23  1  10.526 0.006398 **
+# Residuals 244.83 13   
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_CN_epi)
+# normality and homogeneity are met
+```
+
+
+```{r}
+# plot results from model ------------------------------------------
+emm <- data.frame(emmeans(M_CN_epi,~site))%>%
+  view()
+
+sum <- CN_CN_epi%>% 
+  group_by(site)%>% 
+  summarise(sd=sd(CN),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site","emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+p10<-ggplot(final,aes(site,emmean)) +
+  geom_bar(position="dodge", stat="identity", width = 0.7, fill="#555555")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  theme_classic()+
+  theme(text = element_text(size = 15))+
+  labs(title="Epiphytes", x="pH", y=element_blank())+
+  scale_y_continuous(limits=c(0,45), breaks=c(0,5,10,15,20,25,30,35,40,45))
+p10
+
+ggsave(p10, filename = here("output", "Nfix_CN_ratio_epi_combined.png"), dpi = 210, units = "cm", width = 10, height = 12)
+```
+
+# create panel
+```{r}
+library(ggpubr)
+panel1<-ggarrange(p9, p10, 
+                labels = c("a", "b"),
+                ncol = 2, nrow = 1, align = "hv",
+                font.label = list(size = 16),
+                common.legend=T,
+                legend="right")
+panel1
+
+ggsave(panel1, filename = here("output", "CN_panel.png"), dpi = 210, units = "cm", width = 15, height = 8)
+```

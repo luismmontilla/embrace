@@ -1,0 +1,62 @@
+Project	Embrace	
+Experimentd conducted by	Friederike Peiffer (fredi.peiffer@gmail.com)	
+Data analysed by	Johanna Berlinghof (johber@uni-bremen.de)	
+Experimental date:	13.-19.09.2019	
+		
+		
+Experiments		
+volume incubation vials	24 mL	
+size leaf sections	3 cm2	
+		
+N-fixation / ambient N experiment		
+Date	19.09.19	
+Label/Tracer	15N2 (enriched site water)	
+Control	unlabeled water + leaf with epiphytes	
+		
+		
+Measurements	"d15N and 15N incorporation rates of epiphyte and leaf tissue samples; atom percent excess of the incubation medium"	
+Instruments	Flash EA-IRMS, SerCon 'Callisto CF-IRMS' system (at Aarhus University, technician Karina Oest)	
+System:	Flash EA-IRMS	
+Column:	Porepack	
+Temp, Owen	45¡C	
+Carrier gas: 	Helium 5,0	
+Carrier flow:	1 bar	
+Reference gas1:	CO2 4,6	
+Reference flow:	1 bar	
+Reference gas2:	N2 5,0	
+Reference flow:	1 bar	
+Method:	CN_flash	
+Lab, temp,:	23	
+		
+		
+The file contains the following variables:		
+		
+sample	Sample type, leaf or epiphyte tissue	
+site	sampling site (vent or ambient pH site)	
+incubation	Incubation type (light or dark incubation, start = before incubation start)	
+treat	sample treatment (Y=with epiphytes, N=without epiphytes, Ctrl=Control)	
+time	"sampling timepoint (T0=0h; T1= 5h; T2= 18h)"	
+h	total incubation time in h	
+replicate	number of sample replicate	
+label	sample label on the vials (in the format experiment_site_incubation_timepoint_replicate)	
+N	N content (% of dry weight)	
+C	C content (% of dry weight)	
+CN	C:N ratio (molar), calculated as _(% C/12) / (% N/14)	
+		
+		
+"Data structure and replication: (see figure ""Incubation_scheme.png"")"		
+3 treatments	"""+Epi"" = with epiphytes, ""-Epi"" = without epiphytes, ""Ctrl"" =  Control"	
+3/4 replicates per treatment	"3 replicates for ""Ctrl"" and ""-Epi""; 4 replicates for ""+Epi"""	
+2 sites	"""Vent"" = from vent pH site (pH=7.17 ± 0.04), ""Ambient"" = from ambient pH site (8.12 ± 0.02)"	
+4 sampling timepoints	"""T0"", ""T1"", ""T2"""	only two measurements for T0 (no treatments, only 1 replicate each for vent & ambient pH site) 
+2 incubation types 	"""light, ""dark"""	
+		
+		
+Deatails of measurements		
+Sampled bottles of tracing solutions for 15N-N2 (exetainers + 200 uL ZnCl2), NOx- (LDPE + freeze)		
+opened vials for measurements (once opened, incubation stopped, vial was sacrificed)		
+Separated epiphytes from leaves and transfered into weighted Eppendorfs (freeze dry)		
+		
+		
+Additional info		
+"Seagrass collection (date, sites): see ""Seagrass_info.txt"""		

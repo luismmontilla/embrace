@@ -1,0 +1,756 @@
+---
+title: "Inorganic Nutrient analysis"
+author: JB
+date: September 2022
+project: EMBRACE
+output: html_notebook
+---
+
+Session Info
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Monterey 12.6
+```{r}
+sessionInfo()
+packageVersion("tidyverse") # ‘1.3.1’
+packageVersion("here")      # ‘1.0.1’
+```
+
+# Install and load packages
+```{r}
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("here")) install.packages("here")
+if (!require("car")) install.packages("car")
+if (!require("emmeans")) install.packages("emmeans")
+if (!require("ggpubr")) install.packages("ggpubr")
+```
+
+# Create "output" folder
+```{r}
+here()
+dir.create(here("output"))
+```
+
+# Import data
+```{r}
+IN <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE","MS Posidonia N cycling", "Biogeochemistry","Data","Raw data", "Inorganic_nutrients.txt"), header=T)
+```
+
+# Check data
+```{r}
+view(IN) 
+names(IN)
+str(IN)
+```
+
+# Reorganize table
+```{r}
+IN %>% 
+  group_by(Experiment, Site, Incubation, Timepoint, Treatment) %>%
+  summarise(n = n()) %>%  view()
+
+IN<-IN %>% 
+  filter(Experiment=="Fixation") %>% 
+  rename(exp = Experiment, 
+         site = Site, 
+         inc = Incubation, 
+         tmpt=Timepoint, 
+         time = Time, treat=Treatment, code=Code) %>%
+  view()
+
+str(IN)
+
+IN <- IN %>% 
+  mutate(
+    site = factor (x = site, levels = c("Ambient", "Vent"), labels = c("ambient pH", "vent pH")),
+    inc = factor (x = inc, levels = c("After", "Before", "Start", "Light", "Dark", "Light/Dark")),
+    treat = factor(x = treat, levels = c("Y", "N", "Ctrl")),
+    tmpt = factor(x = time, levels = c("T0", "T1", "T2", "T3") )
+  )
+```
+
+
+# Statistical Analysis
+
+# NH4
+# light incubations
+# plot data
+```{r}
+ggplot(data = IN, aes(x = inc, y = NH4, color = site, shape = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outliers here, data looks okay (given the small sample size)
+```
+
+# calculate rates
+```{r}
+IN_light <- IN %>% 
+  filter(inc== "Light") %>% 
+  view()
+
+# Vent pH site
+
+IN_light_vent <- IN_light %>% 
+  filter(site == "vent pH") %>% 
+  view()
+
+IN_T0_vent <- IN %>% 
+  filter(inc== "Start", site =="vent pH") %>%
+  summarize(NH4_mean = mean(NH4))
+IN_T0_vent
+# IN_T0_vent NH4 mean: 6.472667
+
+# leaf area: 3 cm^-2
+
+NH4_rate_light_vent<-(((((IN_light_vent$NH4)-6.472667))/IN_light_vent$time)/3)
+NH4_rate_light_vent
+
+IN_light_vent$NH4_rate<-NH4_rate_light_vent
+view(IN_light_vent)
+
+# Ambient pH site
+
+IN_light_ambient <- IN_light %>% 
+  filter(site == "ambient pH") %>%
+  view()
+
+IN_T0_ambient <- IN %>% 
+  filter(inc== "Start", site =="ambient pH") %>%
+  summarize(NH4_mean = mean(NH4))
+IN_T0_ambient
+# IN_T0_ambient NH4 mean: 5.413767
+
+# leaf area: 3 cm^-2
+
+NH4_rate_light_ambient<-(((((IN_light_ambient$NH4)-5.413767))/IN_light_ambient$time)/3)
+NH4_rate_light_ambient
+
+IN_light_ambient$NH4_rate<-NH4_rate_light_ambient
+view(IN_light_ambient)
+
+IN_light <- bind_rows(IN_light_vent, IN_light_ambient)%>% 
+  view()
+
+
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_light, aes(x = site, y = NH4_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# possible outlier ambient pH, treatment= Y
+
+# remove Ctrl samples for statistical analysis
+
+IN_light <- IN_light %>% 
+  filter(treat=="Y"|treat=="N") %>% 
+  view()
+
+ggplot(data = IN_light, aes(x = site, y = NH4_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# remove outlier
+
+IN_light <- IN_light %>% 
+  filter(NH4_rate < -0.15) %>% 
+  view()
+
+
+# test normal distribution 
+qqnorm(IN_light$NH4_rate)
+qqline(IN_light$NH4_rate)
+hist(IN_light$NH4_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_light$NH4_rate)
+# p-value = 0.2558 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_light$NH4_rate ~ site*treat, data = IN_light)
+#p-value = 0.6578 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_NH4_light<-lm(IN_light$NH4_rate~site*treat, data=IN_light)
+Anova(M_NH4_light)
+#interaction not significant --> reduce model
+M_NH4_light<-lm(IN_light$NH4_rate~site+treat, data=IN_light)
+Anova(M_NH4_light)
+summary(M_NH4_light)
+
+# Anova Table (Type II tests)
+
+# Response: IN_light$NH4_rate
+#               Sum Sq Df F value  Pr(>F)   
+# site      0.0195267  1 18.2237 0.00164 **
+# treat     0.0012567  1  1.1729 0.30423   
+# Residuals 0.0107150 10 
+
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NH4_light)
+# normality and homogeneity are met
+
+# posthoc test
+emmeans(M_NH4_light, pairwise ~ site+treat)
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_NH4_light,~site+treat))%>%
+  view()
+
+sum <- IN_light%>% 
+  group_by(treat, site)%>% 
+  summarise(sd=sd(NH4_rate),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+
+final <- cbind(emm[c("site", "treat", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            treat=treat,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+phlabs <- c("Ambient", "Vent")
+
+p1<-ggplot(final,aes(site,emmean,fill=treat)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(0.9),width=0.2)+
+  scale_fill_manual("legend", values = c("#0B6623", "#BFD58E"), labels=c("+Epi", "-Epi"))+
+  theme_classic()+
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  labs(title="light", x= element_blank(), y=expression(flux~(mu*mol~NH[4]^+{}~cm^-2~h^-1)))+
+  scale_x_discrete(labels= phlabs)+
+  scale_y_continuous(limits=c(-0.4,0), breaks=c(-0.4,-0.35,-0.3,-0.25,-0.2,-0.15,-0.1,-0.05,0))
+p1
+
+ggsave(p1, filename = here("output", "Nfix_NH4_light.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+# dark incubations
+# calculate rates
+```{r}
+IN_dark <- IN %>% 
+  filter(inc== "Dark") %>% 
+  view()
+
+# Vent pH site
+
+IN_dark_vent <- IN_dark %>% 
+  filter(site == "vent pH") %>% 
+  view()
+
+IN_T0_vent <- IN %>% 
+  filter(inc== "Start", site =="vent pH") %>%
+  summarize(NH4_mean = mean(NH4))
+IN_T0_vent
+# IN_T0_vent NH4 mean: 6.472667
+
+# leaf area: 3 cm^-2
+
+NH4_rate_dark_vent<-(((((IN_dark_vent$NH4)-6.472667))/IN_dark_vent$time)/3)
+NH4_rate_dark_vent
+
+IN_dark_vent$NH4_rate<-NH4_rate_dark_vent
+view(IN_dark_vent)
+
+
+# Ambient pH site
+
+IN_dark_ambient <- IN_dark %>% 
+  filter(site == "ambient pH") %>%  
+  view()
+
+IN_T0_ambient <- IN %>% 
+  filter(inc== "Start", site =="ambient pH") %>%
+  summarize(NH4_mean = mean(NH4))
+IN_T0_ambient
+# IN_T0_ambient NH4 mean: 5.413767
+
+# leaf area: 3 cm^-2
+
+NH4_rate_dark_ambient<-(((((IN_dark_ambient$NH4)-5.413767))/IN_dark_ambient$time)/3)
+NH4_rate_dark_ambient
+
+IN_dark_ambient$NH4_rate<-NH4_rate_dark_ambient
+view(IN_dark_ambient)
+
+IN_dark <- bind_rows(IN_dark_vent, IN_dark_ambient)%>% 
+  view()
+
+```
+
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_dark, aes(x = site, y = NH4_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# possible outlier ambient pH, treatment = N
+
+
+# remove Ctrl samples for statistical analysis
+
+IN_dark <- IN_dark %>% 
+  filter(treat=="Y"|treat=="N") %>% 
+  view()
+
+ggplot(data = IN_dark, aes(x = site, y = NH4_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# remove outlier
+IN_dark <- IN_dark %>% 
+  filter(NH4_rate < -0.1) %>% 
+  view()
+
+# test normal distribution 
+qqnorm(IN_dark$NH4_rate)
+qqline(IN_dark$NH4_rate)
+hist(IN_dark$NH4_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_dark$NH4_rate)
+# p-value = 0.3965 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_dark$NH4_rate ~ site*treat, data = IN_dark)
+#p-value = 0.6249 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_NH4_dark<-lm(IN_dark$NH4_rate~site*treat, data=IN_dark)
+Anova(M_NH4_dark)
+#interaction not significant --> reduce model
+M_NH4_dark<-lm(IN_dark$NH4_rate~site+treat, data=IN_dark)
+Anova(M_NH4_dark)
+summary(M_NH4_dark)
+
+# Response: IN_dark$NH4_rate
+#               Sum Sq Df F value    Pr(>F)    
+# site      0.0112667  1 25.2454 0.0005183 ***
+# treat     0.0000264  1  0.0592 0.8126323    
+# Residuals 0.0044629 10                      
+
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NH4_dark)
+# normality and homogeneity are met
+
+# posthoc test
+emmeans(M_NH4_dark, pairwise ~ site+treat)
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_NH4_dark,~site+treat))%>%
+  view()
+
+sum <- IN_dark%>% 
+  group_by(treat, site)%>% 
+  summarise(sd=sd(NH4_rate),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+
+final <- cbind(emm[c("site", "treat", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            treat=treat,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+phlabs <- c("Ambient", "Vent")
+
+p2<-ggplot(final,aes(site,emmean,fill=treat)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
+  scale_fill_manual("legend", values = c("#0B6623", "#BFD58E"), labels=c("+Epi", "-Epi"))+
+  theme_classic()+
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  labs(title="dark", x=element_blank(), y=element_blank())+
+  scale_x_discrete(labels= phlabs)+
+  scale_y_continuous(limits=c(-0.4,0), breaks=c(-0.4,-0.35,-0.3,-0.25,-0.2,-0.15,-0.1,-0.05,0))
+p2
+
+ggsave(p2, filename = here("output", "Nfix_NH4_dark.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+
+# NO3
+# light incubations
+# plot data
+```{r}
+ggplot(data = IN, aes(x = inc, y = NO3, color = site, shape = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outliers here, data looks okay, but broadly ranged (mind the small sample size)
+```
+
+# calculate rates
+```{r}
+IN_light <- IN %>% 
+  filter(inc== "Light") %>% 
+  view()
+
+# Vent pH site
+
+IN_light_vent <- IN_light %>% 
+  filter(site == "vent pH") %>% 
+  view()
+
+IN_T0_vent <- IN %>% 
+  filter(inc== "Start", site =="vent pH") %>%
+  summarize(NO3 = mean(NO3))
+IN_T0_vent
+# IN_T0_vent NO3 mean: 1.024
+
+# leaf area: 3 cm^-2
+
+NO3_rate_light_vent<-(((((IN_light_vent$NO3)-1.024))/IN_light_vent$time)/3)
+NO3_rate_light_vent
+
+IN_light_vent$NO3_rate<-NO3_rate_light_vent
+view(IN_light_vent)
+
+# Ambient pH site
+
+IN_light_ambient <- IN_light %>% 
+  filter(site == "ambient pH") %>%
+  view()
+
+IN_T0_ambient <- IN %>% 
+  filter(inc== "Start", site =="ambient pH") %>%
+  summarize(NO3_mean = mean(NO3))
+IN_T0_ambient
+# IN_T0_ambient NO3 mean: 0.761
+
+# leaf area: 3 cm^-2
+
+NO3_rate_light_ambient<-(((((IN_light_ambient$NO3)-0.761))/IN_light_ambient$time)/3)
+NO3_rate_light_ambient
+
+IN_light_ambient$NO3_rate<-NO3_rate_light_ambient
+view(IN_light_ambient)
+
+IN_light <- bind_rows(IN_light_vent, IN_light_ambient)%>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_light, aes(x = site, y = NO3_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# possible outlier ambient pH, treatment = Y + N
+
+
+# remove Ctrl samples for statistical analysis
+
+IN_light <- IN_light %>% 
+  filter(treat=="Y"|treat=="N") %>% 
+  view()
+
+ggplot(data = IN_light, aes(x = site, y = NO3_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# remove outlier
+IN_light <- IN_light %>% 
+  filter(NO3_rate < 0.03) %>% 
+  view()
+
+# test normal distribution 
+qqnorm(IN_light$NO3_rate)
+qqline(IN_light$NO3_rate)
+hist(IN_light$NO3_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_light$NO3_rate)
+# p-value = 0.275 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_light$NO3_rate ~ site*treat, data = IN_light)
+#p-value = 0.4743 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_NO3_light<-lm(IN_light$NO3_rate~site*treat, data=IN_light)
+Anova(M_NO3_light)
+#interaction is not significant --> reduce model
+M_NO3_light<-lm(IN_light$NO3_rate~site+treat, data=IN_light)
+Anova(M_NO3_light)
+summary(M_NO3_light)
+
+# Response: IN_light$NO3_rate
+#               Sum Sq Df F value Pr(>F)
+# site      0.00045331  1  2.7757 0.1301
+# treat     0.00031358  1  1.9201 0.1992
+# Residuals 0.00146983  9
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NO3_light)
+# normality and homogeneity are met (mind the small sample size)
+
+# posthoc test
+emmeans(M_NO3_light, pairwise ~ site+treat)
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_NO3_light,~site+treat))%>%
+  view()
+
+sum <- IN_light%>% 
+  group_by(treat, site)%>% 
+  summarise(sd=sd(NO3_rate),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site", "treat", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            treat=treat,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+phlabs <- c("Ambient", "Vent")
+
+p3<-ggplot(final,aes(site,emmean,fill=treat)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
+  scale_fill_manual("legend", values = c("#0B6623", "#BFD58E"), labels=c("+Epi", "-Epi"))+
+  theme_classic()+
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  labs(x="pH", y=expression(flux~(mu*mol~NO[3]^-{}~cm^-2~h^-1)))+
+  scale_x_discrete(labels= phlabs)+
+  scale_y_continuous(limits=c(-0.05,0.02), breaks=c(-0.05,-0.04,-0.03,-0.02,-0.01,0,0.01,0.02))
+p3
+
+ggsave(p3, filename = here("output", "Nfix_NO3_light.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+# dark incubations
+# calculate rates
+```{r}
+IN_dark <- IN %>% 
+  filter(inc== "Dark") %>% 
+  view()
+
+# Vent pH site
+
+IN_dark_vent <- IN_dark %>% 
+  filter(site == "vent pH") %>% 
+  view()
+
+IN_T0_vent <- IN %>% 
+  filter(inc== "Start", site =="vent pH") %>%
+  summarize(NO3_mean = mean(NO3))
+IN_T0_vent
+# IN_T0_vent NO3 mean: 1.024
+
+# leaf area: 3 cm^-2
+
+NO3_rate_dark_vent<-(((((IN_dark_vent$NO3)-1.024))/IN_dark_vent$time)/3)
+NO3_rate_dark_vent
+
+IN_dark_vent$NO3_rate<-NO3_rate_dark_vent
+view(IN_dark_vent)
+
+# Ambient pH site
+
+IN_dark_ambient <- IN_dark %>% 
+  filter(site == "ambient pH") %>%  
+  view()
+
+IN_T0_ambient <- IN %>% 
+  filter(inc== "Start", site =="ambient pH") %>%
+  summarize(NO3_mean = mean(NO3))
+IN_T0_ambient
+# IN_T0_ambient NO3 mean: 0.761
+
+# leaf area: 3 cm^-2
+
+NO3_rate_dark_ambient<-(((((IN_dark_ambient$NO3)-0.761))/IN_dark_ambient$time)/3)
+NO3_rate_dark_ambient
+
+IN_dark_ambient$NO3_rate<-NO3_rate_dark_ambient
+view(IN_dark_ambient)
+
+IN_dark <- bind_rows(IN_dark_vent, IN_dark_ambient)%>% 
+  view()
+
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_dark, aes(x = site, y = NO3_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# remove Ctrl samples for statistical analysis
+
+IN_dark <- IN_dark %>% 
+  filter(treat=="Y"|treat=="N") %>% 
+  view()
+
+ggplot(data = IN_dark, aes(x = site, y = NO3_rate, color = treat))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+
+# test normal distribution 
+qqnorm(IN_dark$NO3_rate)
+qqline(IN_dark$NO3_rate)
+hist(IN_dark$NO3_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_dark$NO3_rate)
+# p-value = 0.9998 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_dark$NO3_rate ~ site*treat, data = IN_dark)
+#p-value = 0.582 --> variances are not different for different sites and treatments
+
+```
+
+# Anova
+```{r}
+M_NO3_dark<-lm(IN_dark$NO3_rate~site*treat, data=IN_dark)
+Anova(M_NO3_dark)
+#interaction not significant --> reduce model
+M_NO3_dark<-lm(IN_dark$NO3_rate~site+treat, data=IN_dark)
+Anova(M_NO3_dark)
+summary(M_NO3_dark)
+
+# Response: IN_dark$NO3_rate
+#               Sum Sq Df F value Pr(>F)
+# site      0.0007917  1  1.5799 0.2348
+# treat     0.0003545  1  0.7075 0.4182
+# Residuals 0.0055119 11  
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NO3_dark)
+# normality and homogeneity are met 
+
+# posthoc test
+emmeans(M_NO3_dark, pairwise ~ site+treat)
+
+```
+
+# plot results from model
+```{r}
+emm <- data.frame(emmeans(M_NO3_dark,~site+treat))%>%
+  view()
+
+sum <- IN_dark%>% 
+  group_by(treat, site)%>% 
+  summarise(sd=sd(NO3_rate),
+            n = n(),
+            se=sd/sqrt(n))%>% 
+  view()
+
+final <- cbind(emm[c("site", "treat", "emmean")], sum[c("sd", "se")])%>%
+  summarise(site=site,
+            treat=treat,
+            emmean=emmean,
+            sd=sd,
+            se=se,
+            clow= emmean-1.96*se,
+            cup = emmean+1.96*se)%>% 
+  view()
+
+phlabs <- c("Ambient", "Vent")
+
+p4<-ggplot(final,aes(site,emmean,fill=treat)) +
+  geom_bar(position="dodge", stat="identity")+
+  geom_errorbar(aes(site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
+  scale_fill_manual("legend", values = c("#0B6623", "#BFD58E"), labels=c("+Epi", "-Epi"))+
+  theme_classic()+
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  labs(x="pH", y=element_blank())+
+  scale_x_discrete(labels= phlabs)+
+  scale_y_continuous(limits=c(-0.05,0.02), breaks=c(-0.05,-0.04,-0.03,-0.02,-0.01,0,0.01,0.02))
+p4
+
+ggsave(p4, filename = here("output", "Nfix_NO3_dark.png"), dpi = 210, units = "cm", width = 15, height = 12)
+```
+
+# create panel
+```{r}
+library(ggpubr)
+
+panel1<-ggarrange(p1,p2,p3,p4, 
+                labels = c("a", "b", "c", "d"),
+                ncol = 2, nrow = 2, align = "hv",
+                font.label = list(size = 14),
+                common.legend=T,
+                legend="right")
+panel1
+
+ggsave(panel1, filename = here("output", "Nutrient_panel.png"), dpi = 300, units = "cm", width = 20, height = 18)
+```
