@@ -18,7 +18,7 @@ Measurements	"d15N and 15N incorporation rates of epiphyte and leaf tissue sampl
 Instruments	Flash EA-IRMS, SerCon 'Callisto CF-IRMS' system (at Aarhus University, technician Karina Oest)
 System:	Flash EA-IRMS
 Column:	Porepack
-Temp, Owen	45¡C
+Temp, Owen	45Â¡C
 Carrier gas: 	Helium 5,0
 Carrier flow:	1 bar
 Reference gas1:	CO2 4,6
@@ -50,7 +50,7 @@ nmol_N_g_tissue-1_h-1	15N incorporation rate in ng N gDW-1 h-2
 "Data structure and replication: (see figure ""Incubation_scheme.png"")"	
 3 treatments	"""+Epi"" = with epiphytes, ""-Epi"" = without epiphytes, ""Ctrl"" =  Control"
 3/4 replicates per treatment	"3 replicates for ""Ctrl"" and ""-Epi""; 4 replicates for ""+Epi"""
-2 sites	"""Vent"" = from vent pH site (pH=7.17 ± 0.04), ""Ambient"" = from ambient pH site (8.12 ± 0.02)"
+2 sites	"""Vent"" = from vent pH site (pH=7.17 Â± 0.04), ""Ambient"" = from ambient pH site (8.12 Â± 0.02)"
 3 sampling timepoints	"""T0"", ""T1"", ""T2"""
 2 incubation types 	"""light, ""dark"""
 	
@@ -83,13 +83,13 @@ ID	ID of each sample (air standard, reference gas or sample label)
 29N2	raw signal of 29N2
 30N2	raw signal of 30N2
 Total_Signal	sum of 28N2, 29N2 and 30N2 raw signals
-N2_in_Exet_(µM)	total signal converted into N2 concentration in exetainer (µM) using the regression of the standard curve
+N2_in_Exet_(ÂµM)	total signal converted into N2 concentration in exetainer (ÂµM) using the regression of the standard curve
 29N2/tot	ratio of 29N2 to total N2 raw signal
 30N2/tot	ratio of 30N2 to total N2 raw signal
-Excess_29N2/tot	atom percent excess, at%29N2 sample Ğ at%29N2 control (=N2 reference gas) 
-Excess_30N2/tot	atom percent excess, at%30N2 sample Ğ at%30N2 control (=N2 reference gas) 
-Conc_29N2(µM)	"Concentration of 29N2 in µM; product of N2_in_Exet_(µM) and Excess_30N2/tot"
-Conc_30N2(µM)	"Concentration of 29N2 in µM; product of N2_in_Exet_(µM) and Excess_29N2/tot"
+Excess_29N2/tot	atom percent excess, at%29N2 sample Ã at%29N2 control (=N2 reference gas) 
+Excess_30N2/tot	atom percent excess, at%30N2 sample Ã at%30N2 control (=N2 reference gas) 
+Conc_29N2(ÂµM)	"Concentration of 29N2 in ÂµM; product of N2_in_Exet_(ÂµM) and Excess_30N2/tot"
+Conc_30N2(ÂµM)	"Concentration of 29N2 in ÂµM; product of N2_in_Exet_(ÂµM) and Excess_29N2/tot"
 	
 	
 "Quantification of total N per sample: see ""N2fix_15N_total_N_quantification.txt"""	
@@ -100,13 +100,13 @@ Weight	dry weight of measured sample in tin cup (mg)
 Area_N_Flash_TCD 	Raw signal of the N Flash unit
 Area_C_Flash_TCD 	Raw signal of the C Flash unit
 Corrected_Area_C	Blank corrected Area C
-"µg_N/cup 
-"	Area N converted into N per cup (µg) using the regression of the standard curve
+"Âµg_N/cup 
+"	Area N converted into N per cup (Âµg) using the regression of the standard curve
 mg_N/kg_dry_sample	mg N per kg dry sample
-"µg_C/cup 
-"	Area C converted into N per cup (µg) using the regression of the standard curve
+"Âµg_C/cup 
+"	Area C converted into N per cup (Âµg) using the regression of the standard curve
 mg_C/kg_dry_sample	mg C per kg dry sample
 "
 C/N"	C/N ratio (molar)
 g/100g	g N per 100g dry sample
-µgN	total N per measured sample (µg)
+ÂµgN	total N per measured sample (Âµg)
