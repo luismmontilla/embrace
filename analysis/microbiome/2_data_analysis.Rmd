@@ -1,5 +1,5 @@
 ---
-title: "Microbe-host associations as drivers of Benthic C and N Cycling in a changing MEditerranean Sea"
+title: "Accelerated nitrogen cycling on seagrass leaves in a high-CO2 world"
 author: "LMM"
 output:
   html_notebook: default
@@ -21,6 +21,7 @@ library(tidylog)
 library(ALDEx2)
 library(viridis)
 library(knitr)
+library(ggh4x)
 ```
 
 ```{r raw-data}
@@ -179,13 +180,11 @@ aov1 |>
 sink()
 ```
 
-
 # Taxa composition
 
-
-```{r fig1a-dominant-class-comp-avg}
-# set.seed(3)
-# cols = turbo(52)[sample(1:52,52)]
+```{r fig1-dominant-class-comp-avg}
+cols = c(turbo(12), "#5d5d5d")
+#cols = ggmnmlab::martink_pals$martink15
 
 test <- lw_props |>
   compositions::clrInv() |>
@@ -197,88 +196,106 @@ test <- lw_props |>
   mutate(compartment = ifelse(compartment == "leaves", "Leaves", "Water column"),
          treatment = ifelse(treatment == "vent", "Vent", "Ambient")) |> 
   left_join(asv_taxa, by = c("asv" = "id")) |>
-  dplyr::select(props, sample, Phylum, Class, treatment, compartment) |>
-  group_by(sample, Phylum, Class, treatment, compartment) |>
+  dplyr::select(props, sample, Phylum, Class, Order, Family, treatment, compartment) |>
+  group_by(sample, Phylum, Class, Order, Family, treatment, compartment) |>
   summarise(total = sum(props), weight = n()) |>
-  group_by(Phylum, Class, treatment, compartment) |>
+  group_by(Phylum, Class, Order, Family, treatment, compartment) |>
   summarise(avg = mean(total)) |>
-  mutate(threshold = ifelse(avg>0.01, 1, 0))
+  mutate(threshold = ifelse(avg > 0.01, 1, 0)) 
+
 
 f1a <- test |> 
-  mutate(avg = avg*100) |> 
-  filter(threshold == 1) |> 
- ggplot() +
-  geom_bar(aes(y = avg, x = treatment, fill = Class),
-           position = "stack", stat = "identity", color = "black") +
+  mutate(avg = avg*100,
+         Class = ifelse(threshold == 0, "Other (RA<1%)", Class),
+         Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
+  filter(threshold == 1 | Class == "Other (RA<1%)") |> 
+  group_by(Phylum, Class, treatment, compartment) |>
+  summarise(avg = sum(avg)) |>
+  ggplot() +
+  geom_bar(aes(y = avg, 
+               x = treatment, 
+               fill = fct_relevel(Class, "Other (RA<1%)", after = Inf)),
+           position = "stack", 
+           stat = "identity", 
+           color = "black") +
   facet_grid(~compartment) +
-  labs(y = "Relative abundance (%)", x = "pH regime", tag = "a") +
-  scale_fill_viridis(option = "H", discrete = TRUE) +
+  labs(y = "Relative abundance (%)", 
+       x = "pH regime",
+       tag = "B") +
+  #scale_fill_viridis(option = "H", discrete = TRUE, name = "Class") +
+  #scale_fill_mnmlab(palette = "martink15", name = "Class") +
+  scale_fill_manual(values = cols, name = "Class") +
   theme_minimal() +
-  theme(legend.position = "bottom",
-        aspect.ratio = 2/1,
-        strip.text.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15),
-        axis.text.x = element_text(size = 12),
-        axis.text.y = element_text(size = 11),
-        plot.tag = element_text(size = 20))
-
-test |> 
-  filter(threshold == 0) |> 
-  mutate(avg = avg*100) |> 
- ggplot() +
-  geom_bar(aes(y = avg, x = treatment, fill = Class),
-           position = "stack", stat = "identity", color = "black") +
-  facet_grid(~compartment) +
-  labs(y = "Relative abundance (%)", x = "pH regime", tag = "a") +
-  scale_fill_viridis(option = "H", discrete = TRUE) +
-  theme_minimal() +
-  theme(legend.position = "bottom",
-        aspect.ratio = 2/1,
-        strip.text.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15),
-        axis.text.x = element_text(size = 12),
-        axis.text.y = element_text(size = 11),
-        plot.tag = element_text(size = 20))
-
-test |> 
-  filter(threshold == 0) |> 
- ggplot() +
-  geom_point(aes(size = avg, x = treatment, y = Class, color = Phylum)) +
-  facet_grid(~compartment) +
-  labs(y = "Proportion", x = "pH regime", tag = "a") +
-  scale_fill_viridis(option = "H", discrete = TRUE) +
-  theme_minimal() +
-  theme(legend.position = "bottom",
-        aspect.ratio = 2/1,
-        strip.text.x = element_text(size = 15),
-        axis.title.y = element_text(size = 15),
+  theme(strip.text.x = element_text(size = 15),
+        #axis.title.y = element_text(size = 15),
+        axis.title.y = element_blank(),
         axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 11),
         plot.tag = element_text(size = 20))
 
 f1b <- test |> 
-  filter(threshold == 0) |> 
-  mutate(avg = avg*100) |> 
- ggplot() +
-  geom_tile(aes(fill = avg, x = treatment, y = Class)) +
-  geom_text(aes(label = (round(avg, 2)), x = treatment, y = Class)) +
+  mutate(avg = avg*100,
+         Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
+  filter(threshold == 1 | Phylum == "Other (RA<1%)") |> 
+  group_by(Phylum, treatment, compartment) |>
+  summarise(avg = sum(avg)) |>
+  ggplot() +
+  geom_bar(aes(y = avg, 
+               x = treatment, 
+               fill = fct_relevel(Phylum, "Other (RA<1%)", after = Inf)),
+           position = "stack", 
+           stat = "identity", 
+           color = "black") +
   facet_grid(~compartment) +
-  labs(y = "Taxonomic class", x = "pH regime", tag = "b") +
-  scale_fill_gradient(low = "white", high = "green")  +
+  labs(x = "pH regime", tag = "A") +
+  scale_fill_viridis(option = "H", 
+                     discrete = TRUE, 
+                     name = "Phylum") +
+  #scale_fill_mnmlab(palette = "martink15", name = "Class") +
+  #scale_fill_manual(values = cols, name = "Order") +
   theme_minimal() +
-  guides(fill = "none") +
-  scale_y_discrete(limits = rev) +
-  theme(legend.position = "bottom",
-        aspect.ratio = 2/1,
-        strip.text.x = element_text(size = 15),
+  theme(strip.text.x = element_text(size = 15),
+        #axis.title.y = element_blank(),
         axis.title.y = element_text(size = 15),
         axis.text.x = element_text(size = 12),
         axis.text.y = element_text(size = 11),
         plot.tag = element_text(size = 20))
 
+f1c <- test |> 
+  mutate(avg = avg*100,
+         Family = ifelse(threshold == 0, "Other (RA<1%)", Family),
+         Order = ifelse(threshold == 0, "Other (RA<1%)", Order),
+         Class = ifelse(threshold == 0, "Other (RA<1%)", Class),
+         Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
+  filter(threshold == 1 | Order == "Other (RA<1%)") |> 
+  group_by(Phylum, Class, Order, Family, treatment, compartment) |>
+  summarise(avg = sum(avg)) |> 
+  mutate(Family = ifelse(is.na(Family), 
+                         paste("Unidentified", Order), Family)) |> 
+ ggplot() +
+  geom_bar(aes(y = avg, x = treatment, 
+               fill = fct_relevel(Family, "Other (RA<1%)", after = Inf)),
+           position = "stack", stat = "identity", color = "black") +
+  facet_grid(~compartment) +
+  labs(x = "pH regime", tag = "C") +
+  scale_fill_viridis(option = "H", 
+                     discrete = TRUE, 
+                     name = "Family") +
+  #scale_fill_mnmlab(palette = "martink15", name = "Class") +
+  #scale_fill_manual(values = cols, name = "Order") +
+  theme_minimal() +
+  theme(strip.text.x = element_text(size = 15),
+        axis.title.y = element_blank(),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11),
+        plot.tag = element_text(size = 20))
 
+f1b + f1a + f1c
+ggsave("figures/fig1.svg", width = 24)
+```
 
-f1c <- lw_props |>
+```{r fig2}
+f2 <- lw_props |>
   compositions::clrInv() |>
   cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
   pivot_longer(names_to = "asv",
@@ -304,19 +321,139 @@ f1c <- lw_props |>
   #scale_fill_viridis(discrete = TRUE, option = "turbo") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "bottom") 
+
+#ggsave(fig2, "figures/figure2.svg")
 ```
 
+We can separately explore the rare taxa as stacked bars
 
 ```{r}
-f1a | f1b
-ggsave("figures/fig1.svg", width = 16, height = 9)
+test |> 
+  filter(threshold == 0) |> 
+  mutate(avg = avg*100) |> 
+ ggplot() +
+  geom_bar(aes(y = avg, x = treatment, fill = Class),
+           position = "stack", stat = "identity", color = "black") +
+  facet_grid(~compartment) +
+  labs(y = "Relative abundance (%)", x = "pH regime", tag = "a") +
+  scale_fill_viridis(option = "H", discrete = TRUE) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        aspect.ratio = 2/1,
+        strip.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11),
+        plot.tag = element_text(size = 20))
 ```
+
+Or as a bubble matrix
+
+```{r}
+test |> 
+  filter(threshold == 0) |> 
+ ggplot() +
+  geom_point(aes(size = avg, x = treatment, y = Class, color = Phylum)) +
+  facet_grid(~compartment) +
+  labs(y = "Proportion", x = "pH regime", tag = "a") +
+  scale_fill_viridis(option = "H", discrete = TRUE) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        aspect.ratio = 2/1,
+        strip.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11),
+        plot.tag = element_text(size = 20))
+```
+
+...or as a table
+
+```{r}
+test |> 
+  filter(threshold == 0) |> 
+  mutate(avg = avg*100) |> 
+ ggplot() +
+  geom_tile(aes(fill = avg, x = treatment, y = Class)) +
+  geom_text(aes(label = (round(avg, 2)), x = treatment, y = Class)) +
+  facet_grid(~compartment) +
+  labs(y = "Taxonomic class", x = "pH regime", tag = "b") +
+  scale_fill_gradient(low = "white", high = "green")  +
+  theme_minimal() +
+  guides(fill = "none") +
+  scale_y_discrete(limits = rev) +
+  theme(legend.position = "bottom",
+        aspect.ratio = 2/1,
+        strip.text.x = element_text(size = 15),
+        axis.title.y = element_text(size = 15),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11),
+        plot.tag = element_text(size = 20))
+```
+
 
 ```{r}
 f1c
-ggsave("figures/fig2.svg", width = 7, height = 7)
+#ggsave("figures/fig2.svg", width = 7, height = 7)
 ```
-############
+
+
+```{r aov-2}
+anova_factors_ntr <- lw_props |>
+  compositions::clrInv() |>
+  cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
+  pivot_longer(names_to = "asv",
+               values_to = "props",
+               -c(compartment, treatment, sample, interaction)
+               ) |>
+  mutate(compartment = ifelse(compartment == "leaves", "Leaves", "Water column"),
+         treatment = ifelse(treatment == "vent", "Vent", "Ambient")) |> 
+  left_join(asv_taxa, by = c("asv" = "id")) |>
+  filter(str_starts(Family, "Nitro")) |> 
+  dplyr::select(compartment, treatment, interaction) 
+
+aov2 <- lw_props |>
+  compositions::clrInv() |>
+  cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
+  pivot_longer(names_to = "asv",
+               values_to = "props",
+               -c(compartment, treatment, sample, interaction)
+               ) |>
+  mutate(compartment = ifelse(compartment == "leaves", "Leaves", "Water column"),
+         treatment = ifelse(treatment == "vent", "Vent", "Ambient")) |> 
+  left_join(asv_taxa, by = c("asv" = "id")) |>
+  filter(str_starts(Family, "Nitro")) |> 
+  dplyr::select(-c(interaction, ASV, Domain, Phylum, Class, Order, Genus)) |> 
+  pivot_wider(
+              values_from = props,
+              names_from = Family,
+              values_fill = 0) |> 
+  dplyr::select(where(is.numeric)) |> 
+  (\(x) {adonis2(formula = x~anova_factors_ntr$treatment*anova_factors_ntr$compartment,
+                method = "euclidean",
+                permutations = 9999)})()
+```
+
+
+```{r supp-table-1}
+sink("supplementary/supp_table_2.md")
+aov2 |> 
+  rownames_to_column("SoV") |> 
+  mutate(SoV = c("pH regime",
+                 "Compartment",
+                 "Treatment x Compartment",
+                 "Residual",
+                 "Total")) |> 
+  kable(format = "markdown",
+        col.names = c("Source of variation",
+                      "Degress of freedom",
+                      "Sum of squares",
+                      "R2",
+                      "Pseudo-F",
+                      "P(>F)"),
+        caption = "Permutation-based analysis of variance of the nitrifying communities associated with P. oceanica leaves, water column and pH regime.")
+sink()
+```
 
 ### Ordination
 
@@ -374,6 +511,8 @@ round(100*(pco_lw$eig[c(1,2)]/sum(pco_lw$eig)))
 # Differential abundance analysis
 ## Seagrass vs water column
 
+First let's run the algorithm
+
 ```{r DA-compartment}
 covariates <- anova_factors |>
   dplyr::select(sample , compartment) |>
@@ -418,6 +557,10 @@ aldex_full |>
 #ggsave("supplementary/supp_x_aldex.svg")
 ```
 
+### Visualization
+
+First approach: as bubble plots of the effect size
+
 ```{r fig8-diff-abund}
 set.seed(3)
  cols = c(viridis(6), viridis(6), viridis(5))
@@ -427,15 +570,15 @@ aldex_full |>
   filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
   rownames_to_column("asv") |> 
   left_join(asv_taxa, c("asv" = "id")) |> 
-  dplyr::select(c(Phylum, Class, Family, Genus, diff.btw, diff.win)) |> 
-  mutate(Leaf = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|>
-  group_by(Phylum, Class, Leaf) |> 
+  dplyr::select(c(Phylum, Class, Order, Family, Genus, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|>
+  group_by(Phylum, Class, Compartment) |> 
   summarise(mean_diff=mean(diff.btw), 
             mean_disp=mean(diff.win), 
             Total=n())|>
   ggplot() +
   geom_point(aes(y = reorder(Class, mean_diff), 
-                 x = Leaf, 
+                 x = Compartment, 
                  size = mean_diff, 
                  color = Phylum,
                  shape = Phylum
@@ -450,5 +593,272 @@ aldex_full |>
   guides(color = guide_legend(override.aes = list(size=5)),
          size = "none")
 
-ggsave("figures/fig3.svg", width = 5, height = 7)
+#ggsave("figures/fig3.svg", width = 5, height = 7)
 ```
+
+As barplots, by Family
+
+```{r}
+aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, Genus, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|>
+  group_by(Phylum, Class, Order, Compartment) |> 
+  summarise(mean_diff=mean(diff.btw), 
+            mean_disp=mean(diff.win), 
+            Total=n()) |> 
+  ggplot() +
+  geom_col(aes(x = mean_diff, 
+                 y = Order ,
+                 fill = Compartment
+                 )) +
+  geom_vline(xintercept = 0) +
+  scale_y_discrete(limits=rev) +
+  labs(x = "Differential abundance") +
+  theme_light() +
+  theme(legend.position = "bottom") 
+```
+
+
+```{r}
+aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|>
+  group_by(Phylum, Class, Compartment) |> 
+  summarise(mean_diff=mean(diff.btw), 
+            mean_disp=mean(diff.win), 
+            Total=n()) |> 
+  ggplot() +
+  geom_col(aes(x = mean_diff, 
+               y = Class ,
+               fill = Compartment
+  )) +
+  geom_vline(xintercept = 0) +
+  scale_fill_manual(values = c("#00BA38","#619CFF")) +
+  facet_nested(
+    rows = vars(Phylum),
+    scales = "free",
+    space = 'free',
+    switch = "y",
+    nest_line = element_line(color = "black",
+                             linetype = 2)
+  ) +
+  labs(x = "Differential abundance",
+       y = "Phylum & Class") +
+  theme_light() +
+  theme(legend.position = "bottom",
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0,
+                                         colour = "black"),
+        ggh4x.facet.nestline = element_line(colour = "blue",),
+        strip.background = element_blank()
+  )
+```
+
+```{r}
+aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|>
+  group_by(Phylum, Class, Order, Compartment) |> 
+  summarise(mean_diff=mean(diff.btw), 
+            mean_disp=mean(diff.win), 
+            Total=n()) |> 
+  ggplot() +
+  geom_col(aes(x = mean_diff, 
+               y = Order ,
+               fill = Compartment
+  )) +
+   scale_fill_manual(values = c("#00BA38","#619CFF")) +
+  facet_nested(
+    rows = vars(Phylum, Class),
+    scales = "free",
+    space = 'free',
+    switch = "y",
+    nest_line = element_line(color = "black",
+                             linetype = 2)
+  ) +
+  labs(x = "Differential abundance",
+       y = "Class & Order") +
+  theme_light() +
+  theme(legend.position = "bottom",
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0,
+                                         colour = "black"),
+        ggh4x.facet.nestline = element_line(colour = "blue",),
+        strip.background = element_blank()
+  )
+```
+
+```{r}
+aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"))|>
+  group_by(Phylum, Class, Order, Compartment) |> 
+  summarise(mean_diff=mean(diff.btw), 
+            mean_disp=mean(diff.win), 
+            Total=n()) |> 
+  filter(Class %in% c("Alphaproteobacteria",
+                      "Gammaproteobacteria",
+                      "Cyanobacteriia",
+                      "Rhodothermia",
+                      "Bacteroidia",
+                      "Verrucomicrobiae")) |> 
+  ggplot() +
+  geom_col(aes(x = mean_diff, 
+               y = Order ,
+               fill = Compartment
+  )) +
+  geom_vline(xintercept = 0) +
+   scale_fill_manual(values = c("#00BA38","#619CFF")) +
+  facet_nested(
+    rows = vars(Phylum, Class),
+    scales = "free",
+    space = 'free',
+    switch = "y",
+    nest_line = element_line(color = "black",
+                             linetype = 2)
+  ) +
+  labs(x = "Differential abundance",
+       y =  "Class & Order") +
+  theme_light() +
+  theme(legend.position = "bottom",
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0,
+                                         colour = "black"),
+        ggh4x.facet.nestline = element_line(colour = "blue",),
+        strip.background = element_blank()
+  )
+```
+
+the highest resolution
+
+```{r}
+aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, Family, Genus, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column"),
+         Family = ifelse(is.na(Family), Order, Family),
+         Genus = ifelse(is.na(Genus), Family, Genus)
+         ) |> 
+  group_by(Phylum, Class, Order, Family, Genus, Compartment) |>
+  summarise(mean_diff=mean(diff.btw),
+            mean_disp=mean(diff.win),
+            Total= n()) |> 
+  group_by(Genus) |> 
+   filter(n() < 2) |># View()
+  ggplot() +
+  geom_col(aes(x = mean_diff, 
+               y = Genus ,
+               fill = Compartment
+  )) +
+   scale_fill_manual(values = c("#00BA38","#619CFF")) +
+  # facet_nested(
+  #   rows = vars(Order, Family),
+  #   scales = "free",
+  #   space = 'free',
+  #   switch = "y",
+  #   nest_line = element_line(color = "black",
+  #                            linetype = 2)
+  # ) +
+  labs(x = "Differential abundance",
+       y = "Class & Order") +
+  theme_light() +
+  theme(legend.position = "bottom",
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0,
+                                         colour = "black"),
+        ggh4x.facet.nestline = element_line(colour = "blue",),
+        strip.background = element_blank()
+  )
+
+#ggsave("figures/diff_abund_asv.svg", height = 15)
+```
+
+```{r}
+aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column")) |> 
+  group_by(Phylum, Class, Order, Compartment) |>
+  summarise(mean_diff=mean(diff.btw),
+            mean_disp=mean(diff.win),
+            Total= n()) |> 
+  filter(mean_diff > 2 | mean_diff < -2) |> 
+  mutate(comb_taxa = paste(Class,":",Order, sep = "")) |> 
+  group_by(Order) |>
+   filter(n() < 2) |> #View()
+  ggplot() +
+  geom_col(aes(x = mean_diff, 
+               y = comb_taxa ,
+               fill = Phylum
+  )) +
+   #scale_fill_manual(values = c("#00BA38","#619CFF")) +
+  # facet_nested(
+  #   rows = vars(Order, Family),
+  #   scales = "free",
+  #   space = 'free',
+  #   switch = "y",
+  #   nest_line = element_line(color = "black",
+  #                            linetype = 2)
+  # ) +
+  labs(x = "Differential abundance",
+       y = "Class & Order") +
+  theme_light() +
+  theme(legend.position = "bottom",
+        strip.placement = "outside",
+        strip.text.y.left = element_text(angle = 0,
+                                         colour = "black"),
+        ggh4x.facet.nestline = element_line(colour = "blue",),
+        strip.background = element_blank()
+  )
+
+#ggsave("figures/diff_abund_asv.svg", height = 15)
+```
+
+```{r}
+set.seed(3)
+cols = turbo(20)[sample(1:20,20)]
+# 
+f3 <- aldex_full |> 
+  filter(diff.btw > (diff.btw/diff.win) | diff.btw < (diff.btw/diff.win)) |> 
+  rownames_to_column("asv") |> 
+  left_join(asv_taxa, c("asv" = "id")) |> 
+  dplyr::select(c(Phylum, Class, Order, diff.btw, diff.win)) |> 
+  mutate(Compartment = ifelse(diff.btw > (diff.btw/diff.win),"Leaf","Water column")) |> 
+  group_by(Phylum, Class, Order, Compartment) |>
+  summarise(mean_diff=mean(diff.btw),
+            mean_disp=mean(diff.win),
+            Total= n()) |> 
+  filter(mean_diff > 2 | mean_diff < -2) |> 
+  mutate(comb_taxa = paste(Class,":",Order, sep = "")) |> 
+  group_by(Order) |>
+   filter(n() < 2) |> 
+  ggplot() +
+  geom_col(aes(x = mean_diff, 
+               y = reorder(comb_taxa, mean_diff),
+               fill = Phylum
+  )) +
+  scale_fill_viridis(discrete = TRUE, option = "turbo") +
+  labs(x = "Differential abundance",
+       y = "Class & Order") +
+  theme_light()
+
+
+#ggsave("figures/fig3.svg", height = 9.5)
+```
+
