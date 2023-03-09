@@ -356,8 +356,8 @@ test |>
 ```
 
 
-```{r fig2}
-f2 <- lw_props |>
+```{r supp-fig6}
+lw_props |>
   compositions::clrInv() |>
   cbind(anova_factors[anova_factors$compartment!="rhizome",]) |>
   pivot_longer(names_to = "asv",
@@ -384,7 +384,7 @@ f2 <- lw_props |>
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "bottom") 
 
-#ggsave(fig2, "figures/figure2.svg") #supplementary
+ggsave("supplementary/supp_fig_6.svg") 
 ```
 
 We can separately explore the rare taxa as stacked bars
