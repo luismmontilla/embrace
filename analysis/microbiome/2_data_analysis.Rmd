@@ -210,16 +210,16 @@ f1a <- test |>
          Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
   filter(threshold == 1 | Class == "Other (RA<1%)") |> 
   group_by(Phylum, Class, treatment, compartment) |>
-  summarise(avg = sum(avg)) |>
+  summarise(prop = sum(avg)) |>
   ggplot() +
-  geom_bar(aes(y = avg, 
+  geom_bar(aes(y = prop, 
                x = treatment, 
                fill = fct_relevel(Class, "Other (RA<1%)", after = Inf)),
            position = "stack", 
            stat = "identity", 
            color = "black") +
   facet_grid(~compartment) +
-  labs(y = "Relative abundance (%)", 
+  labs(#y = "Relative abundance (%)", 
        x = "pH regime",
        tag = "B") +
   #scale_fill_viridis(option = "H", discrete = TRUE, name = "Class") +
@@ -238,16 +238,18 @@ f1b <- test |>
          Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
   filter(threshold == 1 | Phylum == "Other (RA<1%)") |> 
   group_by(Phylum, treatment, compartment) |>
-  summarise(avg = sum(avg)) |>
+  summarise(prop = sum(avg)) |>
   ggplot() +
-  geom_bar(aes(y = avg, 
+  geom_bar(aes(y = prop, 
                x = treatment, 
                fill = fct_relevel(Phylum, "Other (RA<1%)", after = Inf)),
            position = "stack", 
            stat = "identity", 
            color = "black") +
   facet_grid(~compartment) +
-  labs(x = "pH regime", tag = "A") +
+  labs(x = "pH regime", 
+       y = "Relative abundance (%)", 
+       tag = "A") +
   scale_fill_viridis(option = "H", 
                      discrete = TRUE, 
                      name = "Phylum") +
@@ -263,36 +265,96 @@ f1b <- test |>
 
 f1c <- test |> 
   mutate(avg = avg*100,
+         Order = ifelse(threshold == 0, "Other (RA<1%)", Order),
+         Order = ifelse(Order == "D90", "D90 Gammaprotebacterium", Order)
+         ) |> 
+  filter(threshold == 1 | Order == "Other (RA<1%)") |> 
+  group_by(Order, treatment, compartment) |>
+  summarise(prop = sum(avg)) |>
+  ggplot() +
+  geom_bar(aes(y = prop, 
+               x = treatment, 
+               fill = fct_relevel(Order, "Other (RA<1%)", after = Inf)),
+           position = "stack", 
+           stat = "identity", 
+           color = "black") +
+  facet_grid(~compartment) +
+  labs(x = "pH regime", 
+       #y = "Relative abundance (%)",
+       tag = "C"
+       ) +
+  scale_fill_viridis(option = "H", 
+                     discrete = TRUE, 
+                     name = "Order") +
+  #scale_fill_mnmlab(palette = "martink15", name = "Class") +
+  #scale_fill_manual(values = cols, name = "Order") +
+  theme_minimal() +
+  theme(strip.text.x = element_text(size = 15),
+        axis.title.y = element_blank(),
+        #axis.title.y = element_text(size = 15),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11),
+        plot.tag = element_text(size = 20))
+
+# f1d <- test |> 
+#   mutate(Family = case_when(
+#     is.na(Family) ~ paste("Unidentified clade ", Order),
+#     Family %in% c("Clade I", "Clade II", "Clade I") ~ paste(Order,":",Family),
+#     TRUE ~ Family)) |> 
+#   mutate(avg = avg*100,
+#          Family = ifelse(threshold == 0, "Other (RA<1%)", Family)) |>
+#   filter(threshold == 1 | Family == "Other (RA<1%)") |> 
+#   group_by(Family, treatment, compartment) |>
+#   summarise(prop = sum(avg)) |> 
+#  ggplot() +
+#   geom_bar(aes(y = prop, x = treatment, 
+#                fill = fct_relevel(Family, "Other (RA<1%)", after = Inf)),
+#            position = "stack", stat = "identity", color = "black") +
+#   facet_grid(~compartment) +
+#   labs(x = "pH regime", tag = "C") +
+#   scale_fill_viridis(option = "H", 
+#                      discrete = TRUE, 
+#                      name = "Family") +
+#   #scale_fill_mnmlab(palette = "martink15", name = "Class") +
+#   #scale_fill_manual(values = cols, name = "Order") +
+#   theme_minimal() +
+#   theme(strip.text.x = element_text(size = 15),
+#         axis.title.y = element_blank(),
+#         axis.text.x = element_text(size = 12),
+#         axis.text.y = element_text(size = 11),
+#         plot.tag = element_text(size = 20))
+
+f1b + f1a + f1c
+#ggsave("figures/fig2.svg", width = 24)
+```
+
+```{r}
+test |> 
+  mutate(avg = avg*100,
+         Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
+  filter(threshold == 1 | Phylum == "Other (RA<1%)") |> 
+  group_by(Phylum, treatment, compartment) |>
+  summarise(avg = sum(avg))
+
+test |> 
+  mutate(avg = avg*100,
+         Class = ifelse(threshold == 0, "Other (RA<1%)", Class),
+         Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
+  filter(threshold == 1 | Class == "Other (RA<1%)") |> 
+  group_by(Phylum, Class, treatment, compartment) |>
+  summarise(avg = sum(avg))
+
+test |> 
+  mutate(avg = avg*100,
          Family = ifelse(threshold == 0, "Other (RA<1%)", Family),
          Order = ifelse(threshold == 0, "Other (RA<1%)", Order),
          Class = ifelse(threshold == 0, "Other (RA<1%)", Class),
          Phylum = ifelse(threshold == 0, "Other (RA<1%)", Phylum)) |> 
   filter(threshold == 1 | Order == "Other (RA<1%)") |> 
   group_by(Phylum, Class, Order, Family, treatment, compartment) |>
-  summarise(avg = sum(avg)) |> 
-  mutate(Family = ifelse(is.na(Family), 
-                         paste("Unidentified", Order), Family)) |> 
- ggplot() +
-  geom_bar(aes(y = avg, x = treatment, 
-               fill = fct_relevel(Family, "Other (RA<1%)", after = Inf)),
-           position = "stack", stat = "identity", color = "black") +
-  facet_grid(~compartment) +
-  labs(x = "pH regime", tag = "C") +
-  scale_fill_viridis(option = "H", 
-                     discrete = TRUE, 
-                     name = "Family") +
-  #scale_fill_mnmlab(palette = "martink15", name = "Class") +
-  #scale_fill_manual(values = cols, name = "Order") +
-  theme_minimal() +
-  theme(strip.text.x = element_text(size = 15),
-        axis.title.y = element_blank(),
-        axis.text.x = element_text(size = 12),
-        axis.text.y = element_text(size = 11),
-        plot.tag = element_text(size = 20))
-
-f1b + f1a + f1c
-ggsave("figures/fig1.svg", width = 24)
+  summarise(avg = sum(avg))
 ```
+
 
 ```{r fig2}
 f2 <- lw_props |>
