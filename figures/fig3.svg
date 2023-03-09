@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='360.00pt' height='504.00pt' viewBox='0 0 360.00 504.00'>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='720.00pt' height='432.00pt' viewBox='0 0 720.00 432.00'>
 <defs>
   <style type='text/css'><![CDATA[
     .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
@@ -16,191 +16,239 @@
 </defs>
 <rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
 <defs>
-  <clipPath id='cpMC4wMHwzNjAuMDB8MC4wMHw1MDQuMDA='>
-    <rect x='0.00' y='0.00' width='360.00' height='504.00' />
+  <clipPath id='cpMC4wMHw3MjAuMDB8MC4wMHw0MzIuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='432.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMC4wMHwzNjAuMDB8MC4wMHw1MDQuMDA=)'>
-<rect x='0.00' y='0.00' width='360.00' height='504.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw0MzIuMDA=)'>
+<rect x='-0.000000000000064' y='0.00' width='720.00' height='432.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 </g>
 <defs>
-  <clipPath id='cpMTIyLjk4fDIyNi40Mnw1LjQ4fDQ3Mi4yOQ=='>
-    <rect x='122.98' y='5.48' width='103.44' height='466.82' />
+  <clipPath id='cpMjkwLjk2fDU4OS4zMHw1LjQ4fDQwMC4yOQ=='>
+    <rect x='290.96' y='5.48' width='298.33' height='394.82' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMTIyLjk4fDIyNi40Mnw1LjQ4fDQ3Mi4yOQ==)'>
-<rect x='122.98' y='5.48' width='103.44' height='466.82' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<polyline points='122.98,460.72 226.42,460.72 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,441.43 226.42,441.43 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,422.14 226.42,422.14 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,402.85 226.42,402.85 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,383.56 226.42,383.56 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,364.27 226.42,364.27 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,344.98 226.42,344.98 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,325.69 226.42,325.69 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,306.40 226.42,306.40 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,287.11 226.42,287.11 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,267.82 226.42,267.82 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,248.53 226.42,248.53 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,229.24 226.42,229.24 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,209.95 226.42,209.95 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,190.66 226.42,190.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,171.37 226.42,171.37 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,152.08 226.42,152.08 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,132.79 226.42,132.79 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,113.50 226.42,113.50 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,94.21 226.42,94.21 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,74.92 226.42,74.92 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,55.63 226.42,55.63 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,36.34 226.42,36.34 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='122.98,17.05 226.42,17.05 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='151.19,472.29 151.19,5.48 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<polyline points='198.21,472.29 198.21,5.48 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
-<text x='151.19' y='23.92' text-anchor='middle' style='font-size: 26.55px;fill: #440154; font-family: "Liberation Sans";' textLength='23.16px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='253.99' text-anchor='middle' style='font-size: 21.11px;fill: #414487; font-family: "Liberation Sans";' textLength='18.42px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='198.21' y='253.41' text-anchor='middle' style='font-size: 18.89px;fill: #414487; font-family: "Liberation Sans";' textLength='16.47px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='369.03' text-anchor='middle' style='font-size: 18.41px;fill: #414487; font-family: "Liberation Sans";' textLength='16.05px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='198.21' y='369.71' text-anchor='middle' style='font-size: 21.05px;fill: #414487; font-family: "Liberation Sans";' textLength='18.36px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='311.70' text-anchor='middle' style='font-size: 20.47px;fill: #2A788E; font-family: "Liberation Sans";' textLength='17.86px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='198.21' y='311.59' text-anchor='middle' style='font-size: 20.06px;fill: #2A788E; font-family: "Liberation Sans";' textLength='17.49px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='273.59' text-anchor='middle' style='font-size: 22.28px;fill: #2A788E; font-family: "Liberation Sans";' textLength='19.45px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='198.21' y='273.27' text-anchor='middle' style='font-size: 21.05px;fill: #2A788E; font-family: "Liberation Sans";' textLength='18.36px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='174.73' text-anchor='middle' style='font-size: 12.96px;fill: #22A884; font-family: "Liberation Sans";' textLength='11.30px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='233.75' text-anchor='middle' style='font-size: 17.42px;fill: #22A884; font-family: "Liberation Sans";' textLength='15.19px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='198.21' y='232.24' text-anchor='middle' style='font-size: 11.59px;fill: #22A884; font-family: "Liberation Sans";' textLength='10.12px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='155.81' text-anchor='middle' style='font-size: 14.39px;fill: #7AD151; font-family: "Liberation Sans";' textLength='12.56px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='137.18' text-anchor='middle' style='font-size: 16.95px;fill: #FDE725; font-family: "Liberation Sans";' textLength='14.80px' lengthAdjust='spacingAndGlyphs'>●</text>
-<text x='151.19' y='389.45' text-anchor='middle' style='font-size: 22.67px;fill: #440154; font-family: "Liberation Sans";' textLength='19.77px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='198.21' y='390.12' text-anchor='middle' style='font-size: 25.26px;fill: #440154; font-family: "Liberation Sans";' textLength='22.03px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='151.19' y='61.31' text-anchor='middle' style='font-size: 21.89px;fill: #440154; font-family: "Liberation Sans";' textLength='19.09px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='198.21' y='445.57' text-anchor='middle' style='font-size: 15.92px;fill: #414487; font-family: "Liberation Sans";' textLength='13.89px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='151.19' y='98.82' text-anchor='middle' style='font-size: 17.74px;fill: #2A788E; font-family: "Liberation Sans";' textLength='15.47px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='151.19' y='80.60' text-anchor='middle' style='font-size: 21.85px;fill: #22A884; font-family: "Liberation Sans";' textLength='19.06px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='151.19' y='117.91' text-anchor='middle' style='font-size: 16.96px;fill: #7AD151; font-family: "Liberation Sans";' textLength='14.80px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='151.19' y='195.22' text-anchor='middle' style='font-size: 17.56px;fill: #FDE725; font-family: "Liberation Sans";' textLength='15.32px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='198.21' y='192.30' text-anchor='middle' style='font-size: 6.34px;fill: #FDE725; font-family: "Liberation Sans";' textLength='5.52px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<text x='151.19' y='42.49' text-anchor='middle' style='font-size: 23.67px;fill: #440154; font-family: "Liberation Sans";' textLength='20.64px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='151.19' y='406.45' text-anchor='middle' style='font-size: 13.88px;fill: #3B528B; font-family: "Liberation Sans";' textLength='12.10px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='198.21' y='408.04' text-anchor='middle' style='font-size: 19.99px;fill: #3B528B; font-family: "Liberation Sans";' textLength='17.44px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='151.19' y='215.23' text-anchor='middle' style='font-size: 20.32px;fill: #3B528B; font-family: "Liberation Sans";' textLength='17.72px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='198.21' y='213.66' text-anchor='middle' style='font-size: 14.29px;fill: #3B528B; font-family: "Liberation Sans";' textLength='12.46px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='151.19' y='331.13' text-anchor='middle' style='font-size: 20.96px;fill: #21908C; font-family: "Liberation Sans";' textLength='18.28px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='198.21' y='331.16' text-anchor='middle' style='font-size: 21.04px;fill: #21908C; font-family: "Liberation Sans";' textLength='18.35px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='151.19' y='350.32' text-anchor='middle' style='font-size: 20.56px;fill: #21908C; font-family: "Liberation Sans";' textLength='17.93px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='198.21' y='350.40' text-anchor='middle' style='font-size: 20.89px;fill: #21908C; font-family: "Liberation Sans";' textLength='18.22px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='151.19' y='425.78' text-anchor='middle' style='font-size: 14.02px;fill: #5DC863; font-family: "Liberation Sans";' textLength='12.21px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='198.21' y='428.24' text-anchor='middle' style='font-size: 23.49px;fill: #5DC863; font-family: "Liberation Sans";' textLength='20.49px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='198.21' y='465.50' text-anchor='middle' style='font-size: 18.40px;fill: #FDE725; font-family: "Liberation Sans";' textLength='16.05px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='151.19' y='292.45' text-anchor='middle' style='font-size: 20.57px;fill: #FDE725; font-family: "Liberation Sans";' textLength='17.94px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='198.21' y='292.20' text-anchor='middle' style='font-size: 19.57px;fill: #FDE725; font-family: "Liberation Sans";' textLength='17.07px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<rect x='122.98' y='5.48' width='103.44' height='466.82' style='stroke-width: 1.07; stroke: #333333;' />
+<g clip-path='url(#cpMjkwLjk2fDU4OS4zMHw1LjQ4fDQwMC4yOQ==)'>
+<rect x='290.96' y='5.48' width='298.33' height='394.82' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<polyline points='325.95,400.29 325.95,5.48 ' style='stroke-width: 0.27; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='393.68,400.29 393.68,5.48 ' style='stroke-width: 0.27; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='461.41,400.29 461.41,5.48 ' style='stroke-width: 0.27; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='529.15,400.29 529.15,5.48 ' style='stroke-width: 0.27; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,394.09 589.30,394.09 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,383.76 589.30,383.76 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,373.42 589.30,373.42 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,363.09 589.30,363.09 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,352.75 589.30,352.75 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,342.42 589.30,342.42 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,332.08 589.30,332.08 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,321.75 589.30,321.75 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,311.41 589.30,311.41 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,301.07 589.30,301.07 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,290.74 589.30,290.74 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,280.40 589.30,280.40 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,270.07 589.30,270.07 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,259.73 589.30,259.73 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,249.40 589.30,249.40 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,239.06 589.30,239.06 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,228.73 589.30,228.73 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,218.39 589.30,218.39 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,208.05 589.30,208.05 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,197.72 589.30,197.72 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,187.38 589.30,187.38 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,177.05 589.30,177.05 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,166.71 589.30,166.71 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,156.38 589.30,156.38 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,146.04 589.30,146.04 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,135.71 589.30,135.71 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,125.37 589.30,125.37 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,115.04 589.30,115.04 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,104.70 589.30,104.70 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,94.36 589.30,94.36 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,84.03 589.30,84.03 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,73.69 589.30,73.69 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,63.36 589.30,63.36 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,53.02 589.30,53.02 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,42.69 589.30,42.69 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,32.35 589.30,32.35 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,22.02 589.30,22.02 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='290.96,11.68 589.30,11.68 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='292.08,400.29 292.08,5.48 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='359.82,400.29 359.82,5.48 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='427.55,400.29 427.55,5.48 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='495.28,400.29 495.28,5.48 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<polyline points='563.01,400.29 563.01,5.48 ' style='stroke-width: 0.53; stroke: #DEDEDE; stroke-linecap: butt;' />
+<rect x='427.55' y='17.37' width='137.59' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #30123B;' />
+<rect x='339.23' y='337.77' width='88.32' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #424AB3;' />
+<rect x='427.55' y='131.06' width='101.24' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #424AB3;' />
+<rect x='427.55' y='213.74' width='67.33' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #424AB3;' />
+<rect x='321.56' y='379.11' width='105.99' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #424AB3;' />
+<rect x='427.55' y='234.41' width='58.11' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #424AB3;' />
+<rect x='427.55' y='141.39' width='94.19' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #467EF4;' />
+<rect x='427.55' y='203.40' width='79.59' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #467EF4;' />
+<rect x='328.18' y='368.77' width='99.37' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #467EF4;' />
+<rect x='427.55' y='89.71' width='111.86' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #467EF4;' />
+<rect x='427.55' y='275.75' width='52.44' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #31AFF5;' />
+<rect x='427.55' y='265.42' width='53.91' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #31AFF5;' />
+<rect x='427.55' y='244.75' width='54.38' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #18DAC7;' />
+<rect x='427.55' y='110.38' width='105.69' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #38F491;' />
+<rect x='427.55' y='38.04' width='128.33' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #38F491;' />
+<rect x='304.52' y='389.44' width='123.02' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #38F491;' />
+<rect x='427.55' y='172.40' width='89.83' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #38F491;' />
+<rect x='427.55' y='224.07' width='60.10' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #83FF52;' />
+<rect x='427.55' y='162.06' width='91.00' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #BDF534;' />
+<rect x='427.55' y='286.09' width='51.48' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E9D539;' />
+<rect x='427.55' y='255.08' width='54.32' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FEAA33;' />
+<rect x='427.55' y='100.05' width='108.25' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #F8721C;' />
+<rect x='353.16' y='327.43' width='74.39' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E03F08;' />
+<rect x='427.55' y='151.73' width='92.61' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E03F08;' />
+<rect x='334.35' y='348.10' width='93.20' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='296.42' width='46.20' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='182.73' width='83.03' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='58.71' width='119.04' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='381.86' y='306.76' width='45.69' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='48.37' width='122.11' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='332.72' y='358.44' width='94.83' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='193.07' width='79.71' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='27.70' width='134.13' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='7.03' width='148.19' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='79.38' width='115.79' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='120.72' width='104.89' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='427.55' y='69.04' width='118.10' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='363.10' y='317.09' width='64.45' height='9.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #7A0403;' />
+<rect x='290.96' y='5.48' width='298.33' height='394.82' style='stroke-width: 1.07; stroke: #B3B3B3;' />
 </g>
-<g clip-path='url(#cpMC4wMHwzNjAuMDB8MC4wMHw1MDQuMDA=)'>
-<text x='118.05' y='463.93' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='61.15px' lengthAdjust='spacingAndGlyphs'>Kiritimatiellae</text>
-<text x='118.05' y='444.64' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='61.73px' lengthAdjust='spacingAndGlyphs'>Dadabacteriia</text>
-<text x='118.05' y='425.35' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='74.59px' lengthAdjust='spacingAndGlyphs'>Thermoplasmata</text>
-<text x='118.05' y='406.06' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='64.35px' lengthAdjust='spacingAndGlyphs'>Phycisphaerae</text>
-<text x='118.05' y='386.77' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='66.28px' lengthAdjust='spacingAndGlyphs'>Cyanobacteriia</text>
-<text x='118.05' y='367.48' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='63.70px' lengthAdjust='spacingAndGlyphs'>Actinobacteria</text>
-<text x='118.05' y='348.19' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='99.52px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria</text>
-<text x='118.05' y='328.90' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='89.80px' lengthAdjust='spacingAndGlyphs'>Alphaproteobacteria</text>
-<text x='118.05' y='309.61' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='49.81px' lengthAdjust='spacingAndGlyphs'>Bacteroidia</text>
-<text x='118.05' y='290.32' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='77.13px' lengthAdjust='spacingAndGlyphs'>Verrucomicrobiae</text>
-<text x='118.05' y='271.03' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='62.35px' lengthAdjust='spacingAndGlyphs'>Rhodothermia</text>
-<text x='118.05' y='251.74' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='61.73px' lengthAdjust='spacingAndGlyphs'>Acidimicrobiia</text>
-<text x='118.05' y='232.45' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='46.65px' lengthAdjust='spacingAndGlyphs'>Oligoflexia</text>
-<text x='118.05' y='213.16' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='69.87px' lengthAdjust='spacingAndGlyphs'>Planctomycetes</text>
-<text x='118.05' y='193.87' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='58.71px' lengthAdjust='spacingAndGlyphs'>Fusobacteriia</text>
-<text x='118.05' y='174.58' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='65.42px' lengthAdjust='spacingAndGlyphs'>Bdellovibrionia</text>
-<text x='118.05' y='155.29' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='74.87px' lengthAdjust='spacingAndGlyphs'>Campylobacteria</text>
-<text x='118.05' y='136.00' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='69.26px' lengthAdjust='spacingAndGlyphs'>Nitrososphaeria</text>
-<text x='118.05' y='116.71' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='41.50px' lengthAdjust='spacingAndGlyphs'>Clostridia</text>
-<text x='118.05' y='97.42' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='47.94px' lengthAdjust='spacingAndGlyphs'>Deinococci</text>
-<text x='118.05' y='78.13' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='60.31px' lengthAdjust='spacingAndGlyphs'>Desulfobulbia</text>
-<text x='118.05' y='58.84' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='71.50px' lengthAdjust='spacingAndGlyphs'>Vampirivibrionia</text>
-<text x='118.05' y='39.55' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='42.42px' lengthAdjust='spacingAndGlyphs'>Polyangia</text>
-<text x='118.05' y='20.26' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='59.13px' lengthAdjust='spacingAndGlyphs'>Blastocatellia</text>
-<polyline points='120.24,460.72 122.98,460.72 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,441.43 122.98,441.43 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,422.14 122.98,422.14 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,402.85 122.98,402.85 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,383.56 122.98,383.56 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,364.27 122.98,364.27 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,344.98 122.98,344.98 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,325.69 122.98,325.69 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,306.40 122.98,306.40 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,287.11 122.98,287.11 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,267.82 122.98,267.82 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,248.53 122.98,248.53 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,229.24 122.98,229.24 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,209.95 122.98,209.95 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,190.66 122.98,190.66 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,171.37 122.98,171.37 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,152.08 122.98,152.08 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,132.79 122.98,132.79 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,113.50 122.98,113.50 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,94.21 122.98,94.21 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,74.92 122.98,74.92 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,55.63 122.98,55.63 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,36.34 122.98,36.34 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='120.24,17.05 122.98,17.05 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='151.19,475.03 151.19,472.29 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<polyline points='198.21,475.03 198.21,472.29 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' />
-<text x='151.19' y='483.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='18.66px' lengthAdjust='spacingAndGlyphs'>Leaf</text>
-<text x='198.21' y='483.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='61.19px' lengthAdjust='spacingAndGlyphs'>Water column</text>
-<text transform='translate(13.50,238.89) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Liberation Sans";' textLength='28.94px' lengthAdjust='spacingAndGlyphs'>Class</text>
-<rect x='237.38' y='78.63' width='117.14' height='320.51' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='242.86' y='93.28' style='font-size: 11.00px; font-family: "Liberation Sans";' textLength='40.85px' lengthAdjust='spacingAndGlyphs'>Phylum</text>
-<rect x='242.86' y='99.90' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='112.47' text-anchor='middle' style='font-size: 15.17px;fill: #440154; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>●</text>
-<rect x='242.86' y='117.18' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='129.75' text-anchor='middle' style='font-size: 15.17px;fill: #414487; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>●</text>
-<rect x='242.86' y='134.46' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='147.03' text-anchor='middle' style='font-size: 15.17px;fill: #2A788E; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>●</text>
-<rect x='242.86' y='151.74' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='164.31' text-anchor='middle' style='font-size: 15.17px;fill: #22A884; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>●</text>
-<rect x='242.86' y='169.02' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='181.59' text-anchor='middle' style='font-size: 15.17px;fill: #7AD151; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>●</text>
-<rect x='242.86' y='186.30' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='198.87' text-anchor='middle' style='font-size: 15.17px;fill: #FDE725; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>●</text>
-<rect x='242.86' y='203.58' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='216.16' text-anchor='middle' style='font-size: 15.17px;fill: #440154; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<rect x='242.86' y='220.86' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='233.44' text-anchor='middle' style='font-size: 15.17px;fill: #414487; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<rect x='242.86' y='238.14' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='250.72' text-anchor='middle' style='font-size: 15.17px;fill: #2A788E; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<rect x='242.86' y='255.42' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='268.00' text-anchor='middle' style='font-size: 15.17px;fill: #22A884; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<rect x='242.86' y='272.70' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='285.28' text-anchor='middle' style='font-size: 15.17px;fill: #7AD151; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<rect x='242.86' y='289.98' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='302.56' text-anchor='middle' style='font-size: 15.17px;fill: #FDE725; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◉</text>
-<rect x='242.86' y='307.26' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='319.84' text-anchor='middle' style='font-size: 15.17px;fill: #440154; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<rect x='242.86' y='324.54' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='337.12' text-anchor='middle' style='font-size: 15.17px;fill: #3B528B; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<rect x='242.86' y='341.82' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='354.40' text-anchor='middle' style='font-size: 15.17px;fill: #21908C; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<rect x='242.86' y='359.10' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='371.68' text-anchor='middle' style='font-size: 15.17px;fill: #5DC863; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<rect x='242.86' y='376.38' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<text x='251.50' y='388.96' text-anchor='middle' style='font-size: 15.17px;fill: #FDE725; font-family: "Liberation Sans";' textLength='13.23px' lengthAdjust='spacingAndGlyphs'>◍</text>
-<text x='265.61' y='111.75' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='69.10px' lengthAdjust='spacingAndGlyphs'>Acidobacteriota</text>
-<text x='265.61' y='129.03' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='72.53px' lengthAdjust='spacingAndGlyphs'>Actinobacteriota</text>
-<text x='265.61' y='146.31' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='56.20px' lengthAdjust='spacingAndGlyphs'>Bacteroidota</text>
-<text x='265.61' y='163.59' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='71.81px' lengthAdjust='spacingAndGlyphs'>Bdellovibrionota</text>
-<text x='265.61' y='180.87' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='81.06px' lengthAdjust='spacingAndGlyphs'>Campylobacterota</text>
-<text x='265.61' y='198.15' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='64.81px' lengthAdjust='spacingAndGlyphs'>Crenarchaeota</text>
-<text x='265.61' y='215.43' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='63.84px' lengthAdjust='spacingAndGlyphs'>Cyanobacteria</text>
-<text x='265.61' y='232.71' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='59.28px' lengthAdjust='spacingAndGlyphs'>Dadabacteria</text>
-<text x='265.61' y='249.99' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='59.72px' lengthAdjust='spacingAndGlyphs'>Deinococcota</text>
-<text x='265.61' y='267.27' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='75.61px' lengthAdjust='spacingAndGlyphs'>Desulfobacterota</text>
-<text x='265.61' y='284.55' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='45.21px' lengthAdjust='spacingAndGlyphs'>Firmicutes</text>
-<text x='265.61' y='301.83' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='65.10px' lengthAdjust='spacingAndGlyphs'>Fusobacteriota</text>
-<text x='265.61' y='319.11' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='57.24px' lengthAdjust='spacingAndGlyphs'>Myxococcota</text>
-<text x='265.61' y='336.39' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='74.10px' lengthAdjust='spacingAndGlyphs'>Planctomycetota</text>
-<text x='265.61' y='353.67' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='64.35px' lengthAdjust='spacingAndGlyphs'>Proteobacteria</text>
-<text x='265.61' y='370.95' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='83.43px' lengthAdjust='spacingAndGlyphs'>Thermoplasmatota</text>
-<text x='265.61' y='388.23' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='80.55px' lengthAdjust='spacingAndGlyphs'>Verrucomicrobiota</text>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw0MzIuMDA=)'>
+<text x='286.03' y='397.30' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='144.57px' lengthAdjust='spacingAndGlyphs'>Cyanobacteriia:Synechococcales</text>
+<text x='286.03' y='386.97' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='128.09px' lengthAdjust='spacingAndGlyphs'>Actinobacteria:Micrococcales</text>
+<text x='286.03' y='376.63' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='137.10px' lengthAdjust='spacingAndGlyphs'>Bacteroidia:Sphingobacteriales</text>
+<text x='286.03' y='366.29' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='198.04px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:Ectothiorhodospirales</text>
+<text x='286.03' y='355.96' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='163.92px' lengthAdjust='spacingAndGlyphs'>Alphaproteobacteria:Defluviicoccales</text>
+<text x='286.03' y='345.62' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='135.69px' lengthAdjust='spacingAndGlyphs'>Acidimicrobiia:Actinomarinales</text>
+<text x='286.03' y='335.29' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='138.69px' lengthAdjust='spacingAndGlyphs'>Phycisphaerae:Phycisphaerales</text>
+<text x='286.03' y='324.95' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='132.30px' lengthAdjust='spacingAndGlyphs'>Kiritimatiellae:Kiritimatiellales</text>
+<text x='286.03' y='314.62' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='171.12px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:Burkholderiales</text>
+<text x='286.03' y='304.28' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='149.62px' lengthAdjust='spacingAndGlyphs'>Alphaproteobacteria:Holosporales</text>
+<text x='286.03' y='293.95' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='110.21px' lengthAdjust='spacingAndGlyphs'>Clostridia:Lachnospirales</text>
+<text x='286.03' y='283.61' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='147.24px' lengthAdjust='spacingAndGlyphs'>Bdellovibrionia:Bacteriovoracales</text>
+<text x='286.03' y='273.28' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='106.26px' lengthAdjust='spacingAndGlyphs'>Oligoflexia:Oligoflexales</text>
+<text x='286.03' y='262.94' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='130.38px' lengthAdjust='spacingAndGlyphs'>Fusobacteriia:Fusobacteriales</text>
+<text x='286.03' y='252.60' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='145.95px' lengthAdjust='spacingAndGlyphs'>Nitrososphaeria:Nitrosopumilales</text>
+<text x='286.03' y='242.27' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='95.85px' lengthAdjust='spacingAndGlyphs'>Actinobacteria:PeM15</text>
+<text x='286.03' y='231.93' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='114.25px' lengthAdjust='spacingAndGlyphs'>Deinococci:Deinococcales</text>
+<text x='286.03' y='221.60' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='146.58px' lengthAdjust='spacingAndGlyphs'>Actinobacteria:Corynebacteriales</text>
+<text x='286.03' y='211.26' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='112.94px' lengthAdjust='spacingAndGlyphs'>Bacteroidia:Cytophagales</text>
+<text x='286.03' y='200.93' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='153.86px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:Ga0077536</text>
+<text x='286.03' y='190.59' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='161.14px' lengthAdjust='spacingAndGlyphs'>Alphaproteobacteria:Micavibrionales</text>
+<text x='286.03' y='180.26' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='158.70px' lengthAdjust='spacingAndGlyphs'>Vampirivibrionia:Vampirovibrionales</text>
+<text x='286.03' y='169.92' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='133.60px' lengthAdjust='spacingAndGlyphs'>Desulfobulbia:Desulfobulbales</text>
+<text x='286.03' y='159.59' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='119.99px' lengthAdjust='spacingAndGlyphs'>Planctomycetes:Pirellulales</text>
+<text x='286.03' y='149.25' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='123.78px' lengthAdjust='spacingAndGlyphs'>Bacteroidia:Chitinophagales</text>
+<text x='286.03' y='138.91' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='126.14px' lengthAdjust='spacingAndGlyphs'>Acidimicrobiia:Microtrichales</text>
+<text x='286.03' y='128.58' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='185.30px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:Steroidobacterales</text>
+<text x='286.03' y='118.24' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='145.53px' lengthAdjust='spacingAndGlyphs'>Cyanobacteriia:Cyanobacteriales</text>
+<text x='286.03' y='107.91' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='100.26px' lengthAdjust='spacingAndGlyphs'>Polyangia:Polyangiales</text>
+<text x='286.03' y='97.57' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='137.67px' lengthAdjust='spacingAndGlyphs'>Rhodothermia:Rhodothermales</text>
+<text x='286.03' y='87.24' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='133.36px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:HOC36</text>
+<text x='286.03' y='76.90' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='211.10px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:UBA10353 marine group</text>
+<text x='286.03' y='66.57' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='176.85px' lengthAdjust='spacingAndGlyphs'>Alphaproteobacteria:Sphingomonadales</text>
+<text x='286.03' y='56.23' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='120.45px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:D90</text>
+<text x='286.03' y='45.89' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='144.44px' lengthAdjust='spacingAndGlyphs'>Cyanobacteriia:Phormidesmiales</text>
+<text x='286.03' y='35.56' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='267.50px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:Gammaproteobacteria Incertae Sedis</text>
+<text x='286.03' y='25.22' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='131.22px' lengthAdjust='spacingAndGlyphs'>Blastocatellia:Blastocatellales</text>
+<text x='286.03' y='14.89' text-anchor='end' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='182.07px' lengthAdjust='spacingAndGlyphs'>Gammaproteobacteria:Granulosicoccales</text>
+<polyline points='288.22,394.09 290.96,394.09 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,383.76 290.96,383.76 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,373.42 290.96,373.42 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,363.09 290.96,363.09 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,352.75 290.96,352.75 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,342.42 290.96,342.42 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,332.08 290.96,332.08 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,321.75 290.96,321.75 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,311.41 290.96,311.41 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,301.07 290.96,301.07 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,290.74 290.96,290.74 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,280.40 290.96,280.40 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,270.07 290.96,270.07 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,259.73 290.96,259.73 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,249.40 290.96,249.40 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,239.06 290.96,239.06 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,228.73 290.96,228.73 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,218.39 290.96,218.39 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,208.05 290.96,208.05 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,197.72 290.96,197.72 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,187.38 290.96,187.38 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,177.05 290.96,177.05 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,166.71 290.96,166.71 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,156.38 290.96,156.38 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,146.04 290.96,146.04 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,135.71 290.96,135.71 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,125.37 290.96,125.37 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,115.04 290.96,115.04 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,104.70 290.96,104.70 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,94.36 290.96,94.36 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,84.03 290.96,84.03 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,73.69 290.96,73.69 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,63.36 290.96,63.36 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,53.02 290.96,53.02 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,42.69 290.96,42.69 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,32.35 290.96,32.35 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,22.02 290.96,22.02 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='288.22,11.68 290.96,11.68 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='292.08,403.03 292.08,400.29 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='359.82,403.03 359.82,400.29 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='427.55,403.03 427.55,400.29 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='495.28,403.03 495.28,400.29 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<polyline points='563.01,403.03 563.01,400.29 ' style='stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;' />
+<text x='292.08' y='411.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='8.77px' lengthAdjust='spacingAndGlyphs'>-6</text>
+<text x='359.82' y='411.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='8.77px' lengthAdjust='spacingAndGlyphs'>-3</text>
+<text x='427.55' y='411.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>0</text>
+<text x='495.28' y='411.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>3</text>
+<text x='563.01' y='411.64' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Liberation Sans";' textLength='5.59px' lengthAdjust='spacingAndGlyphs'>6</text>
+<text x='440.13' y='424.23' text-anchor='middle' style='font-size: 11.00px; font-family: "Liberation Sans";' textLength='125.91px' lengthAdjust='spacingAndGlyphs'>Differential abundance</text>
+<text transform='translate(13.50,202.89) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Liberation Sans";' textLength='75.79px' lengthAdjust='spacingAndGlyphs'>Class &amp; Order</text>
+<rect x='600.26' y='68.55' width='114.26' height='268.67' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<text x='605.74' y='83.20' style='font-size: 11.00px; font-family: "Liberation Sans";' textLength='40.85px' lengthAdjust='spacingAndGlyphs'>Phylum</text>
+<rect x='605.74' y='89.82' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='90.53' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #30123B;' />
+<rect x='605.74' y='107.10' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='107.81' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #424AB3;' />
+<rect x='605.74' y='124.38' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='125.09' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #467EF4;' />
+<rect x='605.74' y='141.66' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='142.37' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #31AFF5;' />
+<rect x='605.74' y='158.94' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='159.65' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #18DAC7;' />
+<rect x='605.74' y='176.22' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='176.93' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #38F491;' />
+<rect x='605.74' y='193.50' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='194.21' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #83FF52;' />
+<rect x='605.74' y='210.78' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='211.49' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #BDF534;' />
+<rect x='605.74' y='228.06' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='228.77' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E9D539;' />
+<rect x='605.74' y='245.34' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='246.05' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FEAA33;' />
+<rect x='605.74' y='262.62' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='263.33' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #F8721C;' />
+<rect x='605.74' y='279.90' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='280.61' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E03F08;' />
+<rect x='605.74' y='297.18' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='297.89' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B61C02;' />
+<rect x='605.74' y='314.46' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='606.44' y='315.17' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #7A0403;' />
+<text x='628.49' y='101.67' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='69.10px' lengthAdjust='spacingAndGlyphs'>Acidobacteriota</text>
+<text x='628.49' y='118.95' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='72.53px' lengthAdjust='spacingAndGlyphs'>Actinobacteriota</text>
+<text x='628.49' y='136.23' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='56.20px' lengthAdjust='spacingAndGlyphs'>Bacteroidota</text>
+<text x='628.49' y='153.51' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='71.81px' lengthAdjust='spacingAndGlyphs'>Bdellovibrionota</text>
+<text x='628.49' y='170.79' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='64.81px' lengthAdjust='spacingAndGlyphs'>Crenarchaeota</text>
+<text x='628.49' y='188.07' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='63.84px' lengthAdjust='spacingAndGlyphs'>Cyanobacteria</text>
+<text x='628.49' y='205.35' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='59.72px' lengthAdjust='spacingAndGlyphs'>Deinococcota</text>
+<text x='628.49' y='222.63' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='75.61px' lengthAdjust='spacingAndGlyphs'>Desulfobacterota</text>
+<text x='628.49' y='239.91' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='45.21px' lengthAdjust='spacingAndGlyphs'>Firmicutes</text>
+<text x='628.49' y='257.19' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='65.10px' lengthAdjust='spacingAndGlyphs'>Fusobacteriota</text>
+<text x='628.49' y='274.47' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='57.24px' lengthAdjust='spacingAndGlyphs'>Myxococcota</text>
+<text x='628.49' y='291.75' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='74.10px' lengthAdjust='spacingAndGlyphs'>Planctomycetota</text>
+<text x='628.49' y='309.03' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='64.35px' lengthAdjust='spacingAndGlyphs'>Proteobacteria</text>
+<text x='628.49' y='326.31' style='font-size: 8.80px; font-family: "Liberation Sans";' textLength='80.55px' lengthAdjust='spacingAndGlyphs'>Verrucomicrobiota</text>
 </g>
 </svg>
