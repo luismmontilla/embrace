@@ -296,37 +296,44 @@ f1c <- test |>
         axis.text.y = element_text(size = 11),
         plot.tag = element_text(size = 20))
 
-# f1d <- test |> 
-#   mutate(Family = case_when(
-#     is.na(Family) ~ paste("Unidentified clade ", Order),
-#     Family %in% c("Clade I", "Clade II", "Clade I") ~ paste(Order,":",Family),
-#     TRUE ~ Family)) |> 
-#   mutate(avg = avg*100,
-#          Family = ifelse(threshold == 0, "Other (RA<1%)", Family)) |>
-#   filter(threshold == 1 | Family == "Other (RA<1%)") |> 
-#   group_by(Family, treatment, compartment) |>
-#   summarise(prop = sum(avg)) |> 
-#  ggplot() +
-#   geom_bar(aes(y = prop, x = treatment, 
-#                fill = fct_relevel(Family, "Other (RA<1%)", after = Inf)),
-#            position = "stack", stat = "identity", color = "black") +
-#   facet_grid(~compartment) +
-#   labs(x = "pH regime", tag = "C") +
-#   scale_fill_viridis(option = "H", 
-#                      discrete = TRUE, 
-#                      name = "Family") +
-#   #scale_fill_mnmlab(palette = "martink15", name = "Class") +
-#   #scale_fill_manual(values = cols, name = "Order") +
-#   theme_minimal() +
-#   theme(strip.text.x = element_text(size = 15),
-#         axis.title.y = element_blank(),
-#         axis.text.x = element_text(size = 12),
-#         axis.text.y = element_text(size = 11),
-#         plot.tag = element_text(size = 20))
+
 
 f1b + f1a + f1c
 #ggsave("figures/fig2.svg", width = 24)
 ```
+
+
+```{r}
+f1d <- test |>
+  mutate(Family = case_when(
+    is.na(Family) ~ paste("Unidentified clade ", Order),
+    Family %in% c("Clade I", "Clade II", "Clade I") ~ paste(Order,":",Family),
+    TRUE ~ Family)) |>
+  mutate(avg = avg*100,
+         Family = ifelse(threshold == 0, "Other (RA<1%)", Family)) |>
+  filter(threshold == 1 | Family == "Other (RA<1%)") |>
+  group_by(Family, treatment, compartment) |>
+  summarise(prop = sum(avg)) |>
+ ggplot() +
+  geom_bar(aes(y = prop, x = treatment,
+               fill = fct_relevel(Family, "Other (RA<1%)", after = Inf)),
+           position = "stack", stat = "identity", color = "black") +
+  facet_grid(~compartment) +
+  labs(x = "pH regime") +
+  scale_fill_viridis(option = "H",
+                     discrete = TRUE,
+                     name = "Family") +
+  #scale_fill_mnmlab(palette = "martink15", name = "Class") +
+  #scale_fill_manual(values = cols, name = "Order") +
+  theme_minimal() +
+  theme(strip.text.x = element_text(size = 15),
+        axis.title.y = element_blank(),
+        axis.text.x = element_text(size = 12),
+        axis.text.y = element_text(size = 11),
+        plot.tag = element_text(size = 20))
+#ggsave("supplementary/fig2.svg", width = 24)
+```
+
 
 ```{r}
 test |> 
