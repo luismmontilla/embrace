@@ -27,15 +27,9 @@ if (!require("emmeans")) install.packages("emmeans")
 if (!require("ggpubr")) install.packages("ggpubr")
 ```
 
-# Create "output" folder
-```{r}
-here()
-dir.create(here("output"))
-```
-
 # Import data
 ```{r}
-Nitr <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE","MS Posidonia N cycling", "Biogeochemistry","Data","Raw data", "Nitrification.txt"), header=T)
+Nitr <- read.table("Nitrification.txt", header=T)
 ```
 
 # Check data
@@ -235,7 +229,7 @@ ggsave(panel, filename = here("output", "Nitr_d15N_panel.png"), dpi = 300, units
 
 # Nitrification potential
 ```{r}
-Nitr_plot <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE","MS Posidonia N cycling", "Biogeochemistry","Data","Raw data", "Nitr_graph.txt"), header=T)
+Nitr_plot <- read.table("Nitr_graph.txt", header=T)
 
 view(Nitr_plot) 
 
@@ -260,7 +254,7 @@ str(Nitr_plot_new)
 
 # Outlier, normality & variance check
 ```{r}
-ggplot(data = Nitr_plot_new, aes(x = Site, y = rate, color = Incubation))+
+ggplot(data = Nitr_plot_new, aes(x = Site, y = rate_pmol_cm_h, color = Incubation))+
   geom_boxplot(fill = NA, coef = 3, 
                outlier.shape = "?", 
                outlier.colour = "black", 
@@ -270,29 +264,30 @@ ggplot(data = Nitr_plot_new, aes(x = Site, y = rate, color = Incubation))+
 # no obvious outliers 
 
 # test normal distribution 
-qqnorm(Nitr_plot_new$rate)
-qqline(Nitr_plot_new$rate)
-hist(Nitr_plot_new$rate)
+qqnorm(Nitr_plot_new$rate_pmol_cm_h)
+qqline(Nitr_plot_new$rate_pmol_cm_h)
+hist(Nitr_plot_new$rate_pmol_cm_h)
 
 # Shapiro test for normal distribution
-shapiro.test(Nitr_plot_new$rate)
-# p-value = 0.02861 --> not normally distributed, still okay for Anova
+shapiro.test(Nitr_plot_new$rate_pmol_cm_h)
+# p-value = 0.002014 --> not normally distributed, still okay for Anova
 ```
 
 # Anova
 ```{r}
-M<-lm(Nitr_plot_new$rate~Site*Incubation, data=Nitr_plot_new)
+M<-lm(Nitr_plot_new$rate_pmol_cm_h~Site+Incubation, data=Nitr_plot_new)
 Anova(M)
 summary(M)
 
 # Anova Table (Type II tests)
 
-# Response: Nitr_plot_new$rate
-#                 Sum Sq Df F value    Pr(>F)    
-# Site            9.0860  1 704.641 1.197e-05 ***
-# Incubation      0.8186  1  63.483  0.001344 ** 
-# Site:Incubation 0.8186  1  63.483  0.001344 ** 
-# Residuals       0.0516  4    
+# Response: Nitr_plot_new$rate_pmol_cm_h
+#               Sum Sq Df F value    Pr(>F)    
+# Site       0.0078867  1 66.9951 1.739e-06 ***
+# Incubation 0.0007105  1  6.0358   0.02884 *  
+# Residuals  0.0015304 13    
+
+# Adjusted R-squared:  0.8256 
 
 #plot model
 par(mfrow=c(2,2))
@@ -303,36 +298,15 @@ emm = emmeans(M, specs = pairwise ~ Site:Incubation)
 emm
 ```
 
-# plot results from model
+# plot results 
 ```{r}
-emm<-data.frame(emmeans(M,~Site*Incubation))%>% 
-  summarise(Site=Site,Incubation=Incubation,emmean=emmean)%>% 
-  view()
-
-sum <- Nitr_plot_new%>% 
-  group_by(Incubation,Site)%>% 
-  summarise(sd=sd(rate),
-            n = n(),
-            se=sd/sqrt(n))%>% 
-  view()
-
-final <- cbind(emm[c("Site","Incubation","emmean")], sum[c("sd", "se")])%>%
-  summarise(Site=Site,
-            Incubation=Incubation,            
-            emmean=emmean,
-            sd=sd,
-            se=se)%>% 
-  view()
-
-p3<-ggplot(final, aes(x=Site, y=emmean, fill=Incubation))+
-  geom_bar(position="dodge", stat="identity")+
-  geom_errorbar(aes(Site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
-  scale_fill_manual("legend", values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+p2_raw<-ggplot(data = Nitr_plot_new, aes(x = Site, y = rate_pmol_cm_h, color=Incubation))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
   theme_classic()+
+  scale_color_manual(values = c("#6F9CDE", "darkblue"), labels=c("light", "dark"))+ 
   theme(legend.title = element_blank())+
-  labs(x=element_blank(), y=expression({}^15*R[OX]~(pmol~NH[4]^"+"~cm^-2~d^-1)))+
-  scale_y_continuous(limits=c(0,3), breaks=c(0,0.25, 0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3))
-p3
-
-ggsave(p3, filename = here("output", "Nitr_rate.png"), dpi = 300, units = "cm", width = 15, height = 15)
+  labs(x=element_blank(), y=expression(PNR~(pmol~N~cm^-2~h^-1)))+
+  scale_y_continuous(limits=c(-0.0001,0.07), breaks=c(0,0.01, 0.02,0.03,0.04,0.05,0.06,0.07))
+p2_raw
 ```

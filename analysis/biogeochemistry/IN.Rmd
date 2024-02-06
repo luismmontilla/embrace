@@ -1,0 +1,386 @@
+---
+title: "Inorganic Nutrient analysis"
+author: JB
+date: September 2022
+project: EMBRACE
+output: html_notebook
+editor_options: 
+  chunk_output_type: console
+---
+
+Session Info
+R version 4.2.0 (2022-04-22)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Monterey 12.6
+```{r}
+sessionInfo()
+packageVersion("tidyverse") # ‘1.3.1’
+packageVersion("here")      # ‘1.0.1’
+```
+
+# Install and load packages
+```{r}
+if (!require("tidyverse")) install.packages("tidyverse")
+if (!require("here")) install.packages("here")
+if (!require("car")) install.packages("car")
+if (!require("emmeans")) install.packages("emmeans")
+if (!require("ggpubr")) install.packages("ggpubr")
+```
+
+# Import data
+```{r}
+IN <- read.table("IN.txt", header=T)
+```
+
+# Check data
+```{r}
+view(IN) 
+names(IN)
+str(IN)
+```
+
+# Reorganize table
+```{r}
+
+IN <- IN %>% 
+  mutate(
+    Site = factor (x = Site, levels = c("Ambient", "Vent")),
+    treat1 = factor(x = treat1, levels = c("No_Epiphytes", "with_Epiphytes")),
+    treat2 = factor(x = treat2, levels = c("Light", "Dark"))
+  )
+
+str(IN)
+```
+
+
+# Statistical Analysis
+
+# NH4
+# light incubations
+```{r}
+IN_light <- IN %>% 
+  filter(treat2== "Light") %>% 
+  view()
+```
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_light, aes(x = Site, y = NH4_rate, color = treat1))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# no obvious outliers
+
+# test normal distribution 
+qqnorm(IN_light$NH4_rate)
+qqline(IN_light$NH4_rate)
+hist(IN_light$NH4_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_light$NH4_rate)
+# p-value = 0.1091 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_light$NH4_rate ~ Site*treat1, data = IN_light)
+#p-value = 0.009798 --> variances are different for different sites and treatments, still okay for Anova
+```
+
+# Anova
+```{r}
+M_NH4_light<-lm(IN_light$NH4_rate~Site*treat1, data=IN_light)
+Anova(M_NH4_light)
+#interaction not significant --> reduce model
+M_NH4_light<-lm(IN_light$NH4_rate~Site+treat1, data=IN_light)
+Anova(M_NH4_light)
+summary(M_NH4_light)
+
+# Anova Table (Type II tests)
+
+# Response: IN_light$NH4_rate
+#           Sum Sq Df F value  Pr(>F)   
+# Site      122811  1 24.9080 0.0004084 ***
+# treat1      9786  1  1.9847 0.1865265    
+# Residuals  54236 11  
+
+#Adjusted R-squared:  0.6569 
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NH4_light)
+# normality and homogeneity are met
+
+# posthoc test
+emmeans(M_NH4_light, pairwise ~ Site+treat1)
+```
+
+# plot results 
+```{r}
+p1_raw<-ggplot(data = IN_light, aes(x = Site, y = NH4_rate, color=treat1))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_classic()+
+  scale_color_manual(values = c("#BFD58E", "#0B6623"), labels=c("-Epi", "+Epi"))+ 
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  labs(title="light", x= element_blank(), y=expression(flux~(nmol~NH[4]^+{}~cm^-2~h^-1)))+
+  scale_y_continuous(limits=c(0,4.5))
+p1_raw
+```
+
+# dark incubations
+```{r}
+IN_dark <- IN %>% 
+  filter(treat2== "Dark") %>% 
+  view()
+```
+
+
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_dark, aes(x = Site, y = NH4_rate, color = treat1))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# outlier ambient, no epi
+
+# remove outlier
+IN_dark_NH4 <- IN_dark %>% 
+  filter(NH4_rate > 0) %>% 
+  view()
+
+ggplot(data = IN_dark_NH4, aes(x = Site, y = NH4_rate, color = treat1))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(IN_dark_NH4$NH4_rate)
+qqline(IN_dark_NH4$NH4_rate)
+hist(IN_dark_NH4$NH4_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_dark_NH4$NH4_rate)
+# p-value = 0.1218 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_dark_NH4$NH4_rate ~ Site*treat1, data = IN_dark_NH4)
+#p-value = 0.6249 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_NH4_dark<-lm(IN_dark_NH4$NH4_rate~Site*treat1, data=IN_dark_NH4)
+Anova(M_NH4_dark)
+#interaction not significant --> reduce model
+M_NH4_dark<-lm(IN_dark_NH4$NH4_rate~Site+treat1, data=IN_dark_NH4)
+Anova(M_NH4_dark)
+summary(M_NH4_dark)
+
+# Response: IN_dark_NH4$NH4_rate
+#           Sum Sq Df F value    Pr(>F)    
+# Site       55769  1 60.2636 1.531e-05 ***
+# treat1        55  1  0.0592    0.8126    
+# Residuals   9254 10                       
+
+#Adjusted R-squared:  0.8316  
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NH4_dark)
+# normality and homogeneity are met
+
+# posthoc test
+emmeans(M_NH4_dark, pairwise ~ Site+treat1)
+```
+
+# plot results 
+```{r}
+p2_raw<-ggplot(data = IN_dark_NH4, aes(x = Site, y = NH4_rate, color=treat1))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_classic()+
+  scale_color_manual(values = c("#BFD58E", "#0B6623"), labels=c("-Epi", "+Epi"))+ 
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  labs(title="dark", x=element_blank(), y=element_blank())+
+  scale_y_continuous(limits=c(0, 4.5))
+p2_raw
+```
+
+
+# NO3
+# light incubations
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_light, aes(x = Site, y = NO3_rate, color = treat1))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+# outliers ambient site
+
+# remove outlier
+IN_light_NO3 <- IN_light %>% 
+  filter(NO3_rate > -0.5) %>% 
+  view()
+
+ggplot(data = IN_light_NO3, aes(x = Site, y = NO3_rate, color = treat1))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(IN_light_NO3$NO3_rate)
+qqline(IN_light_NO3$NO3_rate)
+hist(IN_light_NO3$NO3_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_light_NO3$NO3_rate)
+# p-value = 0.2825 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_light_NO3$NO3_rate ~ Site*treat1, data = IN_light_NO3)
+#p-value = 0.4448 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_NO3_light<-lm(IN_light_NO3$NO3_rate~Site*treat1, data=IN_light_NO3)
+Anova(M_NO3_light)
+#interaction is not significant --> reduce model
+M_NO3_light<-lm(IN_light_NO3$NO3_rate~Site+treat1, data=IN_light_NO3)
+Anova(M_NO3_light)
+summary(M_NO3_light)
+
+#Response: IN_light_NO3$NO3_rate
+#            Sum Sq Df F value  Pr(>F)  
+# Site       939.73  1  2.7747 0.1301
+# treat1     650.22  1  1.9199 0.1992
+# Residuals 3048.09  9 
+
+# Adjusted R-squared:  0.1892
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NO3_light)
+# normality and homogeneity are met (mind the small sample size)
+
+# posthoc test
+emmeans(M_NO3_light, pairwise ~ Site+treat1)
+```
+
+# plot results 
+```{r}
+p3_raw<-ggplot(data = IN_light_NO3, aes(x = Site, y = NO3_rate, color=treat1))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_classic()+
+  scale_color_manual(values = c("#BFD58E", "#0B6623"), labels=c("-Epi", "+Epi"))+ 
+  labs(x="pH", y=expression(flux~(nmol~NO[3]^-{}~cm^-2~h^-1)))+
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  scale_y_continuous(limits=c(-0.15,0.75))
+p3_raw
+```
+
+# dark incubations
+# Outlier, normality & variance check
+```{r}
+ggplot(data = IN_dark, aes(x = Site, y = NO3_rate, color = treat1))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+#  outlier vent site with epis
+
+# remove outlier
+IN_dark_NO3 <- IN_dark %>% 
+  filter(NO3_rate > -0.25) %>% 
+  view()
+
+ggplot(data = IN_dark_NO3, aes(x = Site, y = NO3_rate, color = treat1))+
+  geom_boxplot(fill = NA, coef = 3, 
+               outlier.shape = "?", 
+               outlier.colour = "black", 
+               outlier.size = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_bw()
+
+# test normal distribution 
+qqnorm(IN_dark_NO3$NO3_rate)
+qqline(IN_dark_NO3$NO3_rate)
+hist(IN_dark_NO3$NO3_rate)
+
+# Shapiro test for normal distribution
+shapiro.test(IN_dark_NO3$NO3_rate)
+# p-value = 0.4851 --> normally distributed
+
+# Levene's Test for Homogeneity of Variances
+leveneTest(IN_dark_NO3$NO3_rate ~ Site*treat1, data = IN_dark_NO3)
+#p-value = 0.8708 --> variances are not different for different sites and treatments
+```
+
+# Anova
+```{r}
+M_NO3_dark<-lm(IN_dark_NO3$NO3_rate~Site*treat1, data=IN_dark_NO3)
+Anova(M_NO3_dark)
+#interaction significant, but main factor not --> reduce model
+M_NO3_dark<-lm(IN_dark_NO3$NO3_rate~Site+treat1, data=IN_dark_NO3)
+Anova(M_NO3_dark)
+summary(M_NO3_dark)
+
+#Response: IN_dark_NO3$NO3_rate
+#           Sum Sq Df F value  Pr(>F)  
+# Site      2245.1  1  4.8609 0.05202 .
+# treat1     894.0  1  1.9357 0.19431  
+# Residuals 4618.8 10
+
+# Adjusted R-squared:  0.2679 
+
+#plot model
+par(mfrow=c(2,2))
+plot(M_NO3_dark)
+# normality and homogeneity are met 
+
+# posthoc test
+emmeans(M_NO3_dark, pairwise ~ Site+treat1)
+```
+
+# plot results 
+```{r}
+p4_raw<-ggplot(data = IN_dark_NO3, aes(x = Site, y = NO3_rate, color=treat1))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
+  theme_classic()+
+  scale_color_manual(values = c("#BFD58E", "#0B6623"), labels=c("-Epi", "+Epi"))+ 
+  labs(x="pH", y=element_blank())+
+  theme(legend.title = element_blank(),text = element_text(size = 15))+
+  scale_y_continuous(limits=c(-0.15,0.75))
+p4_raw
+```
+
+# create panel
+```{r}
+panel1<-ggarrange(p1_raw,p2_raw,p3_raw,p4_raw, 
+                labels = c("a", "b", "c", "d"),
+                ncol = 2, nrow = 2, align = "hv",
+                font.label = list(size = 14),
+                common.legend=T,
+                legend="right")
+panel1
+
+ggsave(panel1, filename = ("Nutrient_panel_raw.png"), dpi = 300, units = "cm", width = 20, height = 18)
+```

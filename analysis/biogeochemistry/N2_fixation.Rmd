@@ -4,6 +4,8 @@ author: JB
 date: September 2022
 project: EMBRACE
 output: html_notebook
+editor_options: 
+  chunk_output_type: console
 ---
 
 Session Info
@@ -25,15 +27,9 @@ if (!require("emmeans")) install.packages("emmeans")
 if (!require("ggpubr")) install.packages("ggpubr")
 ```
 
-# Create "output" folder
-```{r}
-here()
-dir.create(here("output"))
-```
-
 # Import data
 ```{r}
-N_inc <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE" ,"MS Posidonia N cycling", "Biogeochemistry", "Data","Raw data", "N2fix_15N_incorporation.txt"), header=T)
+N_inc <- read.table("N2fix_15N_incorporation.txt", header=T)
 ```
 
 # Check data
@@ -445,7 +441,7 @@ ggsave(panel2, filename = here("output", "Nfix_d15N_epi_panel.png"), dpi = 300, 
 ```
 
 
-# 15N incorporation rates
+# 15N incorporation rates per cm2 per h
 # only in +Epi treatments
 ```{r}
 N_epi <- N_inc_new %>% 
@@ -455,7 +451,7 @@ N_epi <- N_inc_new %>%
 
 # Outlier, normality & variance check
 ```{r}
-ggplot(data = N_epi, aes(x = Site, y = rate_nmol_h, color = Treatment, shape =Timepoint))+
+ggplot(data = N_epi, aes(x = Site, y = rate_nmol_cm_h, color = Treatment, shape =Timepoint))+
   geom_boxplot(fill = NA, coef = 3, 
                outlier.shape = "?", 
                outlier.colour = "black", 
@@ -472,33 +468,35 @@ N_epi_new <- N_epi %>%
   view()
 
 # test normal distribution 
-qqnorm(N_epi_new$rate_nmol_h)
-qqline(N_epi_new$rate_nmol_h)
-hist(N_epi_new$rate_nmol_h)
+qqnorm(N_epi_new$rate_nmol_cm_h)
+qqline(N_epi_new$rate_nmol_cm_h)
+hist(N_epi_new$rate_nmol_cm_h)
 
 # Shapiro test for normal distribution
-shapiro.test(N_epi_new$rate_nmol_h)
-# p-value = 0.0004446 -->  not normally distributed, still okay for Anova
+shapiro.test(N_epi_new$rate_nmol_cm_h)
+# p-value = 0.0001701 -->  not normally distributed, still okay for Anova
 
 # Levene's Test for Homogeneity of Variances
-leveneTest(N_epi_new$rate_nmol_h~ Site*Phase, data = N_epi_new)
-#p-value = 0.07298 --> variances are not different for different sites and treatments
+leveneTest(N_epi_new$rate_nmol_cm_h~ Site*Phase, data = N_epi_new)
+#p-value = 0.04481 --> variances are different for sites and treatments
 ```
 
 # Anova
 ```{r}
-M_epi<-lm(N_epi_new$rate_nmol_h~Site*Phase, data=N_epi_new)
+M_epi<-lm(N_epi_new$rate_nmol_cm_h~Site*Phase, data=N_epi_new)
 Anova(M_epi)
 summary(M_epi)
 
 #Anova Table (Type II tests)
 
-#Response: N_epi_new$rate_nmol_h
+#Response: N_epi_new$rate_nmol_cm_h
 #            Sum Sq Df F value    Pr(>F)    
-#Site        9070.5  1  7.2022 0.0199006 *  
-#Phase      26109.4  1 20.7316 0.0006625 ***
-#Site:Phase  9228.4  1  7.3276 0.0190628 *  
-#Residuals  15112.9 12 
+#Site       143.17  1  9.6489 0.0090837 ** 
+#Phase      301.84  1 20.3429 0.0007137 ***
+#Site:Phase 142.91  1  9.6316 0.0091306 ** 
+#Residuals  178.05 12  
+
+#Adjusted R-squared:  0.7094 
 
 emm = emmeans(M_epi, specs = pairwise ~ Site:Phase)
 emm
@@ -508,36 +506,25 @@ plot(M_epi)
 # normality and homogeneity are met
 ```
 
-# plot results from model
+# plot results 
 ```{r}
-emm<-data.frame(emmeans(M_epi,~Site*Phase))%>% 
-  summarise(Site=Site,Phase=Phase,emmean=emmean)%>% 
-  view()
-
-sum <- N_epi_new%>% 
-  group_by(Phase,Site)%>% 
-  summarise(sd=sd(rate_nmol_h),
-            n = n(),
-            se=sd/sqrt(n))%>% 
-  view()
-
-final <- cbind(emm[c("Site","Phase","emmean")], sum[c("sd", "se")])%>%
-  summarise(Site=Site,
-            Phase=Phase,            
-            emmean=emmean,
-            sd=sd,
-            se=se)%>% 
-  view()
-
-p5<-ggplot(data = final, aes(x = Site, y = emmean, fill=Phase))+
-  geom_bar(position="dodge", stat="identity")+
-  geom_errorbar(aes(Site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
-  scale_fill_manual(values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+p1_raw<-ggplot(data = N_epi_new, aes(x = Site, y = rate_nmol_cm_h, color=Phase))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
   theme_classic()+
+  scale_color_manual(values = c("#6F9CDE", "darkblue"), labels=c("light", "dark"))+ 
   theme(legend.title = element_blank())+
-  labs(x=element_blank(), y=expression({}^15*N[2]~incorporation~rate~(nmol~N~gDW^-1~h^-1)))+
-  scale_y_continuous(limits=c(-1,170), breaks=c(0,25,50,75,100,125,150,175))
-p5
-
-ggsave(p5, filename = here( "output", "Nfix_15N_inc_rate.png"), dpi = 300, units = "cm", width = 15, height = 15)
+  labs(x=element_blank(), y=expression({}^15*N[2]~incorporation~rate~(nmol~N~cm^-2~h^-1)))+
+  scale_y_continuous(limits=c(-0.01,1), breaks=c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1))
+p1_raw
 ```
+
+
+
+
+
+
+
+
+
+

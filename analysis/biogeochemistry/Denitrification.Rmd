@@ -4,6 +4,8 @@ author: JB
 date: September 2022
 project: EMBRACE
 output: html_notebook
+editor_options: 
+  chunk_output_type: console
 ---
 
 Session Info
@@ -25,15 +27,9 @@ if (!require("emmeans")) install.packages("emmeans")
 if (!require("ggpubr")) install.packages("ggpubr")
 ```
 
-# Create "output" folder
-```{r}
-here()
-dir.create(here("output"))
-```
-
 # Import data
 ```{r}
-Den <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE" ,"MS Posidonia N cycling", "Biogeochemistry","Data","Raw data", "Denitr_graph.txt"), header=T)
+Den <- read.table("Denitr_graph.txt", header=T)
 ```
 
 # Check data
@@ -56,11 +52,12 @@ Den <- Den %>%
     Treatment = factor(x = Treatment, levels = c("Y", "N")),
   ) %>% 
   view()
+str(Den)
 ```
 
 
 # Statistical Analysis
-# 29N and 30N production rates
+# 29N and 30N production rates per h
 
 # 29N
 ```{r}
@@ -72,7 +69,7 @@ Den_Epi <- Den %>%
 
 # Outlier, normality & variance check
 ```{r}
-ggplot(data = Den_Epi, aes(x = Site, y = rate_29N, color = Incubation))+
+ggplot(data = Den_Epi, aes(x = Site, y = rate_29N_pm_h, color = Incubation))+
   geom_boxplot(fill = NA, coef = 3, 
                outlier.shape = "?", 
                outlier.colour = "black", 
@@ -82,35 +79,37 @@ ggplot(data = Den_Epi, aes(x = Site, y = rate_29N, color = Incubation))+
 # no outliers
 
 # test normal distribution 
-qqnorm(Den_Epi$rate_29N)
-qqline(Den_Epi$rate_29N)
-hist(Den_Epi$rate_29N)
+qqnorm(Den_Epi$rate_29N_pm_h)
+qqline(Den_Epi$rate_29N_pm_h)
+hist(Den_Epi$rate_29N_pm_h)
 
 # Shapiro test for normal distribution
-shapiro.test(Den_Epi$rate_29N)
+shapiro.test(Den_Epi$rate_29N_pm_h)
 # p-value = 0.009652 -->  not normally distributed, still okay for Anova 
 
 # Levene's Test for Homogeneity of Variances
-leveneTest(Den_Epi$rate_29N~ Site*Incubation, data = Den_Epi)
+leveneTest(Den_Epi$rate_29N_pm_h~ Site*Incubation, data = Den_Epi)
 #p-value = 0.3554 --> variances are not different for different sites and treatments
 ```
 
 # Anova
 ```{r}
-M<-lm(Den_Epi$rate_29N~Site*Incubation, data=Den_Epi)
+M<-lm(Den_Epi$rate_29N_pm_h~Site*Incubation, data=Den_Epi)
 Anova(M)
 # interaction not significant --> reduce model
-M<-lm(Den_Epi$rate_29N~Site+Incubation, data=Den_Epi)
+M<-lm(Den_Epi$rate_29N_pm_h~Site+Incubation, data=Den_Epi)
 Anova(M)
 summary(M)
 
 # Anova Table (Type II tests)
 
-# Response: Den_Epi$rate_29N
+# Response: Den_Epi$rate_29N_pm_h
 #               Sum Sq Df F value   Pr(>F)   
 # Site       0.031835  1 10.8182 0.005869 **
 # Incubation 0.002268  1  0.7707 0.395943   
 # Residuals  0.038256 13
+
+#Adjusted R-squared:   0.39 
 
 par(mfrow=c(2,2))
 plot(M)
@@ -120,38 +119,18 @@ emm = emmeans(M, specs = pairwise ~ Site:Incubation)
 emm
 ```
 
-# plot results from model
+# plot results 
 ```{r}
-emm<-data.frame(emmeans(M,~Site+Incubation))%>% 
-  summarise(Site=Site,Incubation=Incubation,emmean=emmean)%>% 
-  view()
 
-sum <- Den_Epi%>% 
-  group_by(Incubation,Site)%>% 
-  summarise(sd=sd(rate_29N),
-            n = n(),
-            se=sd/sqrt(n))%>% 
-  view()
-
-final <- cbind(emm[c("Site","Incubation","emmean")], sum[c("sd", "se")])%>%
-  summarise(Site=Site,
-            Incubation=Incubation,            
-            emmean=emmean,
-            sd=sd,
-            se=se)%>% 
-  view()
-
-p1<-ggplot(data = final, aes(x = Site, y = emmean, fill=Incubation))+
-  geom_bar(position="dodge", stat="identity")+
-  geom_errorbar(aes(Site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
-  scale_fill_manual(values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+p3_raw<-ggplot(data = Den_Epi, aes(x = Site, y = rate_29N_pm_h, color=Incubation))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
   theme_classic()+
+  scale_color_manual(values = c("#6F9CDE", "darkblue"), labels=c("light", "dark"))+ 
   theme(legend.title = element_blank())+
-  labs(x="pH", y=expression({}^29*N[2]~production~rate~(nmol~N~cm^-2~d^-1)))+
-  scale_y_continuous(limits=c(-0.11,0.55), breaks=c(-0.1,-0.05,0,0.05,0.10,0.15,0.20,0.25,0.3,0.35,0.4,0.45,0.5,0.55))
-p1
-
-ggsave(p1, filename = here( "output", "29N_production_rate.png"), dpi = 300, units = "cm", width = 15, height = 15)
+  labs(x="pH", y=expression({}^29*N[2]~production~rate~(pmol~N~cm^-2~h^-1)))+
+  scale_y_continuous(limits=c(-11,30), breaks=c(-10,-5,0,5,10,15,20,25,30))
+p3_raw
 ```
 
 # 30N
@@ -164,7 +143,7 @@ Den_Epi <- Den %>%
 
 # Outlier, normality & variance check
 ```{r}
-ggplot(data = Den_Epi, aes(x = Site, y = rate_30N, color = Incubation))+
+ggplot(data = Den_Epi, aes(x = Site, y = rate_30N_pm_h, color = Incubation))+
   geom_boxplot(fill = NA, coef = 3, 
                outlier.shape = "?", 
                outlier.colour = "black", 
@@ -174,33 +153,34 @@ ggplot(data = Den_Epi, aes(x = Site, y = rate_30N, color = Incubation))+
 # no outliers
 
 # test normal distribution 
-qqnorm(Den_Epi$rate_30N)
-qqline(Den_Epi$rate_30N)
-hist(Den_Epi$rate_30N)
+qqnorm(Den_Epi$rate_30N_pm_h)
+qqline(Den_Epi$rate_30N_pm_h)
+hist(Den_Epi$rate_30N_pm_h)
 
 # Shapiro test for normal distribution
-shapiro.test(Den_Epi$rate_30N)
+shapiro.test(Den_Epi$rate_30N_pm_h)
 # p-value = 0.0434 --> not normally distributed, still okay for Anova
 
 # Levene's Test for Homogeneity of Variances
-leveneTest(Den_Epi$rate_30N~ Site*Incubation, data = Den_Epi)
+leveneTest(Den_Epi$rate_30N_pm_h~ Site*Incubation, data = Den_Epi)
 #p-value = 0.8171 --> variances are not different for different sites and treatments
 ```
 
 # Anova
 ```{r}
-M<-lm(Den_Epi$rate_30N~Site*Incubation, data=Den_Epi)
+M<-lm(Den_Epi$rate_30N_pm_h~Site+Incubation, data=Den_Epi)
 Anova(M)
 summary(M)
 
 # Anova Table (Type II tests)
 
-# Response: Den_Epi$rate_30N
-#                   Sum Sq Df F value    Pr(>F)    
-# Site            0.17559  1  12.137 0.004514 **
-# Incubation      0.24679  1  17.058 0.001395 **
-# Site:Incubation 0.20992  1  14.510 0.002488 **
-# Residuals       0.17361 12 
+# Response: Den_Epi$rate_30N_pm_h
+#            Sum Sq Df F value  Pr(>F)  
+# Site       304.85  1  5.9518 0.02979 *
+# Incubation 428.46  1  8.3651 0.01259 *
+# Residuals  665.85 13
+
+# Adjusted R-squared:  0.4509 
 
 par(mfrow=c(2,2))
 plot(M)
@@ -210,36 +190,38 @@ emm = emmeans(M, specs = pairwise ~ Site:Incubation)
 emm
 ```
 
-# plot results from model
+# plot results 
 ```{r}
-emm<-data.frame(emmeans(M,~Site*Incubation))%>% 
-  summarise(Site=Site,Incubation=Incubation,emmean=emmean)%>% 
-  view()
 
-sum <- Den_Epi%>% 
-  group_by(Incubation,Site)%>% 
-  summarise(sd=sd(rate_30N),
-            n = n(),
-            se=sd/sqrt(n))%>% 
-  view()
-
-final <- cbind(emm[c("Site","Incubation","emmean")], sum[c("sd", "se")])%>%
-  summarise(Site=Site,
-            Incubation=Incubation,            
-            emmean=emmean,
-            sd=sd,
-            se=se)%>% 
-  view()
-
-p2<-ggplot(data = final, aes(x = Site, y = emmean, fill=Incubation))+
-  geom_bar(position="dodge", stat="identity")+
-  geom_errorbar(aes(Site,ymin=emmean-se, ymax=emmean+se),position=position_dodge(.9),width=0.2)+
-  scale_fill_manual(values = c("lightblue", "darkblue"), labels=c("light", "dark"))+
+p4_raw<-ggplot(data = Den_Epi, aes(x = Site, y = rate_30N_pm_h, color=Incubation))+
+  geom_boxplot(fill = NA, coef = 3)+
+  geom_point(position = position_jitterdodge(), alpha = 0.5)+
   theme_classic()+
+  scale_color_manual(values = c("#6F9CDE", "darkblue"), labels=c("light", "dark"))+ 
   theme(legend.title = element_blank())+
-  labs(x="pH", y=expression({}^30*N[2]~production~rate~(nmol~N~cm^-2~d^-1)))+
-  scale_y_continuous(limits=c(-0.11,0.55), breaks=c(-0.1,-0.05,0,0.05,0.10,0.15,0.20,0.25,0.3,0.35,0.4,0.45,0.5,0.55))
-p2
-
-ggsave(p2, filename = here( "output", "30N_production_rate.png"), dpi = 300, units = "cm", width = 15, height = 15)
+  labs(x="pH", y=expression({}^30*N[2]~production~rate~(pmol~N~cm^-2~h^-1)))+
+  scale_y_continuous(limits=c(-11,30), breaks=c(-10,-5,0,5,10,15,20,25,30))
+p4_raw
 ```
+
+
+create panel
+```{r}
+panel1<-ggarrange(p1_raw,p2_raw,p3_raw,p4_raw, 
+                labels = c("a", "b", "c", "d"),
+                ncol = 2, nrow = 2, align = "hv",
+                font.label = list(size = 14),
+                common.legend=T,
+                legend="right")
+panel1
+
+ggsave(panel1, filename = ("N_transformations.png"), dpi = 300, units = "cm", width = 20, height = 18)
+```
+
+
+
+
+
+
+
+

@@ -36,6 +36,11 @@ dir.create(here("output"))
 CN_ratio <- read.table(here("Google Drive", "Marine Symbiomes Group folder","EMBRACE" ,"MS Posidonia N cycling","Biogeochemistry","Data","Raw data","CN_ratio.txt" ), header=T)
 ```
 
+
+```{r}
+CN_ratio <- read.table("./Raw data/CN_ratio.txt", header=T)
+```
+
 # Check data
 ```{r}
 view(CN_ratio) 
